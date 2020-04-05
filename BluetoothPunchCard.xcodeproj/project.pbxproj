@@ -13,6 +13,7 @@
 		AFBB5126243A1A9A00D38E6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5125243A1A9A00D38E6E /* Assets.xcassets */; };
 		AFBB5129243A1A9A00D38E6E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5128243A1A9A00D38E6E /* Preview Assets.xcassets */; };
 		AFBB512C243A1A9A00D38E6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */; };
+		AFBB5137243A1D4300D38E6E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5136243A1D4300D38E6E /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		AFBB5128243A1A9A00D38E6E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AFBB512B243A1A9A00D38E6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFBB512D243A1A9A00D38E6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFBB5133243A1AC100D38E6E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AFBB5136243A1D4300D38E6E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +59,13 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothPunchCard */ = {
 			isa = PBXGroup;
 			children = (
-				AFBB511F243A1A9700D38E6E /* AppDelegate.swift */,
-				AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */,
+				AFBB5135243A1B9200D38E6E /* Supportings */,
+				AFBB5127243A1A9A00D38E6E /* Preview Content */,
 				AFBB5123243A1A9700D38E6E /* ContentView.swift */,
-				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
 				AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */,
 				AFBB512D243A1A9A00D38E6E /* Info.plist */,
-				AFBB5127243A1A9A00D38E6E /* Preview Content */,
+				AFBB5133243A1AC100D38E6E /* README.md */,
+				AFBB5136243A1D4300D38E6E /* .gitignore */,
 			);
 			path = BluetoothPunchCard;
 			sourceTree = "<group>";
@@ -73,6 +76,16 @@
 				AFBB5128243A1A9A00D38E6E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AFBB5135243A1B9200D38E6E /* Supportings */ = {
+			isa = PBXGroup;
+			children = (
+				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
+				AFBB511F243A1A9700D38E6E /* AppDelegate.swift */,
+				AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */,
+			);
+			path = Supportings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFBB5137243A1D4300D38E6E /* .gitignore in Resources */,
 				AFBB512C243A1A9A00D38E6E /* LaunchScreen.storyboard in Resources */,
 				AFBB5129243A1A9A00D38E6E /* Preview Assets.xcassets in Resources */,
 				AFBB5126243A1A9A00D38E6E /* Assets.xcassets in Resources */,
@@ -216,7 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +284,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -289,6 +303,7 @@
 				DEVELOPMENT_TEAM = 9U62MV7448;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BluetoothPunchCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +324,7 @@
 				DEVELOPMENT_TEAM = 9U62MV7448;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BluetoothPunchCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
