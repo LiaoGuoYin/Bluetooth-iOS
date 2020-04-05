@@ -14,6 +14,9 @@
 		AFBB5129243A1A9A00D38E6E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5128243A1A9A00D38E6E /* Preview Assets.xcassets */; };
 		AFBB512C243A1A9A00D38E6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */; };
 		AFBB5137243A1D4300D38E6E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5136243A1D4300D38E6E /* .gitignore */; };
+		AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB513C243A1FD400D38E6E /* AccountView.swift */; };
+		AFBB513F243A293F00D38E6E /* PunchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB513E243A293F00D38E6E /* PunchCardView.swift */; };
+		AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5140243A31CC00D38E6E /* RecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		AFBB512D243A1A9A00D38E6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFBB5133243A1AC100D38E6E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AFBB5136243A1D4300D38E6E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		AFBB513C243A1FD400D38E6E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		AFBB513E243A293F00D38E6E /* PunchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunchCardView.swift; sourceTree = "<group>"; };
+		AFBB5140243A31CC00D38E6E /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothPunchCard */ = {
 			isa = PBXGroup;
 			children = (
+				AFBB513B243A1FB500D38E6E /* PunchCard */,
+				AFBB5139243A1FA200D38E6E /* Record */,
+				AFBB513A243A1FB000D38E6E /* Account */,
 				AFBB5135243A1B9200D38E6E /* Supportings */,
 				AFBB5127243A1A9A00D38E6E /* Preview Content */,
 				AFBB5123243A1A9700D38E6E /* ContentView.swift */,
@@ -86,6 +95,30 @@
 				AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */,
 			);
 			path = Supportings;
+			sourceTree = "<group>";
+		};
+		AFBB5139243A1FA200D38E6E /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				AFBB5140243A31CC00D38E6E /* RecordView.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		AFBB513A243A1FB000D38E6E /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				AFBB513C243A1FD400D38E6E /* AccountView.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		AFBB513B243A1FB500D38E6E /* PunchCard */ = {
+			isa = PBXGroup;
+			children = (
+				AFBB513E243A293F00D38E6E /* PunchCardView.swift */,
+			);
+			path = PunchCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +193,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFBB513F243A293F00D38E6E /* PunchCardView.swift in Sources */,
+				AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */,
+				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */,
