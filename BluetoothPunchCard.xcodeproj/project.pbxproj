@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF7848C2243C37ED0009964E /* TeacherAttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C1243C37ED0009964E /* TeacherAttendanceView.swift */; };
+		AF7848C4243C399D0009964E /* CourseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C3243C399D0009964E /* CourseFormView.swift */; };
+		AF7848C6243C5A480009964E /* CourseRowBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C5243C5A480009964E /* CourseRowBlockView.swift */; };
+		AF7848C8243C689C0009964E /* CoursePunchCardHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C7243C689C0009964E /* CoursePunchCardHistoryView.swift */; };
 		AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB511F243A1A9700D38E6E /* AppDelegate.swift */; };
 		AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */; };
 		AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5123243A1A9700D38E6E /* ContentView.swift */; };
@@ -20,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF7848C1243C37ED0009964E /* TeacherAttendanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherAttendanceView.swift; sourceTree = "<group>"; };
+		AF7848C3243C399D0009964E /* CourseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormView.swift; sourceTree = "<group>"; };
+		AF7848C5243C5A480009964E /* CourseRowBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRowBlockView.swift; sourceTree = "<group>"; };
+		AF7848C7243C689C0009964E /* CoursePunchCardHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePunchCardHistoryView.swift; sourceTree = "<group>"; };
 		AFBB511C243A1A9700D38E6E /* BluetoothPunchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothPunchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBB511F243A1A9700D38E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +54,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF7848C0243C37B10009964E /* TeacherRecord */ = {
+			isa = PBXGroup;
+			children = (
+				AF7848C1243C37ED0009964E /* TeacherAttendanceView.swift */,
+				AF7848C3243C399D0009964E /* CourseFormView.swift */,
+				AF7848C5243C5A480009964E /* CourseRowBlockView.swift */,
+				AF7848C7243C689C0009964E /* CoursePunchCardHistoryView.swift */,
+			);
+			path = TeacherRecord;
+			sourceTree = "<group>";
+		};
 		AFBB5113243A1A9700D38E6E = {
 			isa = PBXGroup;
 			children = (
@@ -66,7 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				AFBB513B243A1FB500D38E6E /* PunchCard */,
-				AFBB5139243A1FA200D38E6E /* Record */,
+				AFBB5139243A1FA200D38E6E /* StudentRecord */,
+				AF7848C0243C37B10009964E /* TeacherRecord */,
 				AFBB513A243A1FB000D38E6E /* Account */,
 				AFBB5135243A1B9200D38E6E /* Supportings */,
 				AFBB5127243A1A9A00D38E6E /* Preview Content */,
@@ -97,12 +117,12 @@
 			path = Supportings;
 			sourceTree = "<group>";
 		};
-		AFBB5139243A1FA200D38E6E /* Record */ = {
+		AFBB5139243A1FA200D38E6E /* StudentRecord */ = {
 			isa = PBXGroup;
 			children = (
 				AFBB5140243A31CC00D38E6E /* RecordView.swift */,
 			);
-			path = Record;
+			path = StudentRecord;
 			sourceTree = "<group>";
 		};
 		AFBB513A243A1FB000D38E6E /* Account */ = {
@@ -137,6 +157,8 @@
 			dependencies = (
 			);
 			name = BluetoothPunchCard;
+			packageProductDependencies = (
+			);
 			productName = BluetoothPunchCard;
 			productReference = AFBB511C243A1A9700D38E6E /* BluetoothPunchCard.app */;
 			productType = "com.apple.product-type.application";
@@ -165,6 +187,8 @@
 				Base,
 			);
 			mainGroup = AFBB5113243A1A9700D38E6E;
+			packageReferences = (
+			);
 			productRefGroup = AFBB511D243A1A9700D38E6E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -196,9 +220,13 @@
 				AFBB513F243A293F00D38E6E /* PunchCardView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
+				AF7848C4243C399D0009964E /* CourseFormView.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
+				AF7848C6243C5A480009964E /* CourseRowBlockView.swift in Sources */,
 				AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */,
+				AF7848C8243C689C0009964E /* CoursePunchCardHistoryView.swift in Sources */,
+				AF7848C2243C37ED0009964E /* TeacherAttendanceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
