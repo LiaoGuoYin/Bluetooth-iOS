@@ -56,5 +56,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>App uses Bluetooth to connect to the Particle Xenon RGB Example</string>
 </dict>
 </plist>

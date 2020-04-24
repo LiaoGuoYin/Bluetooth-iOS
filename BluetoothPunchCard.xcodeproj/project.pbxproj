@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF6C26442448748E006C7568 /* BLEConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C26432448748E006C7568 /* BLEConnection.swift */; };
+		AF6C2646244876DD006C7568 /* BLEScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C2645244876DD006C7568 /* BLEScanView.swift */; };
 		AF7848C2243C37ED0009964E /* TeacherAttendanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C1243C37ED0009964E /* TeacherAttendanceView.swift */; };
 		AF7848C4243C399D0009964E /* CourseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C3243C399D0009964E /* CourseFormView.swift */; };
 		AF7848C6243C5A480009964E /* CourseRowBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C5243C5A480009964E /* CourseRowBlockView.swift */; };
 		AF7848C8243C689C0009964E /* CoursePunchCardHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C7243C689C0009964E /* CoursePunchCardHistoryView.swift */; };
+		AFBA11E52449B99B00E59572 /* BLEScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBA11E42449B99B00E59572 /* BLEScannerView.swift */; };
+		AFBA11E7244AE7BC00E59572 /* GeoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBA11E6244AE7BC00E59572 /* GeoView.swift */; };
 		AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB511F243A1A9700D38E6E /* AppDelegate.swift */; };
 		AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */; };
 		AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5123243A1A9700D38E6E /* ContentView.swift */; };
@@ -19,15 +23,18 @@
 		AFBB512C243A1A9A00D38E6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */; };
 		AFBB5137243A1D4300D38E6E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AFBB5136243A1D4300D38E6E /* .gitignore */; };
 		AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB513C243A1FD400D38E6E /* AccountView.swift */; };
-		AFBB513F243A293F00D38E6E /* PunchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB513E243A293F00D38E6E /* PunchCardView.swift */; };
 		AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5140243A31CC00D38E6E /* RecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF6C26432448748E006C7568 /* BLEConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEConnection.swift; sourceTree = "<group>"; };
+		AF6C2645244876DD006C7568 /* BLEScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScanView.swift; sourceTree = "<group>"; };
 		AF7848C1243C37ED0009964E /* TeacherAttendanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherAttendanceView.swift; sourceTree = "<group>"; };
 		AF7848C3243C399D0009964E /* CourseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormView.swift; sourceTree = "<group>"; };
 		AF7848C5243C5A480009964E /* CourseRowBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRowBlockView.swift; sourceTree = "<group>"; };
 		AF7848C7243C689C0009964E /* CoursePunchCardHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursePunchCardHistoryView.swift; sourceTree = "<group>"; };
+		AFBA11E42449B99B00E59572 /* BLEScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEScannerView.swift; sourceTree = "<group>"; };
+		AFBA11E6244AE7BC00E59572 /* GeoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoView.swift; sourceTree = "<group>"; };
 		AFBB511C243A1A9700D38E6E /* BluetoothPunchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothPunchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBB511F243A1A9700D38E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +46,6 @@
 		AFBB5133243A1AC100D38E6E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AFBB5136243A1D4300D38E6E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		AFBB513C243A1FD400D38E6E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		AFBB513E243A293F00D38E6E /* PunchCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunchCardView.swift; sourceTree = "<group>"; };
 		AFBB5140243A31CC00D38E6E /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,6 +60,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF6C264224487466006C7568 /* BLEManager */ = {
+			isa = PBXGroup;
+			children = (
+				AF6C2645244876DD006C7568 /* BLEScanView.swift */,
+				AF6C26432448748E006C7568 /* BLEConnection.swift */,
+				AFBA11E42449B99B00E59572 /* BLEScannerView.swift */,
+			);
+			path = BLEManager;
+			sourceTree = "<group>";
+		};
 		AF7848C0243C37B10009964E /* TeacherRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,7 +100,7 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothPunchCard */ = {
 			isa = PBXGroup;
 			children = (
-				AFBB513B243A1FB500D38E6E /* PunchCard */,
+				AF6C264224487466006C7568 /* BLEManager */,
 				AFBB5139243A1FA200D38E6E /* StudentRecord */,
 				AF7848C0243C37B10009964E /* TeacherRecord */,
 				AFBB513A243A1FB000D38E6E /* Account */,
@@ -95,6 +111,7 @@
 				AFBB512D243A1A9A00D38E6E /* Info.plist */,
 				AFBB5133243A1AC100D38E6E /* README.md */,
 				AFBB5136243A1D4300D38E6E /* .gitignore */,
+				AFBA11E6244AE7BC00E59572 /* GeoView.swift */,
 			);
 			path = BluetoothPunchCard;
 			sourceTree = "<group>";
@@ -131,14 +148,6 @@
 				AFBB513C243A1FD400D38E6E /* AccountView.swift */,
 			);
 			path = Account;
-			sourceTree = "<group>";
-		};
-		AFBB513B243A1FB500D38E6E /* PunchCard */ = {
-			isa = PBXGroup;
-			children = (
-				AFBB513E243A293F00D38E6E /* PunchCardView.swift */,
-			);
-			path = PunchCard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,13 +226,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFBB513F243A293F00D38E6E /* PunchCardView.swift in Sources */,
+				AFBA11E52449B99B00E59572 /* BLEScannerView.swift in Sources */,
+				AF6C2646244876DD006C7568 /* BLEScanView.swift in Sources */,
+				AFBA11E7244AE7BC00E59572 /* GeoView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
 				AF7848C4243C399D0009964E /* CourseFormView.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF7848C6243C5A480009964E /* CourseRowBlockView.swift in Sources */,
+				AF6C26442448748E006C7568 /* BLEConnection.swift in Sources */,
 				AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */,
 				AF7848C8243C689C0009964E /* CoursePunchCardHistoryView.swift in Sources */,
 				AF7848C2243C37ED0009964E /* TeacherAttendanceView.swift in Sources */,
@@ -362,6 +374,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothPunchCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 9U62MV7448;
@@ -374,6 +387,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liaoguoyin.BluetoothPunchCard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -383,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothPunchCard/Preview Content\"";
 				DEVELOPMENT_TEAM = 9U62MV7448;
@@ -395,6 +410,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liaoguoyin.BluetoothPunchCard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

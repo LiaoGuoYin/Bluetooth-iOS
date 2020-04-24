@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct TeacherAttendanceView: View {
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var isShowClassListAddSheet: Bool = false
+    @State private var searchText: String = ""
     
     init() {
         UITableView.appearance().separatorStyle = .none
@@ -19,26 +21,29 @@ struct TeacherAttendanceView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("课程列表")) {
-                    NavigationLink(destination: CoursePunchCardHistoryView()) {
-                        CourseRowBlockView()
-                    }
-                    
-                    NavigationLink(destination: CoursePunchCardHistoryView()) {
-                        CourseRowBlockView()
-                    }
-                    
-                    NavigationLink(destination: CoursePunchCardHistoryView()) {
-                        CourseRowBlockView()
+            VStack {
+                SearchBar(text: self.$searchText)
+                
+                List {
+                    Section(header: Text("课程列表")) {
+                        NavigationLink(destination: WebView(request: URLRequest(url: URL(string: "https://liaoguoyin.com")!))) {
+                            CourseRowBlockView()
+                        }
+                        
+                        NavigationLink(destination: CoursePunchCardHistoryView()) {
+                            CourseRowBlockView()
+                        }
+                        
+                        NavigationLink(destination: CoursePunchCardHistoryView()) {
+                            CourseRowBlockView()
+                        }
                     }
                 }
-                .listRowBackground(Color(#colorLiteral(red: 0.9491460919, green: 0.9487624764, blue: 0.9704342484, alpha: 1)))
+                .listStyle(GroupedListStyle())
+                .sheet(isPresented: self.$isShowClassListAddSheet, content: { CourseFormView() })
+                .navigationBarTitle(Text("考勤管理"), displayMode: .inline)
+                .navigationBarItems(trailing: addButton)
             }
-            .listStyle(GroupedListStyle())
-            .sheet(isPresented: self.$isShowClassListAddSheet, content: { CourseFormView() })
-            .navigationBarTitle(Text("考勤管理"), displayMode: .inline)
-            .navigationBarItems(trailing: addButton)
         }
     }
     
@@ -60,5 +65,52 @@ struct TeacherAttendanceView: View {
 struct TeacherAttendanceView_Previews: PreviewProvider {
     static var previews: some View {
         TeacherAttendanceView()
+    }
+}
+
+struct SearchBar: UIViewRepresentable {
+    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
+        uiView.text = text
+    }
+    
+    @Binding var text: String
+    
+    class Coordinator: NSObject, UISearchBarDelegate {
+        @Binding var text: String
+        
+        init(text: Binding<String>) {
+            _text = text
+        }
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            text = searchText
+        }
+    }
+    
+    func makeCoordinator() -> SearchBar.Coordinator {
+        return Coordinator(text: $text)
+    }
+    
+    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.delegate = context.coordinator
+        searchBar.searchBarStyle = .minimal
+        searchBar.autocapitalizationType = .none
+        return searchBar
+    }
+    
+}
+
+
+struct WebView: UIViewRepresentable {
+    
+    let request: URLRequest
+    
+    func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
+        uiView.load(request)
     }
 }
