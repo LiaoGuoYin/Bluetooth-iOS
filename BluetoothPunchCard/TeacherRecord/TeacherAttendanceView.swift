@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import WebKit
 
 struct TeacherAttendanceView: View {
     //    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -17,33 +16,31 @@ struct TeacherAttendanceView: View {
     
     init() {
         UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().backgroundColor = UIColor.clear
     }
     
     var body: some View {
         NavigationView {
-            VStack {
-                SearchBar(text: self.$searchText)
-                
-                List {
-                    Section(header: Text("课程列表")) {
-                        NavigationLink(destination: WebView(request: URLRequest(url: URL(string: "https://liaoguoyin.com")!))) {
-                            CourseRowBlockView()
-                        }
-                        
-                        NavigationLink(destination: CoursePunchCardHistoryView()) {
-                            CourseRowBlockView()
-                        }
-                        
-                        NavigationLink(destination: CoursePunchCardHistoryView()) {
-                            CourseRowBlockView()
-                        }
+            List {
+                Section(header: Text("课程列表")) {
+                    SearchBar(text: self.$searchText)
+                    NavigationLink(destination: CoursePunchCardHistoryView()) {
+                        CourseRowBlockView()
+                    }
+                    
+                    NavigationLink(destination: CoursePunchCardHistoryView()) {
+                        CourseRowBlockView()
+                    }
+                    
+                    NavigationLink(destination: CoursePunchCardHistoryView()) {
+                        CourseRowBlockView()
                     }
                 }
-                .listStyle(GroupedListStyle())
-                .sheet(isPresented: self.$isShowClassListAddSheet, content: { CourseFormView() })
-                .navigationBarTitle(Text("考勤管理"), displayMode: .inline)
-                .navigationBarItems(trailing: addButton)
             }
+            .listStyle(GroupedListStyle())
+            .sheet(isPresented: self.$isShowClassListAddSheet, content: { CourseFormView() })
+            .navigationBarTitle(Text("考勤管理"))
+            .navigationBarItems(trailing: addButton)
         }
     }
     
@@ -51,12 +48,9 @@ struct TeacherAttendanceView: View {
         Button(action: {
             self.isShowClassListAddSheet.toggle()
         }) {
-            ZStack(alignment: .trailing) {
-                Rectangle()
-                    .fill(Color.blue.opacity(0.0001))
-                    .frame(width: 48, height: 48)
-                Image(systemName: "plus.square.fill.on.square.fill")
-            }
+            Image(systemName: "plus.app.fill")
+                .font(.body)
+                .padding(.vertical)
         }
     }
     
@@ -101,16 +95,3 @@ struct SearchBar: UIViewRepresentable {
     
 }
 
-
-struct WebView: UIViewRepresentable {
-    
-    let request: URLRequest
-    
-    func makeUIView(context: UIViewRepresentableContext<WebView>) -> WKWebView {
-        return WKWebView()
-    }
-    
-    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<WebView>) {
-        uiView.load(request)
-    }
-}

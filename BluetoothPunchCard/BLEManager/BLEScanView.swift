@@ -10,7 +10,7 @@ import SwiftUI
 import CoreBluetooth
 
 struct BLEScanView: View {
-    @ObservedObject var bleConnection = BLEConnection()
+    @ObservedObject var bleConnection = BLEConnection.shared
     
     var body: some View {
         
@@ -22,17 +22,22 @@ struct BLEScanView: View {
             Section(header: Text("扫描到附近 \(bleConnection.scannedBLEDevices.count) 个蓝牙设备")) {
                 List(bleConnection.scannedBLEDevices, id: \.self) { device in
                     ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown")")
+                        .onTapGesture {
+                            BLEConnection.shared.centralManager.connect(BLEConnection.shared.peripheralManager, options: nil)
+                    }
                 }
-//                .listStyle(GroupedListStyle())
             }
         }
         .padding()
+        .onAppear {
+            self.bleConnection.centralManager.scanForPeripherals(withServices: nil, options: nil)
+        }
     }
 }
-//
-//struct BLEScanView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BLEScanView()
-//    }
-//}
+
+struct BLEScanView_Previews: PreviewProvider {
+    static var previews: some View {
+        BLEScanView()
+    }
+}
 

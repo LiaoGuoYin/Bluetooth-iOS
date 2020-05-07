@@ -25,8 +25,8 @@ open class BLEConnection: NSObject, CBPeripheralDelegate, CBCentralManagerDelega
     // 设备扫描到的蓝牙，回写到 SwiftUI View
     @Published var scannedBLEDevices: [CBPeripheral] = []
     
-    private var centralManager: CBCentralManager! = nil
-    private var peripheralManager: CBPeripheral! = nil
+    var centralManager: CBCentralManager! = nil
+    var peripheralManager: CBPeripheral! = nil
     
     public override init() {
         super.init()
@@ -89,7 +89,6 @@ open class BLEConnection: NSObject, CBPeripheralDelegate, CBCentralManagerDelega
         print("New discovery! Peripheral Name: \(String(describing: peripheral.name))  RSSI: \(String(RSSI.doubleValue))")
         
         self.centralManager.stopScan()
-        
         print(peripheral.name ?? "unknown")
         self.scannedBLEDevices.append(peripheral)
         self.peripheralManager = peripheral
@@ -128,7 +127,6 @@ open class BLEConnection: NSObject, CBPeripheralDelegate, CBCentralManagerDelega
             }
         }
     }
-    
     
     // Handling discovery of characteristics
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {

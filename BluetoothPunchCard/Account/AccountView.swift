@@ -12,7 +12,6 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             List {
-                
                 Section(header: Text("个人信息")) {
                     HStack {
                         Image(systemName: "t.bubble")
