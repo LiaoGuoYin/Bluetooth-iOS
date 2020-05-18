@@ -1,5 +1,5 @@
 //
-//  DataBlock.swift
+//  TodayDataCell.swift
 //  SunnyRunnerBlueTooth
 //
 //  Created by LiaoGuoYin on 2020/5/14.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DataBlock: View {
+struct TodayDataCell: View {
     @State var name: String
     @State var data: String
     @State var dataConsult: String
@@ -56,7 +56,7 @@ struct DataBlock: View {
 
 struct DataBlock_Previews: PreviewProvider {
     static var previews: some View {
-        DataBlock(name: "温度", data: "28.4 摄氏度", dataConsult: "36.0-37.3 摄氏度", currentActivityStatusType: .silence)
+        TodayDataCell(name: "温度", data: "28.4 摄氏度", dataConsult: "36.0-37.3 摄氏度", currentActivityStatusType: .silence)
     }
 }
 

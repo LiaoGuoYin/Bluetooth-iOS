@@ -18,7 +18,7 @@ struct ContentView: View {
             }
             .tag(1)
             
-            DataView()
+            TodayDataView()
                 .tabItem {
                     Image(systemName: "rosette")
                     Text("记录")

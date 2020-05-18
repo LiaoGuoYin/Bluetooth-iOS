@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF09C41D247171D000A785DD /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF09C41C247171D000A785DD /* DaysView.swift */; };
+		AF09C41F2471776100A785DD /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF09C41E2471776100A785DD /* DayView.swift */; };
 		AF4F19A4246CC6D500C815AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19A3246CC6D500C815AC /* AppDelegate.swift */; };
 		AF4F19A6246CC6D500C815AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19A5246CC6D500C815AC /* SceneDelegate.swift */; };
 		AF4F19A8246CC6D500C815AC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19A7246CC6D500C815AC /* ContentView.swift */; };
@@ -19,11 +21,14 @@
 		AF4F19C0246CC8D100C815AC /* CommonViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19BF246CC8D100C815AC /* CommonViewComponent.swift */; };
 		AF4F19C4246CCC1A00C815AC /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19C3246CCC1A00C815AC /* RegisterView.swift */; };
 		AF4F19C6246CCC2F00C815AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19C5246CCC2F00C815AC /* LoginView.swift */; };
-		AF9930CC246CF57A0067CEEA /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CB246CF57A0067CEEA /* DataView.swift */; };
-		AF9930CF246CF5BD0067CEEA /* DataBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CE246CF5BD0067CEEA /* DataBlock.swift */; };
+		AF9930CC246CF57A0067CEEA /* TodayDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CB246CF57A0067CEEA /* TodayDataView.swift */; };
+		AF9930CF246CF5BD0067CEEA /* TodayDataBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CE246CF5BD0067CEEA /* TodayDataBlock.swift */; };
+		AFD2C0FD24721166000A0C05 /* RankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C0FC24721166000A0C05 /* RankListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF09C41C247171D000A785DD /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
+		AF09C41E2471776100A785DD /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		AF4F19A0246CC6D500C815AC /* SunnyRunnerBlueTooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunnyRunnerBlueTooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF4F19A3246CC6D500C815AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF4F19A5246CC6D500C815AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,8 +43,9 @@
 		AF4F19BF246CC8D100C815AC /* CommonViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewComponent.swift; sourceTree = "<group>"; };
 		AF4F19C3246CCC1A00C815AC /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		AF4F19C5246CCC2F00C815AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		AF9930CB246CF57A0067CEEA /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
-		AF9930CE246CF5BD0067CEEA /* DataBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBlock.swift; sourceTree = "<group>"; };
+		AF9930CB246CF57A0067CEEA /* TodayDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDataView.swift; sourceTree = "<group>"; };
+		AF9930CE246CF5BD0067CEEA /* TodayDataBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDataBlock.swift; sourceTree = "<group>"; };
+		AFD2C0FC24721166000A0C05 /* RankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +139,11 @@
 		AF9930CD246CF5800067CEEA /* DataDisplay */ = {
 			isa = PBXGroup;
 			children = (
-				AF9930CB246CF57A0067CEEA /* DataView.swift */,
-				AF9930CE246CF5BD0067CEEA /* DataBlock.swift */,
+				AF9930CB246CF57A0067CEEA /* TodayDataView.swift */,
+				AFD2C0FC24721166000A0C05 /* RankListView.swift */,
+				AF09C41C247171D000A785DD /* DaysView.swift */,
+				AF9930CE246CF5BD0067CEEA /* TodayDataBlock.swift */,
+				AF09C41E2471776100A785DD /* DayView.swift */,
 			);
 			path = DataDisplay;
 			sourceTree = "<group>";
@@ -212,14 +221,17 @@
 			files = (
 				AF4F19A4246CC6D500C815AC /* AppDelegate.swift in Sources */,
 				AF4F19BE246CC7F400C815AC /* BLEManager.swift in Sources */,
-				AF9930CC246CF57A0067CEEA /* DataView.swift in Sources */,
+				AF9930CC246CF57A0067CEEA /* TodayDataView.swift in Sources */,
 				AF4F19A6246CC6D500C815AC /* SceneDelegate.swift in Sources */,
 				AF4F19C6246CCC2F00C815AC /* LoginView.swift in Sources */,
-				AF9930CF246CF5BD0067CEEA /* DataBlock.swift in Sources */,
+				AF9930CF246CF5BD0067CEEA /* TodayDataBlock.swift in Sources */,
 				AF4F19A8246CC6D500C815AC /* ContentView.swift in Sources */,
 				AF4F19BC246CC7C200C815AC /* BLEIconView.swift in Sources */,
+				AFD2C0FD24721166000A0C05 /* RankListView.swift in Sources */,
 				AF4F19C4246CCC1A00C815AC /* RegisterView.swift in Sources */,
 				AF4F19B9246CC70A00C815AC /* BLEScanView.swift in Sources */,
+				AF09C41D247171D000A785DD /* DaysView.swift in Sources */,
+				AF09C41F2471776100A785DD /* DayView.swift in Sources */,
 				AF4F19C0246CC8D100C815AC /* CommonViewComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

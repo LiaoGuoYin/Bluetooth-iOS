@@ -23,22 +23,19 @@ struct BLEScanView: View {
                         self.BLEConnection.centralManager.scanForPeripherals(withServices: nil, options: nil)
                 }
                 
-                ScrollView {
-                    Text("\(self.BLEConnection.message)")
-                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                }
-                .foregroundColor(Color.white)
-                .padding()
-                .background(Color(.systemRed))
+                //                ScrollView {
+                //                    Text("\(self.BLEConnection.message)")
+                //                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                //                }
+                //                .foregroundColor(Color.white)
+                //                .padding()
+                //                .background(Color(.systemRed))
                 
-                //            Section(header: Text("扫描到附近 \(BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器").padding()) {
-                //                List(BLEConnection.scannedBLEDevices, id: \.self) { (name: String,device: CBPeripheral) in
-                //                    ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown"): \(device.readRSSI())")
-                //    //                        .onTapGesture {
-                //    //                            BLEManager.shared.centralManager.connect(BLEManager.shared.peripheralManager, options: nil)
-                //    //                    }
-                //                    }
-                //            }
+                Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器").padding()) {
+                    List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
+                        ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown")")
+                    }
+                }
             }
             .padding()
         }
