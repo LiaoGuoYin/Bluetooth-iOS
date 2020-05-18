@@ -1,6 +1,6 @@
 #  BluetoothDemo
 
-An iOS demo that communicate with bluetooth hardware for recording steps, distance, temperature, heartbeat.
+An iOS demo that communicates with bluetooth for recording steps, distance, temperature, heartbeat.
 
 ## Description
 
