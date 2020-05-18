@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,16 @@
 		AF4F19C6246CCC2F00C815AC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4F19C5246CCC2F00C815AC /* LoginView.swift */; };
 		AF9930CC246CF57A0067CEEA /* TodayDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CB246CF57A0067CEEA /* TodayDataView.swift */; };
 		AF9930CF246CF5BD0067CEEA /* TodayDataBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9930CE246CF5BD0067CEEA /* TodayDataBlock.swift */; };
+		AFA90BFB2472920900F747E3 /* NoticeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BF52472920900F747E3 /* NoticeItem.swift */; };
+		AFA90BFC2472920900F747E3 /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BF62472920900F747E3 /* NoticeView.swift */; };
+		AFA90BFD2472920900F747E3 /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BF72472920900F747E3 /* NoticeDetailView.swift */; };
+		AFA90BFE2472920900F747E3 /* NoticeNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BF82472920900F747E3 /* NoticeNewView.swift */; };
+		AFA90BFF2472920900F747E3 /* NoticeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BF92472920900F747E3 /* NoticeResponse.swift */; };
+		AFA90C002472920900F747E3 /* LayingOutUsingPhi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90BFA2472920900F747E3 /* LayingOutUsingPhi.swift */; };
+		AFA90C022472925400F747E3 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90C012472925400F747E3 /* APIService.swift */; };
+		AFA90C05247292CA00F747E3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AFA90C04247292CA00F747E3 /* Alamofire */; };
+		AFA90C072472939900F747E3 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90C062472939900F747E3 /* FileService.swift */; };
+		AFA90C09247293E800F747E3 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA90C08247293E800F747E3 /* SampleTests.swift */; };
 		AFD2C0FD24721166000A0C05 /* RankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD2C0FC24721166000A0C05 /* RankListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +55,15 @@
 		AF4F19C5246CCC2F00C815AC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AF9930CB246CF57A0067CEEA /* TodayDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDataView.swift; sourceTree = "<group>"; };
 		AF9930CE246CF5BD0067CEEA /* TodayDataBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDataBlock.swift; sourceTree = "<group>"; };
+		AFA90BF52472920900F747E3 /* NoticeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeItem.swift; sourceTree = "<group>"; };
+		AFA90BF62472920900F747E3 /* NoticeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		AFA90BF72472920900F747E3 /* NoticeDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
+		AFA90BF82472920900F747E3 /* NoticeNewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeNewView.swift; sourceTree = "<group>"; };
+		AFA90BF92472920900F747E3 /* NoticeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeResponse.swift; sourceTree = "<group>"; };
+		AFA90BFA2472920900F747E3 /* LayingOutUsingPhi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayingOutUsingPhi.swift; sourceTree = "<group>"; };
+		AFA90C012472925400F747E3 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		AFA90C062472939900F747E3 /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		AFA90C08247293E800F747E3 /* SampleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTests.swift; sourceTree = "<group>"; };
 		AFD2C0FC24721166000A0C05 /* RankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFA90C05247292CA00F747E3 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,10 +98,11 @@
 		AF4F19A2246CC6D500C815AC /* SunnyRunnerBlueTooth */ = {
 			isa = PBXGroup;
 			children = (
-				AF4F19C7246CCC4600C815AC /* Common */,
-				AF9930CD246CF5800067CEEA /* DataDisplay */,
-				AF4F19C2246CCC0500C815AC /* RegisterLogin */,
 				AF4F19BA246CC70E00C815AC /* BLEScan */,
+				AF9930CD246CF5800067CEEA /* DataDisplay */,
+				AFA90BF42472920900F747E3 /* Notice */,
+				AF4F19C2246CCC0500C815AC /* RegisterLogin */,
+				AF4F19C7246CCC4600C815AC /* Common */,
 				AF4F19B7246CC6EB00C815AC /* Supportings */,
 				AF4F19AB246CC6D800C815AC /* Preview Content */,
 				AF4F19A7246CC6D500C815AC /* ContentView.swift */,
@@ -132,6 +153,9 @@
 			isa = PBXGroup;
 			children = (
 				AF4F19BF246CC8D100C815AC /* CommonViewComponent.swift */,
+				AFA90C08247293E800F747E3 /* SampleTests.swift */,
+				AFA90C012472925400F747E3 /* APIService.swift */,
+				AFA90C062472939900F747E3 /* FileService.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -146,6 +170,19 @@
 				AF09C41E2471776100A785DD /* DayView.swift */,
 			);
 			path = DataDisplay;
+			sourceTree = "<group>";
+		};
+		AFA90BF42472920900F747E3 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				AFA90BF52472920900F747E3 /* NoticeItem.swift */,
+				AFA90BF62472920900F747E3 /* NoticeView.swift */,
+				AFA90BF72472920900F747E3 /* NoticeDetailView.swift */,
+				AFA90BF82472920900F747E3 /* NoticeNewView.swift */,
+				AFA90BF92472920900F747E3 /* NoticeResponse.swift */,
+				AFA90BFA2472920900F747E3 /* LayingOutUsingPhi.swift */,
+			);
+			path = Notice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +201,9 @@
 			dependencies = (
 			);
 			name = SunnyRunnerBlueTooth;
+			packageProductDependencies = (
+				AFA90C04247292CA00F747E3 /* Alamofire */,
+			);
 			productName = SunnyRunnerBlueTooth;
 			productReference = AF4F19A0246CC6D500C815AC /* SunnyRunnerBlueTooth.app */;
 			productType = "com.apple.product-type.application";
@@ -192,6 +232,9 @@
 				Base,
 			);
 			mainGroup = AF4F1997246CC6D500C815AC;
+			packageReferences = (
+				AFA90C03247292CA00F747E3 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = AF4F19A1246CC6D500C815AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -220,13 +263,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF4F19A4246CC6D500C815AC /* AppDelegate.swift in Sources */,
+				AFA90C022472925400F747E3 /* APIService.swift in Sources */,
+				AFA90BFE2472920900F747E3 /* NoticeNewView.swift in Sources */,
+				AFA90BFB2472920900F747E3 /* NoticeItem.swift in Sources */,
 				AF4F19BE246CC7F400C815AC /* BLEManager.swift in Sources */,
+				AFA90C09247293E800F747E3 /* SampleTests.swift in Sources */,
+				AFA90BFF2472920900F747E3 /* NoticeResponse.swift in Sources */,
 				AF9930CC246CF57A0067CEEA /* TodayDataView.swift in Sources */,
 				AF4F19A6246CC6D500C815AC /* SceneDelegate.swift in Sources */,
 				AF4F19C6246CCC2F00C815AC /* LoginView.swift in Sources */,
 				AF9930CF246CF5BD0067CEEA /* TodayDataBlock.swift in Sources */,
+				AFA90C002472920900F747E3 /* LayingOutUsingPhi.swift in Sources */,
 				AF4F19A8246CC6D500C815AC /* ContentView.swift in Sources */,
+				AFA90BFC2472920900F747E3 /* NoticeView.swift in Sources */,
 				AF4F19BC246CC7C200C815AC /* BLEIconView.swift in Sources */,
+				AFA90BFD2472920900F747E3 /* NoticeDetailView.swift in Sources */,
+				AFA90C072472939900F747E3 /* FileService.swift in Sources */,
 				AFD2C0FD24721166000A0C05 /* RankListView.swift in Sources */,
 				AF4F19C4246CCC1A00C815AC /* RegisterView.swift in Sources */,
 				AF4F19B9246CC70A00C815AC /* BLEScanView.swift in Sources */,
@@ -432,6 +484,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AFA90C03247292CA00F747E3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AFA90C04247292CA00F747E3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFA90C03247292CA00F747E3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AF4F1998246CC6D500C815AC /* Project object */;
 }

@@ -26,15 +26,15 @@ struct RankListView: View {
                     }
                     .foregroundColor(Color(.white))
                     .padding()
-                    .background(Color(.systemRed))
+                    .background(Color(.systemBlue))
                     .cornerRadius(10)
                 }
             }
             Text("- 没有更多好友啦 -")
                 .font(.caption)
                 .foregroundColor(Color.black.opacity(0.3))
+                .padding()
         }
-        .padding()
     }
 }
 

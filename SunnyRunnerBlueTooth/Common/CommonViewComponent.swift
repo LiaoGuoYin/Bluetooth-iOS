@@ -8,6 +8,13 @@
 
 import SwiftUI
 
+
+protocol DataProtocol {
+    func refreshToGetData()
+    func preserveToLocalData()
+    func loadWithLocalData()
+}
+
 struct ImageAndTextView: View {
     @State var imageName: String
     @State var textName: String
@@ -36,4 +43,19 @@ struct CustomTextFieldView: View {
         .padding()
     }
     
+}
+
+struct SectionTextAndImage: View {
+    var name: String
+    var image: String
+    var body: some View {
+        HStack {
+            Image(systemName: image)
+                .font(.headline)
+            Text(name)
+                .font(.system(.headline, design: .monospaced))
+        }
+        .padding()
+        .foregroundColor(Color(.systemBlue))
+    }
 }

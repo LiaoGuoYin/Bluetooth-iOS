@@ -47,10 +47,10 @@ struct TodayDataCell: View {
         .padding(.vertical)
         .padding()
         .background(
-            Rectangle().foregroundColor(Color(.systemRed))
+            Rectangle().foregroundColor(Color(.systemBlue))
                 .cornerRadius(16)
         )
-        .shadow(radius: 8)
+        .shadow(radius: 5)
     }
 }
 

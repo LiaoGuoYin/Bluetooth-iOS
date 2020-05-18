@@ -13,7 +13,6 @@ struct DayView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            
             HStack {
                 DayDetailView(itemName: "总距离", itemUnit: "米", itemData: data.distance)
                 Spacer()
@@ -31,7 +30,7 @@ struct DayView: View {
         }
         .foregroundColor(Color.white)
         .padding()
-        .background(Color(.systemRed))
+        .background(Color(.systemBlue))
         .cornerRadius(16)
     }
 }

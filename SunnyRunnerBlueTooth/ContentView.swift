@@ -14,30 +14,30 @@ struct ContentView: View {
             BLEScanView()
                 .tabItem {
                     Image(systemName: "flame")
-                    Text("蓝牙数据")
+                    Text("蓝牙")
             }
             .tag(1)
             
             TodayDataView()
                 .tabItem {
                     Image(systemName: "rosette")
-                    Text("记录")
+                    Text("数据")
             }
             .tag(2)
             
-            Text("The Last Tab")
+            NoticeView(noticeItem: NoticeItem(noticeList: noticeSample.data!))
                 .tabItem {
                     Image(systemName: "book")
-                    Text("公告资讯")
-            }
-            .tag(2)
-            
-            LoginView(username: "", password: "")
-                .tabItem {
-                    Image(systemName: "rectangle.stack.person.crop")
-                    Text("个人中心")
+                    Text("资讯")
             }
             .tag(3)
+            
+            LoginView()
+                .tabItem {
+                    Image(systemName: "rectangle.stack.person.crop")
+                    Text("个人")
+            }
+            .tag(4)
             
         }
         .font(.headline)

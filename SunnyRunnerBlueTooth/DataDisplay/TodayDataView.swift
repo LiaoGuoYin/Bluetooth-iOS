@@ -12,10 +12,7 @@ struct TodayDataView: View {
     @State private var action: Int? = 0
     
     init() {
-        UITableViewCell.appearance().backgroundColor = UIColor.clear
-        UITableView.appearance().backgroundColor = UIColor.clear
-        
-        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().backgroundColor = .clear
     }
     
     var body: some View {
@@ -30,14 +27,14 @@ struct TodayDataView: View {
                         }
                         
                         HStack {
-                            TodayDataCell(name: "Step 合计", data: "64 步", dataConsult: "0+ Steps", currentActivityStatusType: .silence)
+                            TodayDataCell(name: "Step 合计", data: "64 步", dataConsult: "5000+ Steps", currentActivityStatusType: .silence)
                             
-                            TodayDataCell(name: "Distance 合计", data: "88 米", dataConsult: "0+ Meters", currentActivityStatusType: .silence)
+                            TodayDataCell(name: "Distance 合计", data: "88 米", dataConsult: "4000+ Meters", currentActivityStatusType: .silence)
                         }
                         Text("最近一次更新：30s 前")
                             .font(.caption)
                             .padding(6)
-                            .shadow(radius: 10)
+                            .shadow(radius: 5)
                     }
                 }
                 
@@ -46,19 +43,25 @@ struct TodayDataView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle(Text("All Data"), displayMode: .automatic)
+            .navigationBarTitle(Text("数据"), displayMode: .automatic)
             .navigationBarItems(
                 leading: NavigationLink(destination: RankListView().navigationBarTitle(Text("今日步数排名")), label: {
                     Image(systemName: "person.2.square.stack")
                         .font(.headline)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(Color(.systemBlue))
                 }),
                 trailing: NavigationLink(destination: DaysView()) {
                     Image(systemName: "clock.fill")
                         .font(.headline)
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(Color(.systemBlue))
                 }
                 .buttonStyle(BorderlessButtonStyle()))
+            .onAppear {
+                UITableView.appearance().separatorStyle = .none
+            }
+            .onDisappear {
+                UITableView.appearance().separatorStyle = .singleLine
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

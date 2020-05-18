@@ -9,48 +9,60 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var isShowSheetView = false
-    @State var username: String
-    @State var password: String
+    @State var username: String = ""
+    @State var password: String = ""
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                Form {
-                    Section(
-                        footer: HStack {
-                            Spacer()
-                            Button(action: { self.postForget() }) {
-                                Text("忘记密码?")
-                                    .padding(.vertical)
-                            }
-                    }) {
-                        HStack {
-                            Text("学号:\t")
-                            TextField("1710030215", text: self.$username)
-                        }
-                        HStack {
-                            Text("密码:\t")
-                            TextField("******", text: self.$password)
-                        }
-                    }
+            VStack {
+                HStack {
+                    Image(systemName: "person").foregroundColor(.gray)
+                    TextField("1710030215", text: self.$username)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-                .navigationBarItems(
-                    leading: Button(action: { self.postRegister() }) {
-                        Text("注册")
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                
+                HStack {
+                    Image(systemName: "staroflife.fill").foregroundColor(.gray)
+                    SecureField("********", text: self.$password)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                
+                
+                HStack {
+                    Spacer()
+                    Button(action: { }) {
+                        Text("忘记密码?").font(.caption)
                             .padding(.vertical)
                     }
-                    .sheet(isPresented: self.$isShowSheetView) {
-                        RegisterView(isShow: self.$isShowSheetView)
-                    }
-                    ,
-                    trailing: Button(action: { self.postLogin() }) {
-                        Text("登陆")
-                            .padding(.vertical)
-                    }
-                )
-                    .navigationBarTitle(Text("LogIn"), displayMode: .inline)
+                    .navigationBarItems(
+                        leading: NavigationLink(destination: RegisterView(), label: {
+                            Text("注册")
+                                .padding(.vertical)
+                        })
+                        , trailing: Button(action: { self.postLogin() }) {
+                            Text("登陆")
+                                .padding(.vertical)
+                        }
+                    )
+                        .navigationBarTitle(Text("LogIn"), displayMode: .inline)
+                }
+                .padding()
+                .navigationViewStyle(StackNavigationViewStyle())
+                .onAppear {
+                    UITableView.appearance().separatorStyle = .none
+                    UITableViewCell.appearance().backgroundColor = .white
+                    UITableView.appearance().backgroundColor = .white
+                }
+                .onDisappear {
+                    UITableView.appearance().separatorStyle = .singleLine
+                }
+                Spacer()
             }
+            .padding()
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -58,7 +70,7 @@ struct LoginView: View {
 
 extension LoginView {
     func postRegister() {
-        self.isShowSheetView.toggle()
+        
     }
     
     func postLogin() {
@@ -72,6 +84,23 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(username: "", password: "")
+        LoginView()
+    }
+}
+
+public struct ListSeparatorStyleNoneModifier: ViewModifier {
+    public func body(content: Content) -> some View {
+        content.onAppear {
+            UITableView.appearance().separatorStyle = .none
+        }
+        .onDisappear {
+            UITableView.appearance().separatorStyle = .singleLine
+        }
+    }
+}
+
+extension View {
+    public func listSeparatorStyleNone() -> some View {
+        modifier(ListSeparatorStyleNoneModifier())
     }
 }
