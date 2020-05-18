@@ -15,6 +15,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 HStack {
                     Image(systemName: "person").foregroundColor(.gray)
                     TextField("1710030215", text: self.$username)

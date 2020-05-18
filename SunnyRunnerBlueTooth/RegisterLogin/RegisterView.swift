@@ -20,34 +20,27 @@ struct RegisterView: View {
         Form {
             Section(header: Text("Account Info")) {
                 HStack {
-                    Image(systemName: "person").foregroundColor(.gray)
-                    TextField("Enter your student ID", text: self.$username)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("学号\t\t")
+                    TextField("1710030215", text: self.$username)
                 }
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                
                 HStack {
-                    Image(systemName: "staroflife").foregroundColor(.gray)
-                    SecureField("Password", text: self.$password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("密码\t\t")
+                    TextField("********", text: self.$password)
                 }
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                
                 HStack {
-                    Image(systemName: "staroflife.fill").foregroundColor(.gray)
-                    SecureField("Confirm Password", text: self.$password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Text("确认密码\t")
+                    TextField("********", text: self.$password)
                 }
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
             }
             
             Section(header: Text("Personal Info")) {
                 //                DatePicker(selection: .constant(Date()), label: { Text("出生日期") })
-                DatePicker("出生日期", selection: self.$birthDay, displayedComponents: .date)
-                TextField("手机号", text: self.$username)
+                HStack {
+                    Text("手机号\t\t")
+                    TextField("13888888888", text: self.$username)
+                }
+                DatePicker("出生日期\t\t", selection: self.$birthDay, displayedComponents: .date)
+                
             }
         }
         .navigationBarTitle(Text("注册"), displayMode: .inline)
@@ -57,6 +50,9 @@ struct RegisterView: View {
                     .padding(.vertical)
             }
         )
+            .onAppear {
+                UITableView.appearance().separatorStyle = .singleLine
+        }
     }
 }
 
