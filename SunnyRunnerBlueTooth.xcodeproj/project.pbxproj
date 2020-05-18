@@ -39,6 +39,7 @@
 /* Begin PBXFileReference section */
 		AF09C41C247171D000A785DD /* DaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
 		AF09C41E2471776100A785DD /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
+		AF3C3E7F2472B239008AD39C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AF4F19A0246CC6D500C815AC /* SunnyRunnerBlueTooth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunnyRunnerBlueTooth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF4F19A3246CC6D500C815AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF4F19A5246CC6D500C815AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 				AF4F19AB246CC6D800C815AC /* Preview Content */,
 				AF4F19A7246CC6D500C815AC /* ContentView.swift */,
 				AF4F19B1246CC6D800C815AC /* Info.plist */,
+				AF3C3E7F2472B239008AD39C /* README.md */,
 			);
 			path = SunnyRunnerBlueTooth;
 			sourceTree = "<group>";
