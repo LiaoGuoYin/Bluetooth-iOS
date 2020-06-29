@@ -8,13 +8,22 @@
 
 import Foundation
 
-
 struct Student {
+    var userid: String
     var name: String
     var iClass: String
-    var userid: String
     var mac: String
     var status: String?
+}
+
+extension Student: Hashable {
+    static func == (lhs: Student, rhs: Student) -> Bool {
+        return lhs.userid == rhs.userid
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(userid)
+    }
 }
 
 var CSVDemo = """
@@ -43,7 +52,7 @@ var CSVDemo = """
 /// - Parameter studentCSV: 学生名单字符串
 func createDemoStudent(studentCSV: String) -> Array<Student> {
     var students = Array<Student>()
-    var student = Student(name: "", iClass: "", userid: "", mac: "")
+    var student = Student(userid: "1", name: "", iClass: "", mac: "")
 
     let record = studentCSV.split(separator: "\n")
     for index in (1..<record.count) {

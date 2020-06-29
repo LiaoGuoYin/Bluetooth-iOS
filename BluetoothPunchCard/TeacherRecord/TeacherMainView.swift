@@ -10,23 +10,23 @@ import SwiftUI
 
 struct TeacherMainView: View {
     @State private var isShowClassListAddSheet: Bool = false
-    @ObservedObject var viewModel = CourseViewModel(courseDemo)
+    @ObservedObject var viewModel: CourseViewModel = CourseViewModel(courseDemo)
     @State private var selections = Set<TeacherCourse.Course>()
     
     init() {
         UITableView.appearance().backgroundColor = UIColor.clear
         let newCourse = TeacherCourse.Course(name: "Java程序设计", classes: "工商17-3")
-        viewModel.addCourse(newCourse)
+        self.viewModel.addCourse(newCourse)
     }
     
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("课程列表")) {
-                    ForEach(viewModel.courses, id: \.id) { (course) in
+                    ForEach(viewModel.courses, id: \.id) { (course: TeacherCourse.Course) in
                         HStack {
                             CourseRowBlockView(courseName: course.name, className: course.classes, classPeopleCount: course.capacity)
-                            NavigationLink(destination: StudentsManagementView()) {
+                            NavigationLink(destination: CourseStudentView(students: course.students)) {
                                 EmptyView()
                             }
                             .frame(width: 0)
@@ -40,7 +40,7 @@ struct TeacherMainView: View {
             .navigationBarTitle(Text("考勤管理"))
             .navigationBarItems(leading: EditButton(), trailing: addButton)
             .sheet(isPresented: self.$isShowClassListAddSheet) {
-                NewCourseFormView().environmentObject(self.viewModel)
+                CourseFormView().environmentObject(self.viewModel)
             }
         }
     }
@@ -58,7 +58,7 @@ struct TeacherMainView: View {
     
     var addButton: some View {
         Button(action: { self.isShowClassListAddSheet.toggle() }) {
-            Image(systemName: "plus.rectangle.on.rectangle")
+            Image(systemName: "equal.square.fill")
                 .font(.body)
                 .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
         }
@@ -67,6 +67,6 @@ struct TeacherMainView: View {
 
 struct TeacherMainView_Previews: PreviewProvider {
     static var previews: some View {
-        TeacherMainView()
+        TeacherMainView().environmentObject(CourseViewModel())
     }
 }

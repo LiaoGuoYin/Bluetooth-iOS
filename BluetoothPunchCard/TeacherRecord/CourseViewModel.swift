@@ -9,33 +9,35 @@
 import Foundation
 
 class CourseViewModel: ObservableObject {
-    @Published private(set) var model: TeacherCourse
-    
+    @Published private(set) var teacherCourse: TeacherCourse
+    @Published private(set) var students: Array<Student>
+
     init() {
-        model = TeacherCourse()
+        teacherCourse = TeacherCourse()
+        students = []
     }
     
     init(_ course: TeacherCourse.Course) {
-        model = TeacherCourse(courses: [course])
+        teacherCourse = TeacherCourse(courses: [course])
+        students = []
     }
     
     //    MARK: - Access to the model
     var courses: Array<TeacherCourse.Course> {
-        model.courses
+        return teacherCourse.courses
     }
     
     //    MARK: - Intents
-    
     func addCourse(_ course: TeacherCourse.Course) {
-        model.addCourse(course)
+        teacherCourse.addCourse(course)
     }
     
     func deleteCourse(_ courseIndex: Int) {
-        model.deleteCourse(courseIndex)
+        teacherCourse.deleteCourse(courseIndex)
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        model.moveCourse(from: source, to: destination)
+        teacherCourse.moveCourse(from: source, to: destination)
     }
     
 }

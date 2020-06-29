@@ -1,5 +1,5 @@
 //
-//  Course.swift
+//  TeacherCourse.swift
 //  BluetoothPunchCard
 //
 //  Created by LiaoGuoYin on 2020/6/26.
@@ -15,9 +15,9 @@ struct TeacherCourse {
         var id = UUID()
         var name: String
         var classes: String
-        var students: Array<Student>?
+        var students: Array<Student> = []
         var capacity: Int {
-            students?.count ?? 0
+            students.count
         }
         var historyRecords: Array<TeacherCourse.HistoryRecord>?
     }

@@ -2,72 +2,129 @@
 //  CourseFormView.swift
 //  BluetoothPunchCard
 //
-//  Created by LiaoGuoYin on 2020/4/7.
+//  Created by LiaoGuoYin on 2020/6/28.
 //  Copyright © 2020 LiaoGuoYin. All rights reserved.
 //
 
 import SwiftUI
 
 struct CourseFormView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var iClass: String = ""
-    @State var studentList: [String] = []
+    @EnvironmentObject var viewModel: CourseViewModel
+    @Environment(\.presentationMode) var presentationMode
+    //    @State var form: TeacherCourse.Course = TeacherCourse.Course(name: "", classes: "")
+    @State var form: TeacherCourse.Course = courseDemo
 
-    var body: some View {
-        Form {
-            Section(header: Text("基本信息")) {
-                HStack {
-                    Text("姓名：")
-                    TextField("张三", text: self.$iClass)
-                }
-                HStack {
-                    Text("手机：")
-                    TextField("13888888888", text: self.$iClass)
-                }
-                HStack {
-                    Text("院系：")
-                    TextField("工商管理学院", text: self.$iClass)
-                }
-                HStack {
-                    Text("班级：")
-                    TextField("信管17-2", text: self.$iClass)
-                }
-            }
-
-            Section(header: Text("设备信息")) {
-                HStack {
-                    Text("MAC地址：")
-                    TextField("a29s:23cs", text: self.$iClass)
-                }
-            }
-
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Spacer()
-                    Text("提交")
-                    Spacer()
-                }
-            }
-        }
-        .listStyle(GroupedListStyle())
+    init() {
+        UITableView.appearance().backgroundColor = .systemGroupedBackground
     }
 
-    var backButton: some View {
-        Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }, label: {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .opacity(self.presentationMode.wrappedValue.isPresented ? 1 : 0)
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("基本信息")) {
+                    HStack {
+                        Text("课程名：")
+                            .foregroundColor(.gray)
+                        TextField("编译原理", text: $form.name)
+                            .font(.body)
+                    }
+                    HStack {
+                        Text("    班级：")
+                            .foregroundColor(.gray)
+                        TextField("信管17-2", text: $form.classes)
+                            .font(.body)
+                    }
+                }
+
+                Section(
+                    header: HStack {
+                        Text("学生列表")
+                        Spacer()
+                        EditButton()
+                    },
+                    footer: Text("Add TODO")) {
+                    List {
+                        ForEach(form.students, id: \.userid) { (student: Student) in
+                            HStack {
+                                Text(student.name)
+                                Spacer()
+                                Text(student.userid)
+                            }
+                        }
+                            .onMove(perform: onMove)
+                            .onDelete(perform: onDelete)
+                    }
+                }
+
+                Button(action: { self.clearForm(self.$form) }) {
+                    HStack {
+                        Spacer()
+                        Text("重置")
+                            .foregroundColor(Color(.systemRed))
+                        Spacer()
+                    }
+                }
+
+                Button(action: { self.submitForm(self.form) }) {
+                    HStack {
+                        Spacer()
+                        Text("提交")
+                        Spacer()
+                    }
+                }
             }
-        })
+                .navigationBarTitle(Text("新增课程"), displayMode: .inline)
+                .navigationBarItems(trailing:
+                    Button(action: { self.submitForm(self.form) }) {
+                        Text("Done")
+                })
+                .disableAutocorrection(true)
+                .listStyle(GroupedListStyle())
+        }
+    }
+
+    private func onMove(source: IndexSet, destination: Int) {
+        self.viewModel.move(from: source, to: destination)
+    }
+
+    private func onDelete(offsets: IndexSet) {
+        if let first = offsets.first {
+            self.viewModel.deleteCourse(first)
+        }
+    }
+
+    func clearForm(_ form: Binding<TeacherCourse.Course>) -> Void {
+        form.wrappedValue.name = "None"
+        form.wrappedValue.classes = ""
+    }
+
+    func submitForm(_ form: TeacherCourse.Course) -> Void {
+        self.viewModel.addCourse(form)
+        //        self.$isShowSheet.wrappedValue.toggle()
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 
-struct ClassListView_Previews: PreviewProvider {
+extension TeacherCourse.Course {
+    mutating func clear() {
+        self.name = ""
+        self.classes = ""
+        self.students = []
+    }
+}
+
+struct NewCourseFormView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseFormView()
+        CourseFormView().environmentObject(CourseViewModel(courseDemo))
+    }
+}
+
+struct addStudent: View {
+    var body: some View {
+        HStack {
+            Image(systemName: "person.badge.plus.fill")
+            Text("添加")
+                .font(.caption)
+        }
     }
 }

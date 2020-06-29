@@ -16,7 +16,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
     @Published var isScanning: Bool = false
 
     // Message Console
-    @Published var message: String = "初始化成功.."
+    @Published var message: String = "初始化成功，请点击图标开始扫描。"
 
     // BLEConnection 单例
     static let shared = BLEManager()
