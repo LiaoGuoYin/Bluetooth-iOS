@@ -32,7 +32,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
 
     public override init() {
         super.init()
-//        startCentralManager()
+        //        startCentralManager()
     }
 
     /// 初始化中心设备（本机）
@@ -52,7 +52,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
         self.isScanning = false
         self.centralManager.stopScan()
     }
-    
+
     /// 切换扫描状态
     func switchCentralManager() {
         if(self.isScanning) {
@@ -185,7 +185,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
                 } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
                     NSLog("写特征找到，订阅成功")
                     //                    self.peripheralManager.setNotifyValue(true, for: characteristic)
-//                    self.peripheralManager.writeValue(Data(csvTxtDemo.utf8), for: characteristic, type: .withoutResponse)
+                    //                    self.peripheralManager.writeValue(Data(csvTxtDemo.utf8), for: characteristic, type: .withoutResponse)
                     //                    self.peripheralManager.writeValue("写测试", for: CBDescriptor(characteristic))
                     message.addString("写特征找到，订阅成功")
                 }
@@ -193,37 +193,34 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
         }
     }
 
-    /// 订阅读取外设数据
+    /// Notify / Write 外设数据
     /// - Parameters:
     ///   - peripheral: peripheral description
     ///   - characteristic: characteristic description
     ///   - error: error description
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == BLE_Punchcard_Notify_Characterristic_CBUUID {
-            message.addString("收到数据：")
+            message.addString("订阅成功，将会收到数据！")
             if let messageData = characteristic.value {
 
                 if let dataStr = String(data: messageData, encoding: .utf8) {
                     message.addString(dataStr)
 
-                    /*
-                     HeartRate:77
-                     Step:0
-                     Distance:0.0
-                     Temperature:26.6
-                     */
-
                     if dataStr.hasPrefix("姓名,班级,学号,MAC") {
-//                        parseRecord(of: dataStr)
-                    }
+                        message.addString("收到签到回馈：")
 
-                    let dataArray = dataStr.split(separator: "\n")
-                    for data in dataArray {
-                        NSLog(String(data))
-                        message.addString((String(data)))
+                        let dataArray = dataStr.split(separator: "\n")
+                        for data in dataArray {
+                            NSLog(String(data))
+                            message.addString((String(data)))
+                        }
                     }
                 }
             }
+        } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
+            message.addString("连接通道建立成功，可以开始写入数据！(测试模式自动发送写入请求)")
+            self.peripheral.writeValue(Data("CSVDemo".utf8), for: characteristic, type: .withoutResponse)
+            self.message.addString("写入请求发送成功！")
         }
     }
 }
@@ -233,3 +230,8 @@ extension String {
         self = str + "\n"
     }
 }
+
+//extension BLEManager {
+//    func writeToDevices(of characteristic: CBCharacteristic) {
+//    }
+//}

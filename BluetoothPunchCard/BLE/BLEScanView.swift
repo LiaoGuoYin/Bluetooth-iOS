@@ -38,6 +38,9 @@ struct BLEScanView: View {
                 .foregroundColor(Color.white)
                 .padding()
                 .background(Color(.systemBlue).cornerRadius(8))
+                .onLongPressGesture {
+                    self.BLEConnection.centralManager
+                }
                 
             }
             .padding()

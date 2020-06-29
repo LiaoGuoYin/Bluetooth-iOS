@@ -13,7 +13,6 @@ struct CourseRowBlockView: View {
     @State var className: String = "信管17-2"
     @State var classPeopleCount: Int = 57
     
-    
     var body: some View {
         VStack(alignment:.leading,spacing: 16) {
             Text(courseName)
