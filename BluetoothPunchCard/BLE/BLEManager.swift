@@ -6,8 +6,6 @@
 //  Copyright © 2020 LiaoGuoYin. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import CoreBluetooth
 
 let BLE_Punchcard_Main_Service_CBUUID = CBUUID(string: "0xFFE1") // Main service
@@ -15,6 +13,7 @@ let BLE_Punchcard_Notify_Characterristic_CBUUID = CBUUID(string: "0xFFE2") // No
 let BLE_Punchcard_Write_Characterristic_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
 
 open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
+    @Published var isScanning: Bool = false
 
     // Message Console
     @Published var message: String = "初始化成功.."
@@ -33,17 +32,35 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
 
     public override init() {
         super.init()
-        startCentralManager()
+//        startCentralManager()
     }
 
     /// 初始化中心设备（本机）
     func startCentralManager() {
+        self.isScanning = true
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
         NSLog("Central Manager State: \(self.centralManager.state)")
 
-        message.addString("初始化本机蓝牙设置成功")
+        message.addString("初始化本机蓝牙成功")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.centralManagerDidUpdateState(self.centralManager)
+        }
+    }
+
+    /// 停止扫描设备
+    func stopCentralManager() {
+        self.isScanning = false
+        self.centralManager.stopScan()
+    }
+    
+    /// 切换扫描状态
+    func switchCentralManager() {
+        if(self.isScanning) {
+            self.stopCentralManager()
+            self.isScanning = false
+        } else {
+            self.startCentralManager()
+            self.isScanning = true
         }
     }
 
@@ -55,6 +72,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
         case .poweredOff:
             message = "poweredOff"
         case .poweredOn:
+            self.isScanning = true
             //            全开扫描
             self.centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
 
@@ -105,7 +123,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
         if let peripheralName = peripheral.name {
             for name in names {
                 if peripheralName.hasPrefix(name) {
-                    self.centralManager.stopScan()
+                    self.stopCentralManager()
                     self.centralManager.connect(peripheral, options: nil)
                     NSLog("Finding target：\(peripheralName) \n Stop scanning now, connecting to it..")
                     break
@@ -167,7 +185,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
                 } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
                     NSLog("写特征找到，订阅成功")
                     //                    self.peripheralManager.setNotifyValue(true, for: characteristic)
-                    self.peripheralManager.writeValue(Data(csvTxtDemo.utf8), for: characteristic, type: .withoutResponse)
+//                    self.peripheralManager.writeValue(Data(csvTxtDemo.utf8), for: characteristic, type: .withoutResponse)
                     //                    self.peripheralManager.writeValue("写测试", for: CBDescriptor(characteristic))
                     message.addString("写特征找到，订阅成功")
                 }
@@ -196,7 +214,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
                      */
 
                     if dataStr.hasPrefix("姓名,班级,学号,MAC") {
-                        parseRecord(of: dataStr)
+//                        parseRecord(of: dataStr)
                     }
 
                     let dataArray = dataStr.split(separator: "\n")
@@ -213,57 +231,5 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
 extension String {
     mutating func addString(_ str: String) {
         self = str + "\n"
-    }
-}
-
-struct Student {
-    var name: String
-    var classOf: String
-    var number: String
-    var mac: String
-    var status: String?
-}
-
-var csvTxtDemo = """
-姓名,班级,学号,MAC,status
-欧珀,电信研181,471820336,4c1a3d493e6c,√
-吴埃斯,电信研183,123456778,BCE143B46210,√
-吴一帆,工商研183,123456789,7836CC44578C,
-杨清雷,土木研183,234567890,3CA581792440,
-张世晔,英语研183,345678901,D461DA37FC98,
-霍泽生,数学研183,456789112,A4504689B81F,
-吕英鑫,工管研183,123231132,9487E09F9B02,√
-初殿宇,法学研183,234563457,A4933F817F83,
-刘埃斯,工商研184,225039186,044BED769B5E,
-方彦瑾,安全研183,345678922,9CE82B8128AC,
-铁牛,电控研181,863487827,4404446AA450,
-袁超,安全研183,683268688,482CA03CDEB7,√
-唐玉莲,工管研183,671256411,F4BF8008D846,
-周雪,财贸研183,67136728,047970E090B6,
-潘佳欣,法学研183,315263533,A4933F818390,
-皮克嗖,英语研185,527737383,B4F1DA9A361D,√
-维沃,机械研182,352033185,488764443630,
-十一,电信研188,342708190,B87BC5C6303B,√
-"""
-
-/// 反序列化转换获取到的 CSV 字符串信息为对象
-/// - Parameter csvTxt: CSV 格式文本，逗号分隔
-func parseRecord(of csvTxt: String) {
-    let records = csvTxt.split(separator: "\n")
-    var student = Student(name: "", classOf: "", number: "", mac: "")
-
-    for index in (1..<records.count) {
-        let record = records[index].split(separator: ",")
-        student.name = String(record[0])
-        student.classOf = String(record[1])
-        student.number = String(record[2])
-        student.mac = String(record[3])
-        
-        if record.count == 5 {
-            student.status = String(record[4])
-        } else {
-            student.status = nil
-        }
-        print(student)
     }
 }

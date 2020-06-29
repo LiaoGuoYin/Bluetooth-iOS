@@ -16,9 +16,19 @@ struct BLEScanView: View {
         GeometryReader { geometry in
             VStack {
                 BLEIconView()
-//                    .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                    .frame(width: geometry.size.width, height: geometry.size.height / 2)
                     .onTapGesture {
-                        self.BLEConnection.centralManager.scanForPeripherals(withServices: nil, options: nil)
+                        self.BLEConnection.switchCentralManager()
+//                        self.BLEConnection.startCentralManager()
+                }
+                
+                Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器")
+                        .foregroundColor(Color.gray)
+                        .padding()
+                ) {
+                    List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
+                        ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown")")
+                    }
                 }
                 
                 ScrollView {
@@ -27,15 +37,11 @@ struct BLEScanView: View {
                 }
                 .foregroundColor(Color.white)
                 .padding()
-                .background(Color(.systemBlue))
+                .background(Color(.systemBlue).cornerRadius(8))
                 
-                Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器").padding()) {
-                    List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
-                        ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown")")
-                    }
-                }
             }
             .padding()
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }
