@@ -219,7 +219,7 @@ open class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate,
             }
         } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
             message.addString("连接通道建立成功，可以开始写入数据！(测试模式自动发送写入请求)")
-            self.peripheral.writeValue(Data("CSVDemo".utf8), for: characteristic, type: .withoutResponse)
+            peripheral.writeValue(Data("CSVDemo".utf8), for: characteristic, type: .withoutResponse)
             self.message.addString("写入请求发送成功！")
         }
     }
