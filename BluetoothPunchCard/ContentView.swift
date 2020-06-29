@@ -18,7 +18,7 @@ struct ContentView: View {
             }
             .tag(1)
             
-            TeacherAttendanceView()
+            TeacherMainView()
                 .tabItem {
                     Image(systemName: "tag.fill")
                     Text("Record")
