@@ -19,7 +19,6 @@ struct BLEScanView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height / 2)
                     .onTapGesture {
                         self.BLEConnection.switchCentralManager()
-//                        self.BLEConnection.startCentralManager()
                 }
                 
                 Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器")
