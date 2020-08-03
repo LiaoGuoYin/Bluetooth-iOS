@@ -21,7 +21,6 @@
 		AF8AA9102464546E00013BA2 /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AA90F2464546E00013BA2 /* CommonView.swift */; };
 		AFA6BAAA24A9DBD90018C611 /* CourseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA6BAA924A9DBD90018C611 /* CourseFormView.swift */; };
 		AFBA11E52449B99B00E59572 /* BLEIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBA11E42449B99B00E59572 /* BLEIconView.swift */; };
-		AFBA11E7244AE7BC00E59572 /* GeoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBA11E6244AE7BC00E59572 /* GeoView.swift */; };
 		AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB511F243A1A9700D38E6E /* AppDelegate.swift */; };
 		AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */; };
 		AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5123243A1A9700D38E6E /* ContentView.swift */; };
@@ -48,7 +47,6 @@
 		AF8AA90F2464546E00013BA2 /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
 		AFA6BAA924A9DBD90018C611 /* CourseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseFormView.swift; sourceTree = "<group>"; };
 		AFBA11E42449B99B00E59572 /* BLEIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEIconView.swift; sourceTree = "<group>"; };
-		AFBA11E6244AE7BC00E59572 /* GeoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoView.swift; sourceTree = "<group>"; };
 		AFBB511C243A1A9700D38E6E /* BluetoothPunchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothPunchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBB511F243A1A9700D38E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,7 +55,6 @@
 		AFBB5128243A1A9A00D38E6E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AFBB512B243A1A9A00D38E6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFBB512D243A1A9A00D38E6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFBB5133243A1AC100D38E6E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AFBB5136243A1D4300D38E6E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		AFBB513C243A1FD400D38E6E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AFBB5140243A31CC00D38E6E /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
@@ -135,9 +132,7 @@
 				AFBB5123243A1A9700D38E6E /* ContentView.swift */,
 				AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */,
 				AFBB512D243A1A9A00D38E6E /* Info.plist */,
-				AFBB5133243A1AC100D38E6E /* README.md */,
 				AFBB5136243A1D4300D38E6E /* .gitignore */,
-				AFBA11E6244AE7BC00E59572 /* GeoView.swift */,
 			);
 			path = BluetoothPunchCard;
 			sourceTree = "<group>";
@@ -258,7 +253,6 @@
 				AFBA11E52449B99B00E59572 /* BLEIconView.swift in Sources */,
 				AF6C2646244876DD006C7568 /* BLEScanView.swift in Sources */,
 				AF8AA9102464546E00013BA2 /* CommonView.swift in Sources */,
-				AFBA11E7244AE7BC00E59572 /* GeoView.swift in Sources */,
 				AF1DC52E24A63089006795EA /* TeacherCourse.swift in Sources */,
 				AF24B89024A83F790065A628 /* CourseStudentView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* RecordView.swift in Sources */,

@@ -12,7 +12,7 @@ struct BLEIconView: View {
     @State private var showOuterWave = true
     @State private var innerOuterWave = true
     var isScanning = BLEManager.shared.isScanning
-
+    
     var body: some View {
         ZStack {
             //            OuterWave
@@ -24,8 +24,8 @@ struct BLEIconView: View {
                 .foregroundColor(Color(.systemBlue))
                 .onAppear {
                     self.showOuterWave.toggle()
-            }
-            .opacity((isScanning ? 1 : 0))
+                }
+                .opacity((isScanning ? 1 : 0))
             
             //            InnerWave
             Capsule()
@@ -36,18 +36,18 @@ struct BLEIconView: View {
                 .foregroundColor(Color(.systemBlue))
                 .onAppear {
                     self.innerOuterWave.toggle()
-            }
-            .opacity((isScanning ? 1 : 0))
+                }
+                .opacity((isScanning ? 1 : 0))
             
             Capsule()
                 .frame(width: 100, height: 160)
                 .foregroundColor((self.isScanning ? Color(.systemBlue):Color(.systemGray)))
                 .shadow(radius: 8)
-
+            
             Capsule()
                 .frame(width: 80, height: 100)
                 .foregroundColor((self.isScanning ? Color(.systemBlue):Color(.systemGray)))
-
+            
             Image("bluetoothIcon")
                 .font(.largeTitle)
         }

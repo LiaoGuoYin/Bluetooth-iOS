@@ -13,34 +13,43 @@ struct BLEScanView: View {
     @ObservedObject var BLEConnection = BLEManager.shared
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                BLEIconView()
-                    .frame(width: geometry.size.width, height: geometry.size.height / 2)
-                    .onTapGesture {
-                        self.BLEConnection.switchCentralManager()
-                }
-                
-                Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个长跑蓝牙计步器")
-                        .foregroundColor(Color.gray)
-                        .padding()
-                ) {
-                    List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
-                        ImageAndTextView(imageName: "dot.radiowaves.right", textName: "\(device.name ?? "unknown")")
+        VStack {
+            BLEIconView().onTapGesture {
+                self.BLEConnection.stopScanButton()
+            }
+            .frame(height: 200)
+            .padding()
+            
+            Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个考勤机")
+                        .foregroundColor(Color.gray)) {
+                List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
+                    HStack {
+                        Image(systemName: "wave.3.right")
+                        Text(device.name ?? "UNKNOWN")
                     }
                 }
-                
-                ScrollView {
-                    Text("\(self.BLEConnection.message)")
-                        .frame(width: geometry.size.width)
-                }
-                .foregroundColor(Color.white)
-                .padding()
-                .background(Color(.systemBlue).cornerRadius(8))
-                
             }
-            .padding()
-            .edgesIgnoringSafeArea(.bottom)
+            
+            Section(header:HStack {
+                            Text("Console")
+                                .underline()
+                                .foregroundColor(Color(.systemPink))
+                                .bold()
+                                .padding(.horizontal)
+                            Spacer()}
+            ) {
+                ScrollView {
+                    HStack {
+                        Text("\(self.BLEConnection.message)")
+                            .foregroundColor(Color.white)
+                            .multilineTextAlignment(.leading)
+                            .padding()
+                        Spacer()
+                    }
+                }
+                .frame(height: 160)
+                .background(Color.blue)
+            }
         }
     }
 }
