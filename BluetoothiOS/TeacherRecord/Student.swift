@@ -27,7 +27,7 @@ extension Student: Hashable {
 }
 
 var CSVDemo = """
-姓名,班级,学号,MAC,status
+姓名,班级,学号,MAC,
 欧珀,电信研181,471820336,4c1a3d493e6c,√
 吴埃斯,电信研183,123456778,BCE143B46210,√
 吴一帆,工商研183,123456789,7836CC44578C,
@@ -53,7 +53,6 @@ var CSVDemo = """
 func createDemoStudent(studentCSV: String) -> Array<Student> {
     var students = Array<Student>()
     var student = Student(userid: "1", name: "", iClass: "", mac: "")
-
     let record = studentCSV.split(separator: "\n")
     for index in (1..<record.count) {
         let record = record[index].split(separator: ",")
@@ -61,18 +60,14 @@ func createDemoStudent(studentCSV: String) -> Array<Student> {
         student.iClass = String(record[1])
         student.userid = String(record[2])
         student.mac = String(record[3])
-
         if record.count == 5 {
             student.status = String(record[4])
         } else {
             student.status = nil
         }
-
         students.append(student)
     }
-
     return students
-
 }
 
 func createDemoCourse(_ students: Array<Student>) -> TeacherCourse.Course {

@@ -205,6 +205,8 @@ extension BLEManager {
     func stopScanButton() {
         if(self.isScanning) {
             self.centralManager.stopScan()
+        } else {
+            self.startCentralManager()
         }
     }
 }
