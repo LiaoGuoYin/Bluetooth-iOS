@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            BLEScanView()
+            BLEView()
                 .tabItem {
                     Image(systemName: "dot.radiowaves.left.and.right")
                     Text("PuncCard")

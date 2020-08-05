@@ -13,24 +13,12 @@ let BLE_Punchcard_Notify_Characterristic_CBUUID = CBUUID(string: "0xFFE2") // No
 let BLE_Punchcard_Write_Characterristic_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
 
 class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
-    @Published var message: String = "初始化成功，请点击图标开始扫描。\n"
+    @Published var message: String = "初始化成功，可以开始扫描。\n"
     @Published var scannedBLEDevices: [CBPeripheral] = []
-    var isConnected: Bool {
-        if let actualPeripheral = self.peripheralManager {
-            if actualPeripheral.name != nil {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
-    var isScanning: Bool {
-        if (self.isConnected) {
-            return false
-        } else {
-            return true
+    @Published var mode: BLEMode = BLEMode.disconnected
+    @Published var isOn: Bool = false {
+        didSet {
+            switchMode()
         }
     }
     
@@ -41,40 +29,53 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     // 自动连接的蓝牙前缀
     var names = ["NBee", "LGY"]
     
-    public override init() {
+    override init() {
         super.init()
         startCentralManager()
     }
+    
     /// 初始化
     func startCentralManager() {
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
+        NSLog("初始化成功")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.centralManagerDidUpdateState(self.centralManager)
         }
+    }
+    
+    func startScan() {
+        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+        message.addString("初始化成功，开始扫描")
+    }
+    
+    func stopScan() {
+        self.disConnect()
+        self.centralManager.stopScan()
+        message.addString("关闭扫描")
     }
     
     /// 检测蓝牙状态
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         var message = ""
         switch (central.state) {
-            case .poweredOff:
-                message = "蓝牙尚未未开启"
-            case .poweredOn:
-                // 全开扫描
-                self.centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
-                message.addString("初始化成功，开始扫描")
-            // TODO 扫描指定 Service
-            //                self.centralManager.scanForPeripherals(withServices: [BLEConnection.bleServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
-            case .resetting:
-                message = "resetting"
-            case .unknown:
-                message = "unknown"
-            case .unsupported:
-                message = "unsupported"
-            case .unauthorized:
-                message = "unauthorized"
-            @unknown default:
-                message = "未知状态，请检查蓝牙设置"
+        case .poweredOff:
+            message = "蓝牙尚未未开启"
+        case .poweredOn:
+            // 全开扫描
+            message.addString("自检成功，可以开始扫描")
+        //            self.startScan()
+        // TODO 扫描指定 Service
+        //                self.centralManager.scanForPeripherals(withServices: [BLEConnection.bleServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        case .resetting:
+            message = "resetting"
+        case .unknown:
+            message = "unknown"
+        case .unsupported:
+            message = "unsupported"
+        case .unauthorized:
+            message = "unauthorized"
+        @unknown default:
+            message = "未知状态，请检查蓝牙设置"
         }
         NSLog(message as String)
     }
@@ -83,13 +84,13 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         NSLog("New discovery! Peripheral Name: \(String(describing: peripheral.name))  RSSI: \(String(RSSI.doubleValue))")
         self.scannedBLEDevices.append(peripheral)
-        self.peripheralManager = peripheral
-        self.peripheralManager.delegate = self
         
         // 自动连接指定前缀的蓝牙设备
         if let peripheralName = peripheral.name {
             for name in names {
                 if peripheralName.hasPrefix(name) {
+                    self.peripheralManager = peripheral
+                    self.peripheralManager.delegate = self
                     self.centralManager.connect(peripheral, options: nil)
                     break
                 }
@@ -99,10 +100,17 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         // TODO 可能丢失。另一个线程
     }
     
+    
+    /// 连接状态变化
+    func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
+//        message.addString("扫描 Services 中")
+    }
+    
     /// 连接成功，扫描 Services
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         message.addString("连接成功：\(String(describing: peripheral.name))")
         self.centralManager.stopScan()
+        self.mode = BLEMode.connected
         peripheral.discoverServices(nil)
     }
     
@@ -169,10 +177,11 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     
     /// 断开连接
     func disConnect() {
-        if(self.peripheralManager != nil) {
-            self.centralManager.cancelPeripheralConnection(peripheralManager)
-            message.addString("断开连接！")
+        if self.peripheralManager.state.rawValue == 0 {
+            return
         }
+        self.centralManager.cancelPeripheralConnection(peripheralManager)
+        message.addString("断开连接！")
     }
     
     /// 断开设备
@@ -202,11 +211,20 @@ extension BluetoothHelperDelegate {
 }
 
 extension BLEManager {
-    func stopScanButton() {
-        if(self.isScanning) {
-            self.centralManager.stopScan()
-        } else {
-            self.startCentralManager()
+    func switchMode() {
+        switch self.mode {
+        case .disconnected:
+            self.startScan()
+            self.mode = .connected
+        case .connected:
+            self.scannedBLEDevices.removeAll()
+            self.stopScan()
+            self.mode = .disconnected
         }
     }
+}
+
+enum BLEMode {
+    case disconnected
+    case connected
 }

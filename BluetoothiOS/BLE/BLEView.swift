@@ -7,11 +7,9 @@
 //
 
 import SwiftUI
-import CoreBluetooth
 
-struct BLEScanView: View {
+struct BLEView: View {
     @ObservedObject var BLEConnection = BLEManager.shared
-    @State private var isScanningOn: Bool = false
     
     var body: some View {
         VStack {
@@ -21,14 +19,14 @@ struct BLEScanView: View {
                 .background(
                     Capsule()
                         .frame(width: 80, height: 130)
-                        .foregroundColor(Color(.systemBlue))
+                        .foregroundColor(
+                            self.BLEConnection.isOn ? Color.blue:Color.gray)
                 )
                 .shadow(radius: 10)
                 .frame(height: 160)
                 .padding()
             
-            
-            Toggle("蓝牙考勤机", isOn: self.$isScanningOn)
+            Toggle("蓝牙考勤机", isOn: self.$BLEConnection.isOn)
                 .padding()
             
             Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个考勤机")
@@ -61,13 +59,6 @@ struct BLEScanView: View {
 
 struct BLEScanView_Previews: PreviewProvider {
     static var previews: some View {
-        BLEScanView()
+        BLEView()
     }
-}
-
-
-enum BLEMode {
-    case scanning
-    case connected
-    case disconnected
 }

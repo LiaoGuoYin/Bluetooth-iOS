@@ -76,8 +76,8 @@ struct StudentFormView: View {
     }
 }
 
-struct ClassListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CourseFormView()
-    }
-}
+//struct ClassListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CourseFormView())
+//    }
+//}

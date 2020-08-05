@@ -9,27 +9,16 @@
 import SwiftUI
 
 struct TeacherMainView: View {
+    @ObservedObject var viewModel: CourseViewModel
     @State private var isShowClassListAddSheet: Bool = false
-    @ObservedObject var viewModel: CourseViewModel = CourseViewModel(courseDemo)
-    @State private var selections = Set<TeacherCourse.Course>()
-    
-    init() {
-        UITableView.appearance().backgroundColor = UIColor.clear
-        let newCourse = TeacherCourse.Course(name: "Java程序设计", classes: "工商17-3")
-        self.viewModel.addCourse(newCourse)
-    }
     
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("课程列表")) {
                     ForEach(viewModel.courses, id: \.id) { (course: TeacherCourse.Course) in
-                        HStack {
+                        NavigationLink(destination: CourseStudentView(students: course.students)) {
                             CourseRowBlockView(courseName: course.name, className: course.classes, classPeopleCount: course.capacity)
-                            NavigationLink(destination: CourseStudentView(students: course.students)) {
-                                EmptyView()
-                            }
-                            .frame(width: 0)
                         }
                     }
                     .onMove(perform: onMove)
@@ -38,19 +27,26 @@ struct TeacherMainView: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("考勤管理"))
-            .navigationBarItems(leading: EditButton(), trailing: addButton)
-            .sheet(isPresented: self.$isShowClassListAddSheet) {
-                CourseFormView().environmentObject(self.viewModel)
-            }
+            .navigationBarItems(trailing: addButton)
+        }
+        .sheet(isPresented: self.$isShowClassListAddSheet) {
+            CourseFormView(viewModel: self.viewModel, form: TeacherCourse.Course(name: "", classes: ""))
         }
     }
-    
-    private func onMove(source: IndexSet, destination: Int) {
-        self.viewModel.move(from: source, to: destination)
+}
+
+extension TeacherMainView {
+    init() {
+        self.init(viewModel: CourseViewModel())
+        self.viewModel.addCourse(courseDemo)
+        self.viewModel.students = studentsDemo
     }
     
+    func onMove(source: IndexSet, destination: Int) {
+        self.viewModel.moveCourse(from: source, to: destination)
+    }
     
-    private func onDelete(offsets: IndexSet) {
+    func onDelete(offsets: IndexSet) {
         if let first = offsets.first {
             self.viewModel.deleteCourse(first)
         }
@@ -58,8 +54,8 @@ struct TeacherMainView: View {
     
     var addButton: some View {
         Button(action: { self.isShowClassListAddSheet.toggle() }) {
-            Image(systemName: "equal.square.fill")
-                .font(.body)
+            Image(systemName: "plus.square.fill")
+                .font(.headline)
                 .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
         }
     }
@@ -67,6 +63,6 @@ struct TeacherMainView: View {
 
 struct TeacherMainView_Previews: PreviewProvider {
     static var previews: some View {
-        TeacherMainView().environmentObject(CourseViewModel())
+        TeacherMainView()
     }
 }

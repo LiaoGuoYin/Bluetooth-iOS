@@ -9,17 +9,18 @@
 import Foundation
 
 class CourseViewModel: ObservableObject {
-    @Published private(set) var teacherCourse: TeacherCourse
-    @Published private(set) var students: Array<Student>
-
-    init() {
-        teacherCourse = TeacherCourse()
-        students = []
-    }
+    @Published var teacherCourse: TeacherCourse
+    @Published var students: Array<Student>
+    @Published var course: TeacherCourse.Course
     
     init(_ course: TeacherCourse.Course) {
-        teacherCourse = TeacherCourse(courses: [course])
-        students = []
+        self.teacherCourse = TeacherCourse(courses: [course])
+        self.students = Array<Student>()
+        self.course = course
+    }
+    
+    convenience init() {
+        self.init(TeacherCourse.Course(name: "", classes: ""))
     }
     
     //    MARK: - Access to the model
@@ -29,15 +30,70 @@ class CourseViewModel: ObservableObject {
     
     //    MARK: - Intents
     func addCourse(_ course: TeacherCourse.Course) {
-        teacherCourse.addCourse(course)
+        self.teacherCourse.addCourse(course)
     }
     
     func deleteCourse(_ courseIndex: Int) {
-        teacherCourse.deleteCourse(courseIndex)
+        self.teacherCourse.deleteCourse(courseIndex)
     }
     
-    func move(from source: IndexSet, to destination: Int) {
-        teacherCourse.moveCourse(from: source, to: destination)
+    func moveCourse(from source: IndexSet, to destination: Int) {
+        self.teacherCourse.moveCourse(from: source, to: destination)
     }
     
+    func addStudent(_ student: Student) {
+        self.students.append(student)
+    }
+    
+    func deleteStudent(_ studentIndex: Int) {
+        self.students.remove(at: studentIndex)
+    }
+    
+    func moveStudent(from source: IndexSet, to destination: Int) {
+        self.students.move(fromOffsets: source, toOffset: destination)
+    }
+}
+
+struct TeacherCourse {
+    var courses: Array<Course> = []
+    
+    struct Course {
+        var id = UUID()
+        var name: String
+        var classes: String
+        var students: Array<Student> = []
+        var capacity: Int {
+            students.count
+        }
+        var historyRecords: Array<TeacherCourse.HistoryRecord>?
+    }
+    
+    mutating func addCourse(_ course: Course) {
+        self.courses.append(course)
+    }
+    
+    mutating func deleteCourse(_ courseIndex: Int) {
+        self.courses.remove(at: courseIndex)
+    }
+    
+    mutating func moveCourse(from source: IndexSet, to destination: Int) {
+        self.courses.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    struct HistoryRecord {
+        var index: Int
+        var dateTime: String
+        var description: String
+    }
+    
+}
+
+extension TeacherCourse.Course: Hashable {
+    static func == (lhs: TeacherCourse.Course, rhs: TeacherCourse.Course) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
