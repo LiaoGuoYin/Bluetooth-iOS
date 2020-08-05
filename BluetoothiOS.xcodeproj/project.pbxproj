@@ -63,6 +63,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF21D76B24DAF31A001A7F81 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		AF6C264224487466006C7568 /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +119,7 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothiOS */ = {
 			isa = PBXGroup;
 			children = (
+				AF21D76B24DAF31A001A7F81 /* Preview Content */,
 				AF8AA90E2464545800013BA2 /* Common */,
 				AF6C264224487466006C7568 /* BLE */,
 				AFBB5139243A1FA200D38E6E /* StudentRecord */,
