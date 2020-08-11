@@ -8,9 +8,9 @@
 
 import CoreBluetooth
 
-let BLE_Punchcard_Main_Service_CBUUID = CBUUID(string: "0xFFE1") // Main service
-let BLE_Punchcard_Notify_Characterristic_CBUUID = CBUUID(string: "0xFFE2") // Notify characteristic
-let BLE_Punchcard_Write_Characterristic_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
+let MAIN_SERVICEUUID = CBUUID(string: "0xFFE1") // Main service
+let NOTIFY_CBUUID = CBUUID(string: "0xFFE2") // Notify characteristic
+let WRITE_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
 
 class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
     @Published var message: String = "初始化成功，可以开始扫描。\n"
@@ -25,9 +25,11 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     static let shared = BLEManager()
     var centralManager: CBCentralManager! = nil
     var peripheralManager: CBPeripheral! = nil
+    private var writeData: [Data] = [Data]()
+    private var receiveString: String = ""
     
     // 自动连接的蓝牙前缀
-    var names = ["NBee", "LGY"]
+    var names = ["NBee_BLE1E1802", "LGY"]
     
     override init() {
         super.init()
@@ -41,17 +43,6 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.centralManagerDidUpdateState(self.centralManager)
         }
-    }
-    
-    func startScan() {
-        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
-        message.addString("初始化成功，开始扫描")
-    }
-    
-    func stopScan() {
-        self.disConnect()
-        self.centralManager.stopScan()
-        message.addString("关闭扫描")
     }
     
     /// 检测蓝牙状态
@@ -100,10 +91,9 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         // TODO 可能丢失。另一个线程
     }
     
-    
     /// 连接状态变化
     func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
-//        message.addString("扫描 Services 中")
+        //        message.addString("扫描 Services 中")
     }
     
     /// 连接成功，扫描 Services
@@ -119,7 +109,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         // 找到指定 Service
         if let services = peripheral.services {
             for service in services {
-                if service.uuid == BLE_Punchcard_Main_Service_CBUUID {
+                if service.uuid == MAIN_SERVICEUUID {
                     message.addString("找到 Service")
                     peripheral.discoverCharacteristics(nil, for: service)
                     break
@@ -133,55 +123,38 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                if characteristic.uuid == BLE_Punchcard_Notify_Characterristic_CBUUID {
+                if characteristic.uuid == NOTIFY_CBUUID {
                     self.peripheralManager.setNotifyValue(true, for: characteristic)
                     message.addString("通知特征找到，订阅成功")
-                } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
-                    //                    self.peripheralManager.setNotifyValue(true, for: characteristic)
-                    //                    self.peripheralManager.writeValue(Data(csvTxtDemo.utf8), for: characteristic, type: .withoutResponse)
-                    //                    self.peripheralManager.writeValue("写测试", for: CBDescriptor(characteristic))
+                } else if characteristic.uuid == WRITE_CBUUID {
                     message.addString("写特征找到，订阅成功")
+                    self.writeText(text: CSVDemo)
+                    self.writeDataToDedevice(characteristic)
                 }
             }
         }
     }
     
-    var recieveString: String?
-    var recevieData = Data()
     /// 读/写外设数据
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if characteristic.uuid == BLE_Punchcard_Notify_Characterristic_CBUUID {
-            message.addString("订阅成功，将会收到数据！")
+        if characteristic.uuid == NOTIFY_CBUUID {
             if let actualData = characteristic.value {
-                if let valueString = String(data: actualData, encoding: .utf8) {
-                    if valueString.contains("MAC") {
+                let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+                if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: enc)) {
+                    if tmpString.contains("MAC") {
                         //                        收到表头：姓名,班级,学号,MAC
-                        recevieData = Data()
-                    } else if valueString.contains("END") {
+                        receiveString = tmpString
+                    } else if (tmpString.contains("END")) {
                         //                        收到表尾：END
-                        recevieData.append(actualData)
-                        recieveString = String(data: recevieData, encoding: .utf8)
-                        message.addString("收到数据：\(String(describing: recieveString))")
+                        receiveString += tmpString
+                        message.addString("收到数据：\(String(describing: receiveString))")
                     } else {
                         //                        收到数据体
-                        recevieData.append(actualData)
+                        receiveString += tmpString
                     }
                 }
             }
-        } else if characteristic.uuid == BLE_Punchcard_Write_Characterristic_CBUUID {
-            message.addString("连接通道建立成功，可以开始写入数据！(测试模式自动发送写入请求)")
-            peripheral.writeValue(Data("CSVDemo".utf8), for: characteristic, type: .withoutResponse)
-            message.addString("写入请求发送成功！")
         }
-    }
-    
-    /// 断开连接
-    func disConnect() {
-        if self.peripheralManager.state.rawValue == 0 {
-            return
-        }
-        self.centralManager.cancelPeripheralConnection(peripheralManager)
-        message.addString("断开连接！")
     }
     
     /// 断开设备
@@ -198,19 +171,30 @@ extension String {
     }
 }
 
-protocol BluetoothHelperDelegate {
-    func bluetoothScan(peripheral: CBPeripheral)
-    func bluetoothHelperIndex() -> Int
-    func bluetoothConnect(name: String)
-    func bluetoothDisconnect(name: String)
-}
-
-extension BluetoothHelperDelegate {
-    func bluetoothConnect(name: String) { }
-    func bluetoothDisconnect(name: String) { }
-}
-
 extension BLEManager {
+    /// 开始扫描
+    func startScan() {
+        self.centralManager.scanForPeripherals(withServices: nil, options: nil)
+        message.addString("初始化成功，开始扫描")
+    }
+    
+    /// 关闭扫描
+    func stopScan() {
+        self.disConnect()
+        self.centralManager.stopScan()
+        message.addString("关闭扫描")
+    }
+    
+    /// 断开连接
+    func disConnect() {
+        if self.peripheralManager.state.rawValue == 0 {
+            return
+        }
+        self.centralManager.cancelPeripheralConnection(peripheralManager)
+        message.addString("断开连接！")
+    }
+    
+    /// 切换模式
     func switchMode() {
         switch self.mode {
         case .disconnected:
@@ -222,6 +206,35 @@ extension BLEManager {
             self.mode = .disconnected
         }
     }
+    
+    /// 处理字符串
+    func writeText(text: String) {
+        let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        if let data = text.data(using: String.Encoding(rawValue: enc)) {
+            writeData.append(data)
+        }
+    }
+    
+    /// 输出字符串
+    func writeDataToDedevice(_ characteristic: CBCharacteristic) {
+        for index in 0 ... writeData.count - 1  {
+            let item = writeData[index]
+            runDelay(0.02 * Double(index), {
+                self.peripheralManager.writeValue(item, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
+            })
+        }
+        self.writeData.removeAll()
+    }
+    
+    /// 分片输出
+    func runDelay(_ delay:TimeInterval,_ block:@escaping () -> ()) {
+        let queue = DispatchQueue.main
+        let delayTime = DispatchTime.now() + delay
+        queue.asyncAfter(deadline: delayTime) {
+            block()
+        }
+    }
+    
 }
 
 enum BLEMode {
