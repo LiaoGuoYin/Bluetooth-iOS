@@ -26,7 +26,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     var centralManager: CBCentralManager! = nil
     var peripheralManager: CBPeripheral! = nil
     private var writeData: [Data] = [Data]()
-    private var receiveString: String = ""
+    private var receiveData = Data()
     
     // 自动连接的蓝牙前缀
     var names = ["NBee_BLE1E1802", "LGY"]
@@ -135,25 +135,38 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         }
     }
     
+    /// 订阅 Characteristic 回调
+    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+        if let actualError = error {
+            print("订阅过程遇到一点错误: \(actualError)")
+        }
+        message.addString("通知特征找到，订阅成功")
+    }
+    
     /// 读/写外设数据
-    public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == NOTIFY_CBUUID {
             if let actualData = characteristic.value {
+                receiveData.append(actualData)
+                //                NSLog(actualData as NSData)
                 let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
                 if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: enc)) {
-                    if tmpString.contains("MAC") {
-                        //                        收到表头：姓名,班级,学号,MAC
-                        receiveString = tmpString
-                    } else if (tmpString.contains("END")) {
-                        //                        收到表尾：END
-                        receiveString += tmpString
-                        message.addString("收到数据：\(String(describing: receiveString))")
-                    } else {
-                        //                        收到数据体
-                        receiveString += tmpString
+                    if (tmpString.contains("END")) {
+                        // 收到表尾：END
+                        if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: enc)) {
+                            message.addString("收到数据2：\(outputString)")
+                            receiveData = Data()
+                        }
                     }
                 }
             }
+        }
+    }
+    
+    /// 检测向外设写入数据是否成功
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let actualError = error {
+            message.addString("写数据失败\(actualError)")
         }
     }
     

@@ -10,6 +10,7 @@
 		AF1DC53024A637F5006795EA /* CourseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1DC52F24A637F5006795EA /* CourseViewModel.swift */; };
 		AF24B88E24A826130065A628 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88D24A826130065A628 /* Student.swift */; };
 		AF24B89024A83F790065A628 /* CourseStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88F24A83F790065A628 /* CourseStudentView.swift */; };
+		AF38BC5624E2656E005A7949 /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38BC5524E2656E005A7949 /* BLE.swift */; };
 		AF4E12A1246422A90004F833 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E12A0246422A90004F833 /* LoginView.swift */; };
 		AF6C26442448748E006C7568 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C26432448748E006C7568 /* BLEManager.swift */; };
 		AF6C2646244876DD006C7568 /* BLEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C2645244876DD006C7568 /* BLEView.swift */; };
@@ -32,6 +33,7 @@
 		AF1DC52F24A637F5006795EA /* CourseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewModel.swift; sourceTree = "<group>"; };
 		AF24B88D24A826130065A628 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		AF24B88F24A83F790065A628 /* CourseStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentView.swift; sourceTree = "<group>"; };
+		AF38BC5524E2656E005A7949 /* BLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 		AF4E12A0246422A90004F833 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AF6C26432448748E006C7568 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		AF6C2645244876DD006C7568 /* BLEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEView.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				AF6C2645244876DD006C7568 /* BLEView.swift */,
 				AF6C26432448748E006C7568 /* BLEManager.swift */,
+				AF38BC5524E2656E005A7949 /* BLE.swift */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
 				AF7848C4243C399D0009964E /* StudentFormView.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
+				AF38BC5624E2656E005A7949 /* BLE.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF1DC53024A637F5006795EA /* CourseViewModel.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,

@@ -45,6 +45,7 @@ struct BLEView: View {
             ScrollView {
                 HStack {
                     Text("\(self.BLEConnection.message)")
+                        .font(.caption)
                         .foregroundColor(Color.white)
                         .multilineTextAlignment(.leading)
                         .padding()
