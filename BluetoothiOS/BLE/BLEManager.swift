@@ -25,8 +25,10 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     static let shared = BLEManager()
     var centralManager: CBCentralManager! = nil
     var peripheralManager: CBPeripheral! = nil
-    private var writeData: [Data] = [Data]()
+    private var dataToSend = Data()
     private var receiveData = Data()
+    var sendDataIndex: Int = 0
+    
     
     // 自动连接的蓝牙前缀
     var names = ["NBee_BLE1E1802", "LGY"]
@@ -125,11 +127,9 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             for characteristic in characteristics {
                 if characteristic.uuid == NOTIFY_CBUUID {
                     self.peripheralManager.setNotifyValue(true, for: characteristic)
-                    message.addString("通知特征找到，订阅成功")
                 } else if characteristic.uuid == WRITE_CBUUID {
-                    message.addString("写特征找到，订阅成功")
-                    self.writeText(text: CSVDemo)
-                    self.writeDataToDedevice(characteristic)
+                    sendDataToDevice(sendString: sendStringDemo, characteristic)
+                    message.addString("写特征找到，发送成功")
                 }
             }
         }
@@ -151,10 +151,12 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
                 //                NSLog(actualData as NSData)
                 let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
                 if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: enc)) {
-                    if (tmpString.contains("END")) {
-                        // 收到表尾：END
+                    if (tmpString.contains("end")) {
+                        // 收到表尾：end
                         if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: enc)) {
                             message.addString("收到数据2：\(outputString)")
+                            print("*****************")
+                            print(outputString)
                             receiveData = Data()
                         }
                     }
@@ -220,23 +222,42 @@ extension BLEManager {
         }
     }
     
-    /// 处理字符串
-    func writeText(text: String) {
+    /// 将待发送数据分包，并发送分包后的数据
+    func sendDataToDevice(sendString: String, _ characteristic: CBCharacteristic) {
         let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
-        if let data = text.data(using: String.Encoding(rawValue: enc)) {
-            writeData.append(data)
+        if let EncodedData = sendString.data(using: String.Encoding(rawValue: enc)) {
+            dataToSend = EncodedData
         }
-    }
-    
-    /// 输出字符串
-    func writeDataToDedevice(_ characteristic: CBCharacteristic) {
-        for index in 0 ... writeData.count - 1  {
-            let item = writeData[index]
-            runDelay(0.02 * Double(index), {
-                self.peripheralManager.writeValue(item, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
-            })
+        
+        guard (peripheralManager != nil) else {
+            return
         }
-        self.writeData.removeAll()
+        
+//        while (1 != 0) {
+//            if sendDataIndex >= dataToSend.count {
+//                sendDataIndex = 0
+//                break
+//            }
+//
+//            var amountToSend = dataToSend.count - sendDataIndex
+//            let mtu = peripheralManager.maximumWriteValueLength(for: .withoutResponse)
+//            amountToSend = min(amountToSend, mtu)
+//
+//            let chunk = dataToSend.subdata(in: sendDataIndex..<(sendDataIndex + amountToSend))
+//            let stringFromData = String(data: chunk, encoding: String.Encoding(rawValue: enc))
+//            print("Sent %d bytes: %s", chunk.count, String(describing: stringFromData))
+//            runDelay(0.02) {
+//                self.peripheralManager.writeValue(chunk, for: characteristic, type: .withoutResponse)
+//            }
+//
+//            sendDataIndex += amountToSend
+        
+        for index in 0...dataToSend.count - 1 {
+            let chunk = dataToSend.subdata(in: index..<(index+1))
+            runDelay(0.01 * Double(index)) {
+                self.peripheralManager.writeValue(chunk, for: characteristic, type: .withoutResponse)
+            }
+        }
     }
     
     /// 分片输出
@@ -254,3 +275,26 @@ enum BLEMode {
     case disconnected
     case connected
 }
+
+var sendStringDemo: String = """
+姓名,班级,学号,MAC,
+欧珀,电信研181,471820336,4c1a3d493e6c,
+吴埃斯,电信研183,123456778,BCE143B46210,
+吴一帆,工商研183,123456789,7836CC44578C,
+杨清雷,土木研183,234567890,3CA581792440,
+张世晔,英语研183,345678901,D461DA37FC98,
+霍泽生,数学研183,456789112,A4504689B81F,
+吕英鑫,工管研183,123231132,9487E09F9B02,
+初殿宇,法学研183,234563457,A4933F817F83,
+刘埃斯,工商研184,225039186,044BED769B5E,
+方彦瑾,安全研183,345678922,9CE82B8128AC,
+铁牛,电控研181,863487827,4404446AA450,
+袁超,安全研183,683268688,482CA03CDEB7,
+唐玉莲,工管研183,671256411,F4BF8008D846,
+周雪,财贸研183,67136728,047970E090B6,
+潘佳欣,法学研183,315263533,A4933F818390,
+皮克嗖,英语研185,527737383,B4F1DA9A361D,
+维沃,机械研182,352033185,488764443630,
+十一,电信研188,342708190,B87BC5C6303B,
+end
+"""
