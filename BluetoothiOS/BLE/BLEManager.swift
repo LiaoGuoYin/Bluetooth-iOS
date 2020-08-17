@@ -225,38 +225,34 @@ extension BLEManager {
     /// 将待发送数据分包，并发送分包后的数据
     func sendDataToDevice(sendString: String, _ characteristic: CBCharacteristic) {
         let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
-        if let EncodedData = sendString.data(using: String.Encoding(rawValue: enc)) {
-            dataToSend = EncodedData
-        }
+        guard (peripheralManager != nil) else { return }
         
-        guard (peripheralManager != nil) else {
-            return
-        }
+        guard let sendData = sendString.data(using: String.Encoding(rawValue: enc)) else { return }
         
-//        while (1 != 0) {
-//            if sendDataIndex >= dataToSend.count {
-//                sendDataIndex = 0
-//                break
-//            }
-//
-//            var amountToSend = dataToSend.count - sendDataIndex
-//            let mtu = peripheralManager.maximumWriteValueLength(for: .withoutResponse)
-//            amountToSend = min(amountToSend, mtu)
-//
-//            let chunk = dataToSend.subdata(in: sendDataIndex..<(sendDataIndex + amountToSend))
-//            let stringFromData = String(data: chunk, encoding: String.Encoding(rawValue: enc))
-//            print("Sent %d bytes: %s", chunk.count, String(describing: stringFromData))
-//            runDelay(0.02) {
-//                self.peripheralManager.writeValue(chunk, for: characteristic, type: .withoutResponse)
-//            }
-//
-//            sendDataIndex += amountToSend
-        
-        for index in 0...dataToSend.count - 1 {
-            let chunk = dataToSend.subdata(in: index..<(index+1))
-            runDelay(0.01 * Double(index)) {
+        while ((1) != 0) {
+            if sendDataIndex >= sendData.count {
+                sendDataIndex = 0
+                break
+            }
+            
+            let mtu = peripheralManager.maximumWriteValueLength(for: .withoutResponse)
+            var amountToSend = sendData.count - sendDataIndex
+            amountToSend = min(amountToSend, mtu)
+            
+            let chunk = sendData.subdata(in: sendDataIndex..<(sendDataIndex + amountToSend))
+            guard let stringFromData = String(data: chunk, encoding: String.Encoding(rawValue: enc)) else { return }
+            print("Sent \(chunk.count) bytes: \(String(stringFromData))")
+            runDelay(0.02) {
                 self.peripheralManager.writeValue(chunk, for: characteristic, type: .withoutResponse)
             }
+            
+            sendDataIndex += amountToSend
+            
+            //        for index in 0...dataToSend.count - 1 {
+            //            let chunk = dataToSend.subdata(in: index..<(index+1))
+            //            runDelay(0.01 * Double(index)) {
+            //                self.peripheralManager.writeValue(chunk, for: characteristic, type: .withoutResponse)
+            //            }
         }
     }
     
