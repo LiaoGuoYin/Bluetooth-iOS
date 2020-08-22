@@ -1,6 +1,6 @@
 //
-//  CourseRowBlockView.swift
-//  BluetoothPunchCard
+//  TeacherCourseRowView.swift
+//  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/4/7.
 //  Copyright © 2020 LiaoGuoYin. All rights reserved.
@@ -8,20 +8,18 @@
 
 import SwiftUI
 
-struct CourseRowBlockView: View {
-    @State var courseName: String = "Python 程序设计"
-    @State var className: String = "信管17-2"
-    @State var classPeopleCount: Int = 57
+struct TeacherCourseRowView: View {
+    @State var course: Course
     
     var body: some View {
         VStack(alignment:.leading,spacing: 16) {
-            Text(courseName)
+            Text(course.name)
                 .font(.headline)
             
             HStack {
-                Text(className)
+                Text(course.classOf)
                 Spacer()
-                Text("\(self.classPeopleCount) 人")
+                Text("\(course.capacity) 人")
             }
             .font(.subheadline)
         }
@@ -30,10 +28,17 @@ struct CourseRowBlockView: View {
         .background(Color(.systemBlue))
         .cornerRadius(8)
     }
+    
 }
 
-struct ClassListRow_Previews: PreviewProvider {
+extension TeacherCourseRowView {
+    init() {
+        self.init(course: Course())
+    }
+}
+
+struct CourseRowView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseRowBlockView()
+        TeacherCourseRowView()
     }
 }

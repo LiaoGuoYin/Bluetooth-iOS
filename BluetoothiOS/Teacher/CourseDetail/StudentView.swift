@@ -14,14 +14,16 @@ struct CourseStudentView: View {
     
     var body: some View {
         List(selection: $selections) {
-            ForEach(self.students, id: \.userid) { (student: Student) in
+            ForEach(students, id: \.id) { (item: Student) in
                 HStack(spacing: 16) {
-                    Text(student.name)
+                    Text(item.name)
                         .font(.headline)
-                    Text(student.iClass)
+                        .frame(width: 80)
+                    Text(item.classOf)
                         .font(.subheadline)
                     Spacer()
-                    Text(student.status ?? "")
+                    Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
+                        .foregroundColor(.blue)
                 }
                 .padding()
             }
@@ -31,22 +33,26 @@ struct CourseStudentView: View {
         .navigationBarTitle(Text("学生名单"))
         .navigationBarItems(trailing: EditButton())
     }
+}
+
+extension CourseStudentView {
+        init() {
+            self.init(students: studentsDemo)
+        }
     
     private func onMove(source: IndexSet, destination: Int) {
-        self.students.move(fromOffsets: source, toOffset: destination)
+        students.move(fromOffsets: source, toOffset: destination)
     }
     
     private func onDelete(offsets: IndexSet) {
         if let first = offsets.first {
-            self.students.remove(at: first)
+            students.remove(at: first)
         }
     }
-    
 }
 
-//struct StudentsManagementView_Previews: PreviewProvider {
-//    //    @State var students = studentsDemo
-//    static var previews: some View {
-//        CourseStudentView(students: studentsDemo)
-//    }
-//}
+struct StudentsManagementView_Previews: PreviewProvider {
+    static var previews: some View {
+        CourseStudentView()
+    }
+}
