@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CourseStudentView: View {
+//    @ObservedObject var viewModel: TeacherCourseViewModel
     @State var students: Array<Student>
     @State private var selections = Set<Student>()
     
@@ -19,8 +20,12 @@ struct CourseStudentView: View {
                     Text(item.name)
                         .font(.headline)
                         .frame(width: 80)
-                    Text(item.classOf)
-                        .font(.subheadline)
+                    VStack(alignment:.leading, spacing: 8) {
+                        Text(item.classOf)
+                            .font(.caption)
+                        Text(item.mac)
+                            .font(.caption)
+                    }
                     Spacer()
                     Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
                         .foregroundColor(.blue)
@@ -36,9 +41,9 @@ struct CourseStudentView: View {
 }
 
 extension CourseStudentView {
-        init() {
-            self.init(students: studentsDemo)
-        }
+    private func onAdd(_ student: Student) {
+        students.append(student)
+    }
     
     private func onMove(source: IndexSet, destination: Int) {
         students.move(fromOffsets: source, toOffset: destination)
@@ -53,6 +58,6 @@ extension CourseStudentView {
 
 struct StudentsManagementView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseStudentView()
+        CourseStudentView(students: studentsDemo)
     }
 }

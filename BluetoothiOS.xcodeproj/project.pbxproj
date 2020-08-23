@@ -106,6 +106,7 @@
 		AFA013C424F0E6D900DE1708 /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */,
 				AFA013C624F0E79700DE1708 /* CourseModel.swift */,
 				AFA013C224F0C64000DE1708 /* CourseViewModel.swift */,
 				AF7848C1243C37ED0009964E /* CourseView.swift */,
@@ -120,7 +121,6 @@
 				AF24B88D24A826130065A628 /* StudentModel.swift */,
 				AFA013C824F11D5C00DE1708 /* StudentViewModel.swift */,
 				AF24B88F24A83F790065A628 /* StudentView.swift */,
-				AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */,
 			);
 			path = CourseDetail;
 			sourceTree = "<group>";

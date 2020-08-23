@@ -1,17 +1,31 @@
+////
+////  ViewModel.swift
+////  BluetoothiOS
+////
+////  Created by LiaoGuoYin on 2020/8/22.
+////  Copyright © 2020 LiaoGuoYin. All rights reserved.
+////
 //
-//  ViewModel.swift
-//  BluetoothiOS
+//import Foundation
 //
-//  Created by LiaoGuoYin on 2020/8/22.
-//  Copyright © 2020 LiaoGuoYin. All rights reserved.
+//class CourseStudentViewModel: ObservableObject {
+//    @Published var studentList: Array<Student>
 //
-
-import Foundation
-
-class CourseStudentViewModel: ObservableObject {
-    @Published var students: Array<Student>
-    
-    init(students: Array<Student>) {
-        self.students = students
-    }
-}
+//    init(studentList: Array<Student>) {
+//        self.studentList = studentList
+//    }
+//
+//    //    MARK: - Intents
+//    func add(_ student: Student) {
+//        studentList.append(student)
+//    }
+//    
+//    func delete(_ studentIndex: Int) {
+//        studentList.remove(at: studentIndex)
+//    }
+//
+//    func move(from source: IndexSet, to destination: Int) {
+//        studentList.move(fromOffsets: source, toOffset: destination)
+//    }
+//
+//}

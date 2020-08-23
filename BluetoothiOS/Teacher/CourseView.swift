@@ -16,8 +16,10 @@ struct TeacherCourseView: View {
         NavigationView {
             List {
                 Section(header: Text("课程列表")) {
-                    ForEach(viewModel.courseList, id: \.id) { item in
-                        NavigationLink(destination: CourseStudentView(students: item.students)) {
+                    ForEach(self.viewModel.courseList, id: \.id) { item in
+                        NavigationLink(destination:
+                                        CourseStudentView(students: item.students)
+                        ) {
                             TeacherCourseRowView(course: item)
                         }
                     }
@@ -29,8 +31,8 @@ struct TeacherCourseView: View {
             .navigationBarTitle(Text("考勤管理"))
             .navigationBarItems(leading: EditButton(),trailing: addButton)
         }
-        .sheet(isPresented: self.$isShowClassListAddSheet) {
-            //            CourseFormView(viewModel: self.viewModel, form: Course(name: "", classes: ""))
+        .sheet(isPresented: $isShowClassListAddSheet) {
+            NewCourseFormView(viewModel: self.viewModel, form: Course())
         }
     }
 }
@@ -38,8 +40,8 @@ struct TeacherCourseView: View {
 extension TeacherCourseView {
     init() {
         self.init(viewModel: TeacherCourseViewModel())
-        for _ in 1...8 {
-            self.viewModel.add(Course(students: studentsDemo))
+        for _ in 1..<2 {
+            viewModel.addCourse(Course(students: studentsDemo))
         }
     }
     
@@ -48,12 +50,12 @@ extension TeacherCourseView {
     }
     
     func onMove(source: IndexSet, destination: Int) {
-        self.viewModel.move(from: source, to: destination)
+        viewModel.moveCourse(from: source, to: destination)
     }
     
     func onDelete(offsets: IndexSet) {
         if let first = offsets.first {
-            self.viewModel.delete(first)
+            viewModel.deleteCourse(first)
         }
     }
     

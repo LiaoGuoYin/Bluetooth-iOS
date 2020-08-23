@@ -41,4 +41,11 @@ extension Course: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    mutating func clear() {
+        self.name = ""
+        self.classOf = ""
+        self.students = []
+        self.historyRecords = nil
+    }
 }

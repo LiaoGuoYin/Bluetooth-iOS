@@ -17,17 +17,30 @@ class TeacherCourseViewModel: ObservableObject {
     
     //    MARK: - Access to the model
     
-    //    MARK: - Intents
-    func add(_ course: Course) {
+    //    MARK: - Course Intents
+    func addCourse(_ course: Course) {
         courseList.append(course)
     }
     
-    func delete(_ courseIndex: Int) {
+    func deleteCourse(_ courseIndex: Int) {
         courseList.remove(at: courseIndex)
     }
     
-    func move(from source: IndexSet, to destination: Int) {
+    func moveCourse(from source: IndexSet, to destination: Int) {
         courseList.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    //    MARK: - Students Intents
+    func addStudent(_ courseIndex: Int, _ student: Student) {
+        courseList[courseIndex].students.append(student)
+    }
+    
+    func deleteStudent(_ courseIndex: Int, studentIndex: Int) {
+        courseList[courseIndex].students.remove(at: studentIndex)
+    }
+    
+    func moveStudent(_ courseIndex: Int,from source: IndexSet, to destination: Int) {
+        courseList[courseIndex].students.move(fromOffsets: source, toOffset: destination)
     }
 }
 
