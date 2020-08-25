@@ -106,11 +106,11 @@
 		AFA013C424F0E6D900DE1708 /* Course */ = {
 			isa = PBXGroup;
 			children = (
-				AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */,
 				AFA013C624F0E79700DE1708 /* CourseModel.swift */,
 				AFA013C224F0C64000DE1708 /* CourseViewModel.swift */,
 				AF7848C1243C37ED0009964E /* CourseView.swift */,
 				AF7848C5243C5A480009964E /* CourseRowView.swift */,
+				AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */,
 			);
 			name = Course;
 			sourceTree = "<group>";

@@ -26,7 +26,7 @@ struct Course {
 
 extension Course: Hashable {
     init() {
-        self.init(name: "测试课程", classOf: "测试班级", students: Array<Student>())
+        self.init(name: "Swift 程序设计", classOf: "测试班级", students: Array<Student>())
     }
     
     init(students: Array<Student>) {

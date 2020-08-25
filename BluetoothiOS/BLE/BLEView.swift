@@ -33,7 +33,7 @@ struct BLEView: View {
                         .foregroundColor(Color.gray)) {
                 List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
                     HStack {
-                        Image(systemName: "wave.3.right")
+                        Image(systemName: "wave.3.forward")
                         Text(device.name ?? "UNKNOWN")
                     }
                     .padding()

@@ -16,14 +16,21 @@ class TeacherCourseViewModel: ObservableObject {
     }
     
     //    MARK: - Access to the model
+    func sendStudentStringToBLE(of studentString: String) {
+        if let connectedCharacteristic = BLEManager.shared.connectedWriteCharacteristic {
+            BLEManager.shared.sendDataToDevice(sendString: studentString, connectedCharacteristic)
+        } else {
+            print("没有连接到蓝牙 Write Characteristic，发送数据失败")
+        }
+    }
     
     //    MARK: - Course Intents
     func addCourse(_ course: Course) {
         courseList.append(course)
     }
     
-    func deleteCourse(_ courseIndex: Int) {
-        courseList.remove(at: courseIndex)
+    func deleteCourse(_ courseIndexSet: IndexSet) {
+        courseList.remove(atOffsets: courseIndexSet)
     }
     
     func moveCourse(from source: IndexSet, to destination: Int) {
@@ -43,4 +50,3 @@ class TeacherCourseViewModel: ObservableObject {
         courseList[courseIndex].students.move(fromOffsets: source, toOffset: destination)
     }
 }
-

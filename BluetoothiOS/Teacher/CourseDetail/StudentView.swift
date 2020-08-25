@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CourseStudentView: View {
-//    @ObservedObject var viewModel: TeacherCourseViewModel
+    @ObservedObject var viewModel: TeacherCourseViewModel
     @State var students: Array<Student>
     @State private var selections = Set<Student>()
     
@@ -32,8 +32,11 @@ struct CourseStudentView: View {
                 }
                 .padding()
             }
-            .onMove(perform: onMove)
-            .onDelete(perform: onDelete)
+            .onMove(perform: onMoveStudent)
+            .onDelete(perform: onDeleteStudent)
+            .onDisappear(perform: {
+//                self.viewModel.courseList[curentCourseIndex].students = students
+            })
         }
         .navigationBarTitle(Text("学生名单"))
         .navigationBarItems(trailing: EditButton())
@@ -45,19 +48,17 @@ extension CourseStudentView {
         students.append(student)
     }
     
-    private func onMove(source: IndexSet, destination: Int) {
+    private func onMoveStudent(source: IndexSet, destination: Int) {
         students.move(fromOffsets: source, toOffset: destination)
     }
     
-    private func onDelete(offsets: IndexSet) {
-        if let first = offsets.first {
-            students.remove(at: first)
-        }
+    private func onDeleteStudent(at indexSet: IndexSet) {
+        students.remove(atOffsets: indexSet)
     }
 }
 
 struct StudentsManagementView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseStudentView(students: studentsDemo)
+        CourseStudentView(viewModel: TeacherCourseViewModel(), students: studentsDemo)
     }
 }

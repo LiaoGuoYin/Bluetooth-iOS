@@ -11,28 +11,36 @@ import SwiftUI
 struct TeacherCourseView: View {
     @ObservedObject var viewModel: TeacherCourseViewModel
     @State private var isShowClassListAddSheet: Bool = false
+    @State var selectedCourse = Set<Course>()
     
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("课程列表")) {
-                    ForEach(self.viewModel.courseList, id: \.id) { item in
+            List(selection: self.$selectedCourse) {
+                Section(
+                    header: HStack {
+                        Text("课程列表")
+                        Spacer()
+                        addButton
+                            .foregroundColor(.blue)
+                    }
+                ) {
+                    ForEach(viewModel.courseList, id:\.id) { item in
                         NavigationLink(destination:
-                                        CourseStudentView(students: item.students)
+                                        CourseStudentView(viewModel: self.viewModel, students: item.students)
                         ) {
                             TeacherCourseRowView(course: item)
                         }
                     }
-                    .onMove(perform: onMove)
-                    .onDelete(perform: onDelete)
+                    .onMove(perform: onMoveCourse)
+                    .onDelete(perform: onDeleteCourse)
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("考勤管理"))
-            .navigationBarItems(leading: EditButton(),trailing: addButton)
+            .navigationBarItems(leading: EditButton(),trailing: sendSheetToBLEButton)
         }
         .sheet(isPresented: $isShowClassListAddSheet) {
-            NewCourseFormView(viewModel: self.viewModel, form: Course())
+            NewCourseFormView(viewModel: self.viewModel, form: Course(students: studentsDemo), studentList: studentsDemo)
         }
     }
 }
@@ -49,22 +57,32 @@ extension TeacherCourseView {
         
     }
     
-    func onMove(source: IndexSet, destination: Int) {
+    func onMoveCourse(source: IndexSet, destination: Int) {
         viewModel.moveCourse(from: source, to: destination)
     }
     
-    func onDelete(offsets: IndexSet) {
-        if let first = offsets.first {
-            viewModel.deleteCourse(first)
-        }
+    func onDeleteCourse(at indexSet: IndexSet) {
+        viewModel.deleteCourse(indexSet)
     }
     
     var addButton: some View {
         Button(action: { self.isShowClassListAddSheet.toggle() }) {
-            Image(systemName: "plus.square.fill")
+            Image(systemName: "plus")
                 .font(.headline)
-                .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
+//            TODO for expand the button's tap area
+//                .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
         }
+    }
+    
+    var sendSheetToBLEButton: some View {
+        Button(action: {
+            selectedCourse.insert(Course(students: studentsDemo))
+            print(selectedCourse)
+            let selectedCourseString = serializeStudentsToStringForSending(selection: selectedCourse)
+            self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
+        }, label: {
+            Image(systemName: "staroflife")
+        })
     }
 }
 

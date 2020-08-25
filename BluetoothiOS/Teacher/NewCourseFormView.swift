@@ -11,7 +11,8 @@ import SwiftUI
 struct NewCourseFormView: View {
     @ObservedObject var viewModel: TeacherCourseViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State var form: Course = courseDemo
+    @State var form: Course
+    @State var studentList: Array<Student>
     
     var body: some View {
         NavigationView {
@@ -20,7 +21,7 @@ struct NewCourseFormView: View {
                     HStack {
                         Text("课程名：")
                             .foregroundColor(.gray)
-                        TextField("测试课程", text: $form.name)
+                        TextField("Python 程序设计", text: $form.name)
                             .font(.body)
                     }
                     HStack {
@@ -31,22 +32,20 @@ struct NewCourseFormView: View {
                     }
                 }
                 
-                Section(header:HStack {
-                            Text("学生列表")
-                            Spacer()
-                            EditButton().foregroundColor(.blue)},
-                        footer:
-                            Text("Add TODO")) {
+                Section(header: Text("学生列表")) {
                     List {
-                        ForEach(form.students, id: \.id) { (item: Student) in
+                        ForEach(studentList, id: \.self) { (item: Student) in
                             HStack {
                                 Text(item.name)
+                                    .frame(width: 80)
+                                Spacer()
+                                Text(item.classOf)
                                 Spacer()
                                 Text(item.mac)
                             }
                         }
-                        //.onMove(perform: onMoveStudent)
-                        //.onDelete(perform: onDeleteStudent)
+                        .onMove(perform: onMoveStudent)
+                        .onDelete(perform: onDeleteStudent)
                     }
                 }
                 
@@ -70,7 +69,9 @@ struct NewCourseFormView: View {
             .disableAutocorrection(true)
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("新增课程"), displayMode: .inline)
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing: Button(action: {
                 self.submitForm()
             }) { Text("Done")})
         }
@@ -78,28 +79,32 @@ struct NewCourseFormView: View {
 }
 
 extension NewCourseFormView {
-    //        func onMoveStudent(source: IndexSet, destination: Int) {
-    //            self.viewModel.moveStudent(from: source, to: destination)
-    //        }
-    //
-    //        func onDeleteStudent(offsets: IndexSet) {
-    //            if let first = offsets.first {
-    //                self.viewModel.deleteStudent(first)
-    //            }
-    //        }
+    init(viewModel: TeacherCourseViewModel) {
+        self.init(viewModel: viewModel, form: Course(), studentList: studentsDemo)
+    }
+    
+    func onMoveStudent(source: IndexSet, destination: Int) {
+        studentList.move(fromOffsets: source, toOffset: destination)
+    }
+    
+    func onDeleteStudent(at indexSet: IndexSet) {
+        studentList.remove(atOffsets: indexSet)
+    }
     
     func clearForm() {
+        studentList = []
         form.clear()
     }
     
     func submitForm() {
-        self.viewModel.addCourse(self.form)
+        self.form.students = studentList
+        self.viewModel.courseList.append(self.form)
         self.presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct NewCourseFormView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCourseFormView(viewModel: TeacherCourseViewModel(), form: Course())
+        NewCourseFormView(viewModel: TeacherCourseViewModel())
     }
 }

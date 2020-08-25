@@ -12,6 +12,10 @@ let MAIN_SERVICEUUID = CBUUID(string: "0xFFE1") // Main service
 let NOTIFY_CBUUID = CBUUID(string: "0xFFE2") // Notify characteristic
 let WRITE_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
 
+let GBK_ENC_RAWVALUE = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+let UTF8_ENC_RAWVALUE = String.Encoding.utf8.rawValue
+let USING_ENC = UTF8_ENC_RAWVALUE
+
 class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
     @Published var message: String = "初始化成功，可以开始扫描。\n"
     @Published var scannedBLEDevices: [CBPeripheral] = []
@@ -28,6 +32,10 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     private var dataToSend = Data()
     private var receiveData = Data()
     var sendDataIndex: Int = 0
+    
+    var connectedWriteCharacteristic: CBCharacteristic?
+    
+    var connectedNotifyCharacteristic: CBCharacteristic?
     
     
     // 自动连接的蓝牙前缀
@@ -127,9 +135,11 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             for characteristic in characteristics {
                 if characteristic.uuid == NOTIFY_CBUUID {
                     self.peripheralManager.setNotifyValue(true, for: characteristic)
+                    self.connectedNotifyCharacteristic = characteristic
                 } else if characteristic.uuid == WRITE_CBUUID {
-                    sendDataToDevice(sendString: sendStringDemo, characteristic)
-                    message.addString("写特征找到，发送成功")
+                    self.connectedWriteCharacteristic = characteristic
+                    message.addString("写特征找到，可以开始发送数据")
+                    //                    sendDataToDevice(sendString: testRecivedStudents, characteristic)
                 }
             }
         }
@@ -143,20 +153,19 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         message.addString("通知特征找到，订阅成功")
     }
     
-    /// 读/写外设数据
+    /// 读外设数据
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == NOTIFY_CBUUID {
             if let actualData = characteristic.value {
                 receiveData.append(actualData)
-                //                NSLog(actualData as NSData)
-                let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
-                if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: enc)) {
+                if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: USING_ENC)) {
                     if (tmpString.contains("end")) {
                         // 收到表尾：end
-                        if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: enc)) {
-                            message.addString("收到数据2：\(outputString)")
+                        if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: USING_ENC)) {
+                            message.addString("收到数据：\(outputString)")
                             print("*****************")
                             print(outputString)
+                            studentsDemo = deSerializingReceivedStudentsStringToArray(receivedString: outputString)
                             receiveData = Data()
                         }
                     }
@@ -226,12 +235,10 @@ extension BLEManager {
     
     /// 将待发送数据分包，并发送分包后的数据
     func sendDataToDevice(sendString: String, _ characteristic: CBCharacteristic) {
-        let enc = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
-        guard (peripheralManager != nil) else { return }
-        
-        print( peripheralManager.maximumWriteValueLength(for: .withResponse))
-        print( peripheralManager.maximumWriteValueLength(for: .withoutResponse))
         var sendCount = 0
+        
+        //      检查是否持有蓝牙连接
+        guard (peripheralManager != nil) else { return }
         
         while ((1) != 0) {
             if sendDataIndex >= sendString.count {
@@ -243,7 +250,7 @@ extension BLEManager {
             amountToSend = min(130, amountToSend)
             let subSendString = sendString[sendDataIndex..<(sendDataIndex + amountToSend)]
             
-            let chunk = subSendString.data(using: String.Encoding(rawValue: enc))
+            let chunk = subSendString.data(using: String.Encoding(rawValue: USING_ENC))
             guard (chunk != nil) else { return }
             print("Sent \(chunk!.count) String: \(String(subSendString))")
             sendCount = sendCount + 1
@@ -284,50 +291,3 @@ extension String {
         return String(self[start...])
     }
 }
-
-var sendStringDemo: String = """
-姓名,班级,学号,MAC,\r
-丁一,111,1,BCE143B46210,√\r
-吴一帆,183,2,7836CC44578C,\r
-杨清雷,183,3,3CA581792440,\r
-张世晔,183,4,D461DA37FC98,\r
-霍泽生,183,5,A4504689B81F,\r
-吕英鑫,183,6,9487E09F9B02,\r
-初殿宇,183,7,A4933F817F83,\r
-方彦瑾,183,8,9CE82B8128AC,\r
-铁牛,181,9,4404446AA450,√\r
-袁超,183,10,482CA03CDEB7,\r
-唐玉莲,183,11,F4BF8008D846,\r
-周雪,183,12,047970E090B6,\r
-潘佳欣,183,13,A4933F818390,\r
-尹亭月,183,14,2CA9F00BE204,\r
-扈健民,183,15,9CE82B98AB50,\r
-黄小龙,183,16,B894363C32D0,\r
-郭勇,183,17,0479709D53C0,\r
-冯凯浩,183,18,4CD1A1DA0104,\r
-饶明钊,183,19,9487E0B6498A,\r
-由广昊,183,134,af2536cdbbe66,\r
-陈鑫,183,135,af2536cdbbe67,\r
-王伟,183,136,af2536cdbbe68,\r
-由广昊,183,137,af2536cdbbe69,\r
-陈鑫,183,138,af2536cdbbe70,\r
-王伟,183,139,af2536cdbbe71,\r
-王伟,183,140,af2536cdbbe72,\r
-由广昊,183,141,af2536cdbbe73,\r
-陈鑫,183,142,af2536cdbbe74,\r
-王伟,183,143,af2536cdbbe75,\r
-由广昊,183,144,af2536cdbbe76,\r
-陈鑫,183,145,af2536cdbbe77,\r
-王伟,183,146,af2536cdbbe78,\r
-王伟,183,147,af2536cdbbe79,\r
-由广昊,183,148,af2536cdbbe80,\r
-陈鑫,183,149,af2536cdbbe81,\r
-王伟,183,150,af2536cdbbe82,\r
-由广昊,183,151,af2536cdbbe83,\r
-陈鑫,183,152,af2536cdbbe84,\r
-王伟,183,153,af2536cdbbe85,\r
-王伟,183,154,af2536cdbbe86,\r
-由广昊,183,155,af2536cdbbe87,\r
-陈鑫,183,156,af2536cdbbe88,\r
-end\r
-"""
