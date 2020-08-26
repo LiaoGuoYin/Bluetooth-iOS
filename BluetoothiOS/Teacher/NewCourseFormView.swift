@@ -11,8 +11,7 @@ import SwiftUI
 struct NewCourseFormView: View {
     @ObservedObject var viewModel: TeacherCourseViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State var form: Course
-    @State var studentList: Array<Student>
+    @State var form: Course = Course(students: studentsDemo)
     
     var body: some View {
         NavigationView {
@@ -34,7 +33,7 @@ struct NewCourseFormView: View {
                 
                 Section(header: Text("学生列表")) {
                     List {
-                        ForEach(studentList, id: \.self) { (item: Student) in
+                        ForEach(form.students, id: \.self) { (item: Student) in
                             HStack {
                                 Text(item.name)
                                     .frame(width: 80)
@@ -44,8 +43,6 @@ struct NewCourseFormView: View {
                                 Text(item.mac)
                             }
                         }
-                        .onMove(perform: onMoveStudent)
-                        .onDelete(perform: onDeleteStudent)
                     }
                 }
                 
@@ -70,35 +67,23 @@ struct NewCourseFormView: View {
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("新增课程"), displayMode: .inline)
             .navigationBarItems(
-                leading: EditButton(),
-                trailing: Button(action: {
-                self.submitForm()
-            }) { Text("Done")})
+                leading: Button(action: { self.dismissForm() }) {Text("Cancel").foregroundColor(.red)},
+                trailing: Button(action: { self.submitForm() }) { Text("Done")})
         }
     }
 }
 
 extension NewCourseFormView {
-    init(viewModel: TeacherCourseViewModel) {
-        self.init(viewModel: viewModel, form: Course(), studentList: studentsDemo)
-    }
-    
-    func onMoveStudent(source: IndexSet, destination: Int) {
-        studentList.move(fromOffsets: source, toOffset: destination)
-    }
-    
-    func onDeleteStudent(at indexSet: IndexSet) {
-        studentList.remove(atOffsets: indexSet)
-    }
-    
     func clearForm() {
-        studentList = []
         form.clear()
     }
     
+    func dismissForm() {
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     func submitForm() {
-        self.form.students = studentList
-        self.viewModel.courseList.append(self.form)
+        self.viewModel.courseList.append(form)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

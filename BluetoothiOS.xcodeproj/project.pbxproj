@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AF24B88E24A826130065A628 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88D24A826130065A628 /* StudentModel.swift */; };
 		AF24B89024A83F790065A628 /* StudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88F24A83F790065A628 /* StudentView.swift */; };
-		AF38BC5624E2656E005A7949 /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38BC5524E2656E005A7949 /* BLE.swift */; };
 		AF4E12A1246422A90004F833 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E12A0246422A90004F833 /* LoginView.swift */; };
 		AF6C26442448748E006C7568 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C26432448748E006C7568 /* BLEManager.swift */; };
 		AF6C2646244876DD006C7568 /* BLEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C2645244876DD006C7568 /* BLEView.swift */; };
@@ -34,7 +33,6 @@
 /* Begin PBXFileReference section */
 		AF24B88D24A826130065A628 /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		AF24B88F24A83F790065A628 /* StudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentView.swift; sourceTree = "<group>"; };
-		AF38BC5524E2656E005A7949 /* BLE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 		AF4E12A0246422A90004F833 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AF6C26432448748E006C7568 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		AF6C2645244876DD006C7568 /* BLEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEView.swift; sourceTree = "<group>"; };
@@ -69,7 +67,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AF21D76B24DAF31A001A7F81 /* Preview Content */ = {
+		AF0A487624F6AD9400ACAF4D /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -81,7 +79,6 @@
 			children = (
 				AF6C2645244876DD006C7568 /* BLEView.swift */,
 				AF6C26432448748E006C7568 /* BLEManager.swift */,
-				AF38BC5524E2656E005A7949 /* BLE.swift */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -144,7 +141,7 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothiOS */ = {
 			isa = PBXGroup;
 			children = (
-				AF21D76B24DAF31A001A7F81 /* Preview Content */,
+				AF0A487624F6AD9400ACAF4D /* Preview Content */,
 				AF8AA90E2464545800013BA2 /* Common */,
 				AF6C264224487466006C7568 /* BLE */,
 				AFBB5139243A1FA200D38E6E /* StudentRecord */,
@@ -269,7 +266,6 @@
 				AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */,
 				AF7848C4243C399D0009964E /* StudentFormView.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
-				AF38BC5624E2656E005A7949 /* BLE.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,
 				AFA013C724F0E79700DE1708 /* CourseModel.swift in Sources */,

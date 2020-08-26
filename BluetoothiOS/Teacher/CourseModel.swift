@@ -14,7 +14,9 @@ struct Course {
     var classOf: String
     var students: Array<Student>
     var capacity: Int {
-        students.count
+        get {
+            students.count
+        }
     }
     var historyRecords: Array<Course.HistoryRecord>?
     struct HistoryRecord {

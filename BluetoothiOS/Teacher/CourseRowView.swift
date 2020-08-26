@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TeacherCourseRowView: View {
-    @State var course: Course
+    @Binding var course: Course
     
     var body: some View {
         VStack(alignment:.leading,spacing: 16) {
@@ -29,16 +29,4 @@ struct TeacherCourseRowView: View {
         .cornerRadius(8)
     }
     
-}
-
-extension TeacherCourseRowView {
-    init() {
-        self.init(course: Course())
-    }
-}
-
-struct CourseRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        TeacherCourseRowView()
-    }
 }

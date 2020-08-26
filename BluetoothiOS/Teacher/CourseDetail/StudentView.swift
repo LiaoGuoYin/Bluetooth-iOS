@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct CourseStudentView: View {
-    @ObservedObject var viewModel: TeacherCourseViewModel
-    @State var students: Array<Student>
-    @State private var selections = Set<Student>()
+    @Binding var students: Array<Student>
     
     var body: some View {
-        List(selection: $selections) {
-            ForEach(students, id: \.id) { (item: Student) in
+        List {
+            ForEach(students, id: \.self) { (item: Student) in
                 HStack(spacing: 16) {
                     Text(item.name)
                         .font(.headline)
@@ -34,9 +32,6 @@ struct CourseStudentView: View {
             }
             .onMove(perform: onMoveStudent)
             .onDelete(perform: onDeleteStudent)
-            .onDisappear(perform: {
-//                self.viewModel.courseList[curentCourseIndex].students = students
-            })
         }
         .navigationBarTitle(Text("学生名单"))
         .navigationBarItems(trailing: EditButton())
@@ -54,11 +49,5 @@ extension CourseStudentView {
     
     private func onDeleteStudent(at indexSet: IndexSet) {
         students.remove(atOffsets: indexSet)
-    }
-}
-
-struct StudentsManagementView_Previews: PreviewProvider {
-    static var previews: some View {
-        CourseStudentView(viewModel: TeacherCourseViewModel(), students: studentsDemo)
     }
 }

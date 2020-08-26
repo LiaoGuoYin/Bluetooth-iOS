@@ -24,11 +24,11 @@ struct TeacherCourseView: View {
                             .foregroundColor(.blue)
                     }
                 ) {
-                    ForEach(viewModel.courseList, id:\.id) { item in
+                    ForEach(viewModel.courseList.indices, id:\.self) { index in
                         NavigationLink(destination:
-                                        CourseStudentView(viewModel: self.viewModel, students: item.students)
+                                        CourseStudentView(students: self.$viewModel.courseList[index].students)
                         ) {
-                            TeacherCourseRowView(course: item)
+                            TeacherCourseRowView(course: $viewModel.courseList[index])
                         }
                     }
                     .onMove(perform: onMoveCourse)
@@ -40,7 +40,7 @@ struct TeacherCourseView: View {
             .navigationBarItems(leading: EditButton(),trailing: sendSheetToBLEButton)
         }
         .sheet(isPresented: $isShowClassListAddSheet) {
-            NewCourseFormView(viewModel: self.viewModel, form: Course(students: studentsDemo), studentList: studentsDemo)
+            NewCourseFormView(viewModel: self.viewModel, form: Course(students: studentsDemo))
         }
     }
 }
@@ -69,8 +69,8 @@ extension TeacherCourseView {
         Button(action: { self.isShowClassListAddSheet.toggle() }) {
             Image(systemName: "plus")
                 .font(.headline)
-//            TODO for expand the button's tap area
-//                .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
+            //            TODO for expanding the area of tapped button
+            //                .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
         }
     }
     

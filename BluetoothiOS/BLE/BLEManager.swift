@@ -14,7 +14,7 @@ let WRITE_CBUUID = CBUUID(string: "0xFFE3") // Write characteristic
 
 let GBK_ENC_RAWVALUE = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
 let UTF8_ENC_RAWVALUE = String.Encoding.utf8.rawValue
-let USING_ENC = UTF8_ENC_RAWVALUE
+let USING_ENC = GBK_ENC_RAWVALUE
 
 class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
     @Published var message: String = "初始化成功，可以开始扫描。\n"
@@ -36,7 +36,6 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     var connectedWriteCharacteristic: CBCharacteristic?
     
     var connectedNotifyCharacteristic: CBCharacteristic?
-    
     
     // 自动连接的蓝牙前缀
     var names = ["NBee_BLE1E1802", "LGY"]
@@ -159,7 +158,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             if let actualData = characteristic.value {
                 receiveData.append(actualData)
                 if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: USING_ENC)) {
-                    if (tmpString.contains("end")) {
+                    if (tmpString.contains("end\r\n")) {
                         // 收到表尾：end
                         if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: USING_ENC)) {
                             message.addString("收到数据：\(outputString)")
@@ -247,7 +246,7 @@ extension BLEManager {
             }
             
             var amountToSend = sendString.count - sendDataIndex
-            amountToSend = min(130, amountToSend)
+            amountToSend = min(110, amountToSend)
             let subSendString = sendString[sendDataIndex..<(sendDataIndex + amountToSend)]
             
             let chunk = subSendString.data(using: String.Encoding(rawValue: USING_ENC))
