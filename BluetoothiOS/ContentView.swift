@@ -15,22 +15,29 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "dot.radiowaves.left.and.right")
                     Text("PuncCard")
-            }
-            .tag(1)
+                }
+                .tag(1)
             
             TeacherCourseView()
                 .tabItem {
                     Image(systemName: "tag.fill")
                     Text("Record")
-            }
-            .tag(2)
+                }
+                .tag(2)
             
             AccountView()
                 .tabItem {
                     Image(systemName: "rectangle.stack.person.crop.fill")
                     Text("Account")
-            }
-            .tag(3)
+                }
+                .tag(3)
+            
+            LoginView()
+                .tabItem {
+                    Image(systemName: "rectangle.stack.person.crop.fill")
+                    Text("Account")
+                }
+                .tag(4)
         }
     }
 }

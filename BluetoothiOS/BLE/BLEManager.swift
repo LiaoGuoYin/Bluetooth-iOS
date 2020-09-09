@@ -38,7 +38,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     var connectedNotifyCharacteristic: CBCharacteristic?
     
     // 自动连接的蓝牙前缀
-    var names = ["NBee_BLE1E1802", "LGY"]
+    var names = ["NBee_BLEF22A7C", "LGY"]
     
     override init() {
         super.init()
@@ -158,7 +158,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             if let actualData = characteristic.value {
                 receiveData.append(actualData)
                 if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: USING_ENC)) {
-                    if (tmpString.contains("end\r\n")) {
+                    if (tmpString.contains("end")) {
                         // 收到表尾：end
                         if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: USING_ENC)) {
                             message.addString("收到数据：\(outputString)")

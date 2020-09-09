@@ -83,12 +83,10 @@ func deSerializingReceivedStudentsStringToArray(receivedString: String) -> [Stud
 /// 序列化学生指定课程的学生列表，准备发送给蓝牙，打卡名单
 /// - Parameter selection: 打卡班级
 /// - Returns: 学生名单
-func serializeStudentsToStringForSending(selection: Set<Course>) -> String {
+func serializeStudentsToStringForSending(students: Array<Student>) -> String {
     var resultString: String = "姓名,班级,学号,MAC,\r\n"
-    for course in selection {
-        for student in course.students {
-            resultString.addString(student.description)
-        }
+    for student in students {
+        resultString.addString(student.description)
     }
     resultString.addString("end\r\n")
     return resultString

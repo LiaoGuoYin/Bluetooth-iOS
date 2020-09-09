@@ -1,5 +1,5 @@
 //
-//  RecordView.swift
+//  StudentRecordView.swift
 //  BluetoothPunchCard
 //
 //  Created by LiaoGuoYin on 2020/4/5.
@@ -8,10 +8,9 @@
 
 import SwiftUI
 
-struct RecordView: View {
+struct StudentRecordView: View {
     var body: some View {
         NavigationView {
-            
             VStack {
                 Picker(selection: .constant(1), label: Text("Picker")) {
                     Text("成功记录").tag(1)
@@ -19,7 +18,6 @@ struct RecordView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal)
-                
                 List {
                     Text("0")
                     Text("1")
@@ -27,13 +25,12 @@ struct RecordView: View {
                 }
             }
             .navigationBarTitle("Record")
-            
         }
     }
 }
 
-struct RecordView_Previews: PreviewProvider {
+struct StudentRecordView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordView()
+        StudentRecordView()
     }
 }

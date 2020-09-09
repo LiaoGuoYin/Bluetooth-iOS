@@ -70,15 +70,13 @@ extension TeacherCourseView {
             Image(systemName: "plus")
                 .font(.headline)
             //            TODO for expanding the area of tapped button
-            //                .padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
+            //.padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
         }
     }
     
     var sendSheetToBLEButton: some View {
         Button(action: {
-            selectedCourse.insert(Course(students: studentsDemo))
-            print(selectedCourse)
-            let selectedCourseString = serializeStudentsToStringForSending(selection: selectedCourse)
+            let selectedCourseString = serializeStudentsToStringForSending(students: self.viewModel.courseList[0].students)
             self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
         }, label: {
             Image(systemName: "staroflife")
