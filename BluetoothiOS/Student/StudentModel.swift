@@ -13,13 +13,14 @@ struct StudentForm {
     var name: String
     var mac: String
     var college: College
+    var iClass: String
     var password: String
     var rePassword: String
 }
 
 extension StudentForm {
     init() {
-        self.init(id: "1710030215", name: "廖国胤", mac: "AS93:C29A", college: .telecommunication, password: "demo", rePassword: "demo")
+        self.init(id: "", name: "", mac: "", college: .telecommunication, iClass: "", password: "demo", rePassword: "demo")
     }
 }
 
@@ -31,3 +32,4 @@ enum College: String, Identifiable, CaseIterable {
     
     var id: String {self.rawValue}
 }
+

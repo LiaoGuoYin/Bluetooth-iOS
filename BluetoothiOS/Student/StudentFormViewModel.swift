@@ -14,4 +14,8 @@ class StudentFormViewModel: ObservableObject {
     init(studentForm: StudentForm) {
         self.form = studentForm
     }
+    
+    func clear() {
+        self.form = StudentForm()
+    }
 }

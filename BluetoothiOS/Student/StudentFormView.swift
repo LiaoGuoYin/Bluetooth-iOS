@@ -32,6 +32,10 @@ struct StudentFormView: View {
                             }
                         }
                     }
+                    HStack {
+                        Text("班级：")
+                        TextField("电信研183", text: self.$viewModel.form.iClass)
+                    }
                 }
                 
                 Section(header: Text("其他信息")) {
@@ -49,8 +53,17 @@ struct StudentFormView: View {
                     }
                 }
                 
+                Button(action: { self.clearForm() }) {
+                    HStack {
+                        Spacer()
+                        Text("重置")
+                            .foregroundColor(Color(.systemRed))
+                        Spacer()
+                    }
+                }
+                
                 Button(action: {
-                    print(self.viewModel.form)
+                    print(self.viewModel.form) // TODO
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack {
@@ -75,6 +88,12 @@ struct StudentFormView: View {
                     .opacity(self.presentationMode.wrappedValue.isPresented ? 1 : 0)
             }
         })
+    }
+}
+
+extension StudentFormView {
+    func clearForm() {
+        self.viewModel.clear()
     }
 }
 

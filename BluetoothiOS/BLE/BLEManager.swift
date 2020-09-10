@@ -212,6 +212,9 @@ extension BLEManager {
     
     /// 断开连接
     func disConnect() {
+        if self.peripheralManager == nil {
+            return
+        }
         if self.peripheralManager.state.rawValue == 0 {
             return
         }
