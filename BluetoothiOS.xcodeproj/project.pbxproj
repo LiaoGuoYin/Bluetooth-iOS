@@ -72,6 +72,7 @@
 		AF0A487624F6AD9400ACAF4D /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -160,7 +161,6 @@
 		AFBB5135243A1B9200D38E6E /* Supportings */ = {
 			isa = PBXGroup;
 			children = (
-				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
 				AFBB511F243A1A9700D38E6E /* AppDelegate.swift */,
 				AFBB5121243A1A9700D38E6E /* SceneDelegate.swift */,
 			);
