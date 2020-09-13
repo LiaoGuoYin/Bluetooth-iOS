@@ -10,9 +10,11 @@ import Foundation
 
 class TeacherCourseViewModel: ObservableObject {
     @Published var courseList: Array<Course>
+    @Published var form: Course
     
     init() {
         self.courseList = Array<Course>()
+        self.form = Course()
     }
     
     //    MARK: - Access to the model
@@ -48,5 +50,13 @@ class TeacherCourseViewModel: ObservableObject {
     
     func moveStudent(_ courseIndex: Int,from source: IndexSet, to destination: Int) {
         courseList[courseIndex].students.move(fromOffsets: source, toOffset: destination)
+    }
+}
+
+extension TeacherCourseViewModel {
+    func clearCourseForm() {
+        self.form = Course()
+        self.form.name = ""
+        self.form.classOf = ""
     }
 }

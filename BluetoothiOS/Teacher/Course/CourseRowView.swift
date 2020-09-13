@@ -12,21 +12,23 @@ struct TeacherCourseRowView: View {
     @Binding var course: Course
     
     var body: some View {
-        VStack(alignment:.leading,spacing: 16) {
-            Text(course.name)
-                .font(.headline)
-            
-            HStack {
-                Text(course.classOf)
-                Spacer()
-                Text("\(course.capacity) 人")
+        HStack {
+            VStack(alignment:.leading, spacing: 16) {
+                Text(course.name)
+                    .font(.headline)
+                Text("\(course.classOf) - \(course.capacity) 人")
             }
-            .font(.subheadline)
+            Spacer()
+            Text(course.roomOf)
+                .font(.subheadline)
         }
-        .foregroundColor(.white)
         .padding()
-        .background(Color(.systemBlue))
-        .cornerRadius(8)
+        .cornerRadius(6)
     }
-    
+}
+
+struct CourseRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        TeacherCourseRowView(course: .constant(Course()))
+    }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct StudentForm {
     var id: String
-    var name: String
+    var name:  String
     var mac: String
     var college: College
     var iClass: String
@@ -20,7 +20,7 @@ struct StudentForm {
 
 extension StudentForm {
     init() {
-        self.init(id: "", name: "", mac: "", college: .telecommunication, iClass: "", password: "demo", rePassword: "demo")
+        self.init(id: "", name: "", mac: "", college: .telecommunication, iClass: "", password: "", rePassword: "")
     }
 }
 

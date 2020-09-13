@@ -11,29 +11,34 @@ import SwiftUI
 struct NewCourseFormView: View {
     @ObservedObject var viewModel: TeacherCourseViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State var form: Course = Course(students: studentsDemo)
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("基本信息")) {
                     HStack {
-                        Text("课程名：")
+                        Text("课程名称：")
                             .foregroundColor(.gray)
-                        TextField("Python 程序设计", text: $form.name)
+                        TextField("Python 程序设计", text: $viewModel.form.name)
                             .font(.body)
                     }
                     HStack {
-                        Text("    班级：")
+                        Text("上课教室：")
                             .foregroundColor(.gray)
-                        TextField("测试17-2", text: $form.classOf)
+                        TextField("尔雅221", text: $viewModel.form.roomOf)
+                            .font(.body)
+                    }
+                    HStack {
+                        Text("教授班级：")
+                            .foregroundColor(.gray)
+                        TextField("测试17-2", text: $viewModel.form.classOf)
                             .font(.body)
                     }
                 }
                 
                 Section(header: Text("学生列表")) {
                     List {
-                        ForEach(form.students, id: \.self) { (item: Student) in
+                        ForEach(viewModel.form.students, id: \.self) { (item: Student) in
                             HStack {
                                 Text(item.name)
                                     .frame(width: 80)
@@ -75,7 +80,7 @@ struct NewCourseFormView: View {
 
 extension NewCourseFormView {
     func clearForm() {
-        form.clear()
+        self.viewModel.clearCourseForm()
     }
     
     func dismissForm() {
@@ -83,7 +88,7 @@ extension NewCourseFormView {
     }
     
     func submitForm() {
-        self.viewModel.courseList.append(form)
+        self.viewModel.courseList.append(self.viewModel.form)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

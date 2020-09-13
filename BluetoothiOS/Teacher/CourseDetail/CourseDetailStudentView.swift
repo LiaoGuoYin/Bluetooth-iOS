@@ -9,7 +9,11 @@
 import SwiftUI
 
 struct CourseStudentView: View {
+    @State var viewModel: TeacherCourseViewModel
     @Binding var students: Array<Student>
+    @State private var isShowingSheet: Bool = false
+    @State private var isShowNewPage: Bool = false
+    
     
     var body: some View {
         List {
@@ -29,12 +33,25 @@ struct CourseStudentView: View {
                         .foregroundColor(.blue)
                 }
                 .padding()
+                .onTapGesture(count: 2, perform: {
+                    self.isShowingSheet.toggle()
+                })
             }
             .onMove(perform: onMoveStudent)
             .onDelete(perform: onDeleteStudent)
         }
+        .sheet(isPresented: self.$isShowNewPage, content: {
+            BLEView()
+        })
+        .actionSheet(isPresented: $isShowingSheet, content: {
+            ActionSheet(title: Text("是否开始考勤？"),
+                        message: Text("当前班级学生：\(students.count) 人"),
+                        buttons: [.default(Text("开始"), action: {
+                            self.isShowNewPage.toggle()
+                        }), .cancel(Text("取消"))])
+        })
         .navigationBarTitle(Text("学生名单"))
-        .navigationBarItems(trailing: EditButton())
+        .navigationBarItems(trailing: sendSheetToBLEButton)
     }
 }
 
@@ -49,5 +66,25 @@ extension CourseStudentView {
     
     private func onDeleteStudent(at indexSet: IndexSet) {
         students.remove(atOffsets: indexSet)
+    }
+    
+    var sendSheetToBLEButton: some View {
+        Button(action: {
+            self.isShowingSheet.toggle()
+            let selectedCourseString = serializeStudentsToStringForSending(students: self.students)
+            self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
+        }, label: {
+            Text("考勤")
+                .foregroundColor(.blue)
+            Image(systemName: "staroflife")
+                .font(.subheadline)
+        })
+    }
+    
+}
+
+struct CourseDetailStudentView_Previews: PreviewProvider {
+    static var previews: some View {
+        CourseStudentView(viewModel: TeacherCourseViewModel(), students: .constant(studentsDemo))
     }
 }

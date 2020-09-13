@@ -10,23 +10,15 @@ import SwiftUI
 
 struct TeacherCourseView: View {
     @ObservedObject var viewModel: TeacherCourseViewModel
-    @State private var isShowClassListAddSheet: Bool = false
-    @State var selectedCourse = Set<Course>()
+    @State private var isShowCourseSheet: Bool = false
     
     var body: some View {
         NavigationView {
-            List(selection: self.$selectedCourse) {
-                Section(
-                    header: HStack {
-                        Text("课程列表")
-                        Spacer()
-                        addButton
-                            .foregroundColor(.blue)
-                    }
-                ) {
+            Form {
+                Section( header: Text("课程列表") ) {
                     ForEach(viewModel.courseList.indices, id:\.self) { index in
                         NavigationLink(destination:
-                                        CourseStudentView(students: self.$viewModel.courseList[index].students)
+                                        CourseStudentView(viewModel: viewModel, students: self.$viewModel.courseList[index].students)
                         ) {
                             TeacherCourseRowView(course: $viewModel.courseList[index])
                         }
@@ -35,12 +27,12 @@ struct TeacherCourseView: View {
                     .onDelete(perform: onDeleteCourse)
                 }
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle(Text("考勤管理"))
-            .navigationBarItems(leading: EditButton(),trailing: sendSheetToBLEButton)
+            .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
+            .navigationBarItems(leading: EditButton(),
+                                trailing: addButton.foregroundColor(.blue))
         }
-        .sheet(isPresented: $isShowClassListAddSheet) {
-            NewCourseFormView(viewModel: self.viewModel, form: Course(students: studentsDemo))
+        .sheet(isPresented: $isShowCourseSheet) {
+            NewCourseFormView(viewModel: self.viewModel)
         }
     }
 }
@@ -48,8 +40,8 @@ struct TeacherCourseView: View {
 extension TeacherCourseView {
     init() {
         self.init(viewModel: TeacherCourseViewModel())
-        for _ in 1..<2 {
-            viewModel.addCourse(Course(students: studentsDemo))
+        for _ in 1..<3 {
+            viewModel.addCourse(Course())
         }
     }
     
@@ -66,21 +58,11 @@ extension TeacherCourseView {
     }
     
     var addButton: some View {
-        Button(action: { self.isShowClassListAddSheet.toggle() }) {
-            Image(systemName: "plus")
+        Button(action: { self.isShowCourseSheet.toggle() }) {
+            Image(systemName: "plus.square")
                 .font(.headline)
-            //            TODO for expanding the area of tapped button
-            //.padding(EdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 0))
         }
-    }
-    
-    var sendSheetToBLEButton: some View {
-        Button(action: {
-            let selectedCourseString = serializeStudentsToStringForSending(students: self.viewModel.courseList[0].students)
-            self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
-        }, label: {
-            Image(systemName: "staroflife")
-        })
     }
 }
 

@@ -11,33 +11,23 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            BLEView()
-                .tabItem {
-                    Image(systemName: "dot.radiowaves.left.and.right")
-                    Text("PuncCard")
-                }
-                .tag(1)
-            
             TeacherCourseView()
                 .tabItem {
                     Image(systemName: "tag.fill")
                     Text("Record")
                 }
-                .tag(2)
+            
+            LoginView()
+                .tabItem {
+                    Image(systemName: "person.crop.square.fill.and.at.rectangle")
+                    Text("Account")
+                }
             
             AccountView()
                 .tabItem {
                     Image(systemName: "rectangle.stack.person.crop.fill")
                     Text("Account")
                 }
-                .tag(3)
-            
-            LoginView()
-                .tabItem {
-                    Image(systemName: "rectangle.stack.person.crop.fill")
-                    Text("Account")
-                }
-                .tag(4)
         }
     }
 }

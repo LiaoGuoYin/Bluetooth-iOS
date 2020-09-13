@@ -12,6 +12,7 @@ struct Course {
     var id = UUID()
     var name: String
     var classOf: String
+    var roomOf: String
     var students: Array<Student>
     var capacity: Int {
         get {
@@ -28,7 +29,7 @@ struct Course {
 
 extension Course: Hashable {
     init() {
-        self.init(name: "Swift 程序设计", classOf: "测试班级", students: Array<Student>())
+        self.init(name: "Swift程序设计", classOf: "电信研183", roomOf: "尔雅221", students: studentsDemo)
     }
     
     init(students: Array<Student>) {
@@ -42,12 +43,5 @@ extension Course: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-    }
-    
-    mutating func clear() {
-        self.name = ""
-        self.classOf = ""
-        self.students = []
-        self.historyRecords = nil
     }
 }

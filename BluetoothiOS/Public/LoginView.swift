@@ -19,8 +19,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(
-                    footer:
+                Section(footer:
                         HStack {
                             Spacer()
                             Button(action: { self.postForget() }) {
@@ -28,7 +27,7 @@ struct LoginView: View {
                                     .padding(.vertical)
                             }
                             .alert(isPresented: self.$isShowForgetPassword) {
-                                Alert(title: Text("忘记密码别找我！"), message: Text("找教务处"), dismissButton: .default(Text("OK")))
+                                Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
                             }
                         }) {
                     HStack {
@@ -60,7 +59,7 @@ struct LoginView: View {
                 }
             }
             .navigationBarItems(
-                leading: Button(action: { self.postRegist() }) {
+                leading: Button(action: { self.showRegistering() }) {
                     Text("注册")
                         .padding(.vertical)
                 },
@@ -78,7 +77,7 @@ struct LoginView: View {
 }
 
 extension LoginView {
-    func postRegist() {
+    func showRegistering() {
         self.isShowRegisteringForm.toggle()
     }
     
