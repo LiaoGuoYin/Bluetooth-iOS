@@ -11,7 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @State var username: String = ""
     @State var password: String = ""
-    @State var user: UserType = .student
+    @State var userType: UserType = .teacher
     @State private var isShowPassword: Bool = false
     @State private var isShowForgetPassword: Bool = false
     @State private var isShowRegisteringForm: Bool = false
@@ -32,25 +32,27 @@ struct LoginView: View {
                     HStack {
                         Text("账号:\t")
                         TextField("1710030215", text: self.$username)
+                            .keyboardType(.numberPad)
                     }
                     HStack {
                         Text("密码:\t")
-                        //                        SecureField("********", text: self.$password)
                         
                         if isShowPassword {
                             TextField("请输入密码", text: $password, onCommit: {
                                 
                             })
+                            .autocapitalization(.none)
                         } else {
                             SecureField("请输入密码", text: $password, onCommit: {
                                 
                             })
                         }
+                        
                         Button(action: {self.isShowPassword.toggle()}) {
                             Image(systemName: isShowPassword ? "lock.open.fill": "lock")
                         }
                     }
-                    Picker(selection: $user, label: Text("用户类型：")) {
+                    Picker(selection: $userType, label: Text("用户类型：")) {
                         ForEach(UserType.allCases) { user in
                             Text(user.rawValue.capitalized).tag(user)
                         }
@@ -71,7 +73,11 @@ struct LoginView: View {
             .navigationBarTitle(Text("LOGIN"), displayMode: .inline)
         }
         .sheet(isPresented: self.$isShowRegisteringForm) {
-            StudentFormView(viewModel: StudentFormViewModel(studentForm: StudentForm()))
+            if self.userType == .student {
+                StudentFormView(viewModel: StudentFormViewModel(studentForm: StudentForm()))
+            } else {
+                TeacherRegisteringView(viewModel: TechearFormViewModel(form: TeacherForm()))
+            }
         }
         .alert(isPresented: self.$isShowForgetPassword) {
             //            Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))

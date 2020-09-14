@@ -1,5 +1,5 @@
 //
-//  TeacherRegistering.swift
+//  TeacherRegisteringView.swift
 //  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/9/13.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TeacherRegistering: View {
+struct TeacherRegisteringView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var viewModel: TechearFormViewModel
     
@@ -18,7 +18,7 @@ struct TeacherRegistering: View {
                 Section(header: Text("基本信息")) {
                     HStack {
                         Text("工号：")
-                        TextField("2141", text: self.$viewModel.form.id)
+                        TextField("1001", text: self.$viewModel.form.id)
                             .keyboardType(.numberPad)
                     }
                     HStack {
@@ -28,6 +28,7 @@ struct TeacherRegistering: View {
                     HStack {
                         Text("手机：")
                         TextField("17671615140", text: self.$viewModel.form.phone)
+                            .keyboardType(.numberPad)
                     }
                 }
                 
@@ -82,16 +83,37 @@ struct TeacherRegistering: View {
 
 struct TeacherRegistering_Previews: PreviewProvider {
     static var previews: some View {
-        TeacherRegistering(viewModel: TechearFormViewModel(form: TeacherForm()))
+        TeacherRegisteringView(viewModel: TechearFormViewModel(form: TeacherForm()))
     }
 }
 
-extension TeacherRegistering {
+extension TeacherRegisteringView {
     func clearForm() {
         self.viewModel.clear()
     }
     
     func submitForm() {
+        if checkForm() == "true" {
+//            MARK: - Reqeust
+        } else {
+//            false
+        }
+        self.viewModel.submitForRequest(teacherForm: TeacherForm())
+    }
+    
+    func checkForm() -> String {
+        if self.viewModel.form.password != self.viewModel.form.rePassword {
+            return "密码不一致"
+        }
         
+        if self.viewModel.form.id.count > 5 {
+            return "工号长度不正确"
+        }
+        
+        if self.viewModel.form.phone.count != 11 {
+            return "手机长度不正确"
+        }
+        
+        return "true"
     }
 }
