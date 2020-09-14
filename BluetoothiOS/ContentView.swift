@@ -9,31 +9,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var viewRouter: ViewRouter
+    
     var body: some View {
-        TabView {
-            TeacherCourseView()
-                .tabItem {
-                    Image(systemName: "tag.fill")
-                    Text("Record")
-                }
-            
-            LoginView()
-                .tabItem {
-                    Image(systemName: "person.crop.square.fill.and.at.rectangle")
-                    Text("Account")
-                }
-            
-            AccountView()
-                .tabItem {
-                    Image(systemName: "rectangle.stack.person.crop.fill")
-                    Text("Account")
-                }
+        if viewRouter.isLogined {
+            TabView {
+                TeacherCourseView()
+                    .tabItem {
+                        Image(systemName: "tag.fill")
+                        Text("Record")
+                    }
+                
+                AccountView().environmentObject(viewRouter)
+                    .tabItem {
+                        Image(systemName: "rectangle.stack.person.crop.fill")
+                        Text("Account")
+                    }
+            }
+        } else {
+            LoginView().environmentObject(viewRouter)
+                .transition(.scale)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(ViewRouter())
     }
 }

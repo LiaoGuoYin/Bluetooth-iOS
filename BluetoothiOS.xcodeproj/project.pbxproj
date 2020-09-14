@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01F439250F9862009ACC90 /* ViewRouter.swift */; };
 		AF24B88E24A826130065A628 /* CourseDetailStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */; };
 		AF24B89024A83F790065A628 /* CourseDetailStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88F24A83F790065A628 /* CourseDetailStudentView.swift */; };
 		AF4E12A1246422A90004F833 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E12A0246422A90004F833 /* LoginView.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF01F439250F9862009ACC90 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentModel.swift; sourceTree = "<group>"; };
 		AF24B88F24A83F790065A628 /* CourseDetailStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentView.swift; sourceTree = "<group>"; };
 		AF4E12A0246422A90004F833 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				AFBB5135243A1B9200D38E6E /* Supportings */,
 				AF0A487624F6AD9400ACAF4D /* Preview Content */,
 				AFBB5123243A1A9700D38E6E /* ContentView.swift */,
+				AF01F439250F9862009ACC90 /* ViewRouter.swift */,
 				AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */,
 				AFBB512D243A1A9A00D38E6E /* Info.plist */,
 			);
@@ -261,6 +264,7 @@
 			files = (
 				AF6C2646244876DD006C7568 /* BLEView.swift in Sources */,
 				AF8AA9102464546E00013BA2 /* CommonView.swift in Sources */,
+				AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */,
 				AF24B89024A83F790065A628 /* CourseDetailStudentView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* StudentRecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,

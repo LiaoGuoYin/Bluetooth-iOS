@@ -10,6 +10,8 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct AccountView: View {
+    @EnvironmentObject var viewRouter: ViewRouter
+    
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     var macAddress: String = "F3K4:2JX0"
@@ -67,6 +69,11 @@ struct AccountView: View {
                         })
                 }
                 .padding(8)
+                
+                Button(action: {self.exitLogin()}) {
+                    ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)
+                        .padding(8)
+                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("账户中心")
@@ -89,7 +96,7 @@ struct ImageAndTextView: View {
         HStack {
             Image(systemName: imageName)
                 .foregroundColor(imageColor)
-                .frame(width: 16)
+                .frame(width: 22)
             Text(textName)
         }
     }
@@ -106,5 +113,9 @@ extension AccountView {
             }
         }
         return UIImage(systemName: "xmark") ?? UIImage()
+    }
+    
+    func exitLogin() {
+        self.viewRouter.isLogined = false
     }
 }

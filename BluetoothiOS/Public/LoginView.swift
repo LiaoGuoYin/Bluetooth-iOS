@@ -16,20 +16,19 @@ struct LoginView: View {
     @State private var isShowForgetPassword: Bool = false
     @State private var isShowRegisteringForm: Bool = false
     
+    @EnvironmentObject var viewRouter: ViewRouter
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(footer:
-                        HStack {
-                            Spacer()
-                            Button(action: { self.postForget() }) {
-                                Text("忘记密码?")
-                                    .padding(.vertical)
-                            }
-                            .alert(isPresented: self.$isShowForgetPassword) {
-                                Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
-                            }
-                        }) {
+                            HStack {
+                                Spacer()
+                                Button(action: { self.postForget() }) {
+                                    Text("忘记密码?")
+                                        .padding(.vertical)
+                                }
+                            }) {
                     HStack {
                         Text("账号:\t")
                         TextField("1710030215", text: self.$username)
@@ -56,6 +55,7 @@ struct LoginView: View {
                             Text(user.rawValue.capitalized).tag(user)
                         }
                     }
+                    
                 }
             }
             .navigationBarItems(
@@ -73,16 +73,48 @@ struct LoginView: View {
         .sheet(isPresented: self.$isShowRegisteringForm) {
             StudentFormView(viewModel: StudentFormViewModel(studentForm: StudentForm()))
         }
+        .alert(isPresented: self.$isShowForgetPassword) {
+            //            Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
+            Alert.init(title: Text("密码错误"), message: Text("用户名或密码错误"), dismissButton: .default(Text("确认")))
+        }
+        .onAppear(perform: {
+            loadLocalAccount()
+        })
     }
 }
 
 extension LoginView {
+    
+    func loadLocalAccount() {
+        if let accountDict = UserDefaults.standard.dictionary(forKey: "account") as? [String: String] {
+            self.username = accountDict["username"] ?? ""
+            self.password = accountDict["password"] ?? ""
+        }
+    }
+    
     func showRegistering() {
         self.isShowRegisteringForm.toggle()
     }
     
     func postLogin() {
-        
+        if self.checkAccount() {
+            self.viewRouter.isLogined = true
+            UserDefaults.standard.setValue(
+                [
+                    "username": self.username,
+                    "password": self.password,
+                ], forKey: "account")
+        } else {
+            self.isShowForgetPassword = true
+        }
+    }
+    
+    func checkAccount() -> Bool{
+        if self.username == "1001" && password == "admin"{
+            return true
+        } else {
+            return false
+        }
     }
     
     func postForget() {
@@ -92,7 +124,7 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView().environmentObject(ViewRouter())
     }
 }
 
@@ -100,6 +132,5 @@ enum UserType: String, Identifiable, CaseIterable {
     case student = "学生"
     case teacher = "教师"
     case admin = "管理员"
-    
     var id: String { self.rawValue }
 }
