@@ -11,25 +11,25 @@ import Foundation
 
 enum APIRouter: URLRequestConvertible {
     
-    case login(username:String, password:String)
-    case studentREgister
+    case studentLogin(username:String, password:String)
+    case studentRegist
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .login:
+        case .studentLogin:
             return .post
-        case .studentREgister:
-            return .get
+        case .studentRegist:
+            return .post
         }
     }
     
     // MARK: - Path
     private var path: String {
         switch self {
-        case .login:
-            return "/login"
-        case .studentREgister:
+        case .studentLogin:
+            return "/lntusign/api/login/student"
+        case .studentRegist:
             return "/lntusign/api/register/student"
         }
     }
@@ -37,12 +37,13 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .login(let username, let password):
+        case .studentLogin(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
-        case .studentREgister:
+        case .studentRegist:
             return nil
         }
     }
+    
     
     // MARK: - URLRequestConvertible
     func asURLRequest() throws -> URLRequest {

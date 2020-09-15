@@ -15,17 +15,17 @@ struct K {
     }
     
     struct APIParameterKey {
-        static let username = "username"
-        static let password = "password"
+        static let username = "number"
+        static let password = "passwd"
     }
+}
+
+enum ContentType: String {
+    case json = "application/json"
 }
 
 enum HTTPHeaderField: String {
     case contentType = "Content-Type"
     case acceptType = "Accept"
     case acceptEncoding = "Accept-Encoding"
-}
-
-enum ContentType: String {
-    case json = "application/json"
 }

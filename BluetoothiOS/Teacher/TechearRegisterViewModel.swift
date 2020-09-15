@@ -1,5 +1,5 @@
 //
-//  TeacherForm.swift
+//  TechearRegisterViewModel.swift
 //  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/9/13.
@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class TechearFormViewModel: ObservableObject {
+class TechearRegisterViewModel: ObservableObject {
     @Published var form: TeacherForm
     
     init(form: TeacherForm) {
@@ -21,7 +21,7 @@ class TechearFormViewModel: ObservableObject {
     }
     
     func submitForRequest(teacherForm: TeacherForm) {
-        APIClient.login(username: "1001", password: "admin") { result in
+        APIClient.studentLogin(username: "1001", password: "admin") { result in
             switch result {
             case .success(let loginResponse):
                 print(loginResponse)

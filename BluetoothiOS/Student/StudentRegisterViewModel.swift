@@ -1,5 +1,5 @@
 //
-//  StudentFormViewModel.swift
+//  StudentRegisterViewModel.swift
 //  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/9/9.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StudentFormViewModel: ObservableObject {
+class StudentRegisterViewModel: ObservableObject {
     @Published var form: StudentForm
     
     init(studentForm: StudentForm) {

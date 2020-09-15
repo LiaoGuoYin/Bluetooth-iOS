@@ -18,8 +18,8 @@ class APIClient {
             }
     }
     
-    static func login(username: String, password: String, completion:@escaping (Result<LoginResponse, AFError>)->Void) {
-        performRequest(route: APIRouter.login(username: username, password: password), completion: completion)
+    static func studentLogin(username: String, password: String, completion:@escaping (Result<LoginResponse, AFError>)->Void) {
+        performRequest(route: APIRouter.studentLogin(username: username, password: password), completion: completion)
     }
     
 }

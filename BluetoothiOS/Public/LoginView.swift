@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var userType: UserType = .teacher
+    @ObservedObject var viewModel: LoginViewModel
     @State private var isShowPassword: Bool = false
     @State private var isShowForgetPassword: Bool = false
     @State private var isShowRegisteringForm: Bool = false
@@ -31,19 +29,19 @@ struct LoginView: View {
                             }) {
                     HStack {
                         Text("账号:\t")
-                        TextField("1710030215", text: self.$username)
+                        TextField("1710030215", text: $viewModel.form.username)
                             .keyboardType(.numberPad)
                     }
                     HStack {
                         Text("密码:\t")
                         
                         if isShowPassword {
-                            TextField("请输入密码", text: $password, onCommit: {
+                            TextField("请输入密码", text: $viewModel.form.passwd, onCommit: {
                                 
                             })
                             .autocapitalization(.none)
                         } else {
-                            SecureField("请输入密码", text: $password, onCommit: {
+                            SecureField("请输入密码", text: $viewModel.form.passwd, onCommit: {
                                 
                             })
                         }
@@ -52,7 +50,7 @@ struct LoginView: View {
                             Image(systemName: isShowPassword ? "lock.open.fill": "lock")
                         }
                     }
-                    Picker(selection: $userType, label: Text("用户类型：")) {
+                    Picker(selection: $viewModel.form.userType, label: Text("用户类型：")) {
                         ForEach(UserType.allCases) { user in
                             Text(user.rawValue.capitalized).tag(user)
                         }
@@ -61,23 +59,21 @@ struct LoginView: View {
                 }
             }
             .navigationBarItems(
-                leading: Button(action: { self.showRegistering() }) {
-                    Text("注册")
-                        .padding(.vertical)
-                },
+                leading:
+                    NavigationLink(
+                        destination:
+                            (StudentRegisterView(viewModel: StudentRegisterViewModel(studentForm: StudentForm())))
+                        ,
+                        label: {
+                            Text("注册")
+                        })
+                ,
                 trailing: Button(action: { self.postLogin() }) {
                     Text("登录")
                         .padding(.vertical)
                 }
             )
             .navigationBarTitle(Text("LOGIN"), displayMode: .inline)
-        }
-        .sheet(isPresented: self.$isShowRegisteringForm) {
-            if self.userType == .student {
-                StudentFormView(viewModel: StudentFormViewModel(studentForm: StudentForm()))
-            } else {
-                TeacherRegisteringView(viewModel: TechearFormViewModel(form: TeacherForm()))
-            }
         }
         .alert(isPresented: self.$isShowForgetPassword) {
             //            Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
@@ -93,8 +89,8 @@ extension LoginView {
     
     func loadLocalAccount() {
         if let accountDict = UserDefaults.standard.dictionary(forKey: "account") as? [String: String] {
-            self.username = accountDict["username"] ?? ""
-            self.password = accountDict["password"] ?? ""
+            self.viewModel.form.username = accountDict["username"] ?? ""
+            self.viewModel.form.passwd = accountDict["password"] ?? ""
         }
     }
     
@@ -103,23 +99,18 @@ extension LoginView {
     }
     
     func postLogin() {
-        if self.checkAccount() {
+        self.viewModel.checkAccount {result in
             self.viewRouter.isLogined = true
-            UserDefaults.standard.setValue(
-                [
-                    "username": self.username,
-                    "password": self.password,
-                ], forKey: "account")
-        } else {
-            self.isShowForgetPassword = true
-        }
-    }
-    
-    func checkAccount() -> Bool{
-        if self.username == "1001" && password == "admin"{
-            return true
-        } else {
-            return false
+            UserDefaults.standard.setValue([
+                "username": self.viewModel.form.username,
+                "password": self.viewModel.form.passwd,
+            ], forKey: "account")
+            
+            if result as! Bool == true {
+                self.isShowForgetPassword = false
+            }else {
+                self.isShowForgetPassword = true
+            }
         }
     }
     
@@ -130,13 +121,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView().environmentObject(ViewRouter())
+        LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", passwd: " "))).environmentObject(ViewRouter())
     }
-}
-
-enum UserType: String, Identifiable, CaseIterable {
-    case student = "学生"
-    case teacher = "教师"
-    case admin = "管理员"
-    var id: String { self.rawValue }
 }
