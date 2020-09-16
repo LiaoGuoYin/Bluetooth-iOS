@@ -12,7 +12,7 @@ import Foundation
 enum APIRouter: URLRequestConvertible {
     
     case studentLogin(username:String, password:String)
-    case studentRegist
+    case studentRegist(studentRegistForm: StudentForm)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
@@ -39,8 +39,14 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .studentLogin(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
-        case .studentRegist:
-            return nil
+        case .studentRegist(let form):
+            return [
+                K.StudentRegisterParameterKey.number: form.number,
+                K.StudentRegisterParameterKey.password: form.password,
+                K.StudentRegisterParameterKey.iClass: form.iClass,
+                K.StudentRegisterParameterKey.mac: form.mac,
+                K.StudentRegisterParameterKey.name: form.name
+            ]
         }
     }
     

@@ -28,6 +28,7 @@ struct TeacherRegisterView: View {
                     Text("手机：")
                     TextField("17671615140", text: self.$viewModel.form.phone)
                         .keyboardType(.numberPad)
+                        .textContentType(.telephoneNumber)
                 }
             }
             
@@ -36,10 +37,10 @@ struct TeacherRegisterView: View {
                     Text("密码：\t")
                     SecureField("********", text: self.$viewModel.form.password)
                 }
-                HStack {
-                    Text("确认密码：")
-                    SecureField("********", text: self.$viewModel.form.rePassword)
-                }
+//                HStack {
+//                    Text("确认密码：")
+//                    SecureField("********", text: self.$viewModel.form.rePassword)
+//                }
             }
             
             Button(action: { self.clearForm() }) {
@@ -100,9 +101,9 @@ extension TeacherRegisterView {
     }
     
     func checkForm() -> String {
-        if self.viewModel.form.password != self.viewModel.form.rePassword {
-            return "密码不一致"
-        }
+//        if self.viewModel.form.password != self.viewModel.form.rePassword {
+//            return "密码不一致"
+//        }
         
         if self.viewModel.form.id.count > 5 {
             return "工号长度不正确"

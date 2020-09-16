@@ -37,11 +37,10 @@ struct TeacherForm: Codable {
     var name:  String
     var phone: String
     var password: String
-    var rePassword: String
 }
 
 extension TeacherForm {
     init() {
-        self.init(id: "", name: "", phone: "", password: "", rePassword: "")
+        self.init(id: "", name: "", phone: "", password: "")
     }
 }

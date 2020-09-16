@@ -11,12 +11,19 @@ import Foundation
 struct K {
     struct ProductionServer {
         static let baseURL = "https://www.hushtime.cn"
-        static let demoURL = "https://api.liaoguoyin.com"
     }
     
     struct APIParameterKey {
         static let username = "number"
         static let password = "passwd"
+    }
+    
+    struct StudentRegisterParameterKey {
+        static let number = "number"
+        static let password = "passwd"
+        static let name = "name"
+        static let mac = "mac"
+        static let iClass = "iClass"
     }
 }
 

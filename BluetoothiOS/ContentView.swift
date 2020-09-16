@@ -28,7 +28,7 @@ struct ContentView: View {
                     }
             }
         } else {
-            LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", passwd: ""))).environmentObject(viewRouter)
+            LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", password: ""))).environmentObject(viewRouter)
                 .transition(.scale)
         }
     }

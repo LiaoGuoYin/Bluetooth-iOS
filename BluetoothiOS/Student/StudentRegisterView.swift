@@ -11,6 +11,7 @@ import SwiftUI
 struct StudentRegisterView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var viewModel: StudentRegisterViewModel
+    @State private var isShowAlert = false
     
     var body: some View {
         Form {
@@ -21,7 +22,7 @@ struct StudentRegisterView: View {
                 }
                 HStack {
                     Text("学号：")
-                    TextField("1710030215", text: self.$viewModel.form.id)
+                    TextField("1710030215", text: self.$viewModel.form.number)
                         .keyboardType(.numberPad)
                 }
                 HStack {
@@ -42,13 +43,13 @@ struct StudentRegisterView: View {
                     Text("密码：")
                     SecureField("********", text: self.$viewModel.form.password)
                 }
-                HStack {
-                    Text("确认密码：")
-                    SecureField("********", text: self.$viewModel.form.rePassword)
-                }
+//                HStack {
+//                    Text("确认密码：")
+//                    SecureField("********", text: self.$viewModel.form.rePassword)
+//                }
                 HStack {
                     Text("MAC地址：")
-                    TextField("A29S:23CS", text: $viewModel.form.mac)
+                    TextField("BC:E1:43:B4:62:10", text: $viewModel.form.mac)
                 }
             }
             
@@ -63,7 +64,6 @@ struct StudentRegisterView: View {
             
             Button(action: {
                 self.submitForm()
-                self.presentationMode.wrappedValue.dismiss()
             }) {
                 HStack {
                     Spacer()
@@ -75,6 +75,9 @@ struct StudentRegisterView: View {
             .listStyle(GroupedListStyle())
             .navigationBarTitle("", displayMode: .inline)
         }
+        .alert(isPresented: $isShowAlert, content: {
+            Alert(title: Text(String(self.viewModel.message)), message: nil, dismissButton: .cancel())
+        })
     }
     
     var backButton: some View {
@@ -95,7 +98,14 @@ extension StudentRegisterView {
     }
     
     func submitForm() {
-        
+        self.viewModel.submitForm { (result) in
+            if result {
+                print("ok")
+            } else {
+                print(result)
+            }
+            self.isShowAlert = true
+        }
     }
 }
 

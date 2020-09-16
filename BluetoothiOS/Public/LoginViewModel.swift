@@ -17,12 +17,19 @@ class LoginViewModel: ObservableObject {
         self.form = form
     }
     
-    func checkAccount(isValidAccount: @escaping (Any) -> ()) {
-        APIClient.studentLogin(username: form.username, password: form.passwd) { (result) in
+    func checkAccount(isValidAccount: @escaping (Bool) -> ()) {
+        APIClient.studentLogin(username: form.username, password: form.password) { (result) in
             switch result {
             case .success(let loginResponse):
-                print(loginResponse)
-                isValidAccount(true)
+                if loginResponse.code == 10000 {
+                        UserDefaults.standard.setValue([
+                            "username": self.form.username,
+                            "password": self.form.password,
+                        ], forKey: "account")
+                    isValidAccount(true)
+                } else {
+                    isValidAccount(false)
+                }
             case .failure(let error):
                 print(error)
                 isValidAccount(false)
@@ -34,7 +41,7 @@ class LoginViewModel: ObservableObject {
 
 struct LoginUser: Codable {
     var username: String
-    var passwd: String
+    var password: String
     var userType: UserType = .student
 }
 

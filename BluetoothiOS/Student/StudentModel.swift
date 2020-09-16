@@ -9,18 +9,17 @@
 import Foundation
 
 struct StudentForm {
-    var id: String
+    var number: String
     var name:  String
     var mac: String
     var college: College
     var iClass: String
     var password: String
-    var rePassword: String
 }
 
 extension StudentForm {
     init() {
-        self.init(id: "", name: "", mac: "", college: .telecommunication, iClass: "", password: "", rePassword: "")
+        self.init(number: "0", name: "", mac: "", college: .telecommunication, iClass: "", password: "")
     }
 }
 
@@ -29,7 +28,6 @@ enum College: String, Identifiable, CaseIterable {
     case business = "工商管理学院"
     case mining = "矿业技术学院"
     case telecommunication = "电子与信息工程学院"
-    
     var id: String {self.rawValue}
 }
 

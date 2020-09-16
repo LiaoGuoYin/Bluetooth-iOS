@@ -36,12 +36,12 @@ struct LoginView: View {
                         Text("密码:\t")
                         
                         if isShowPassword {
-                            TextField("请输入密码", text: $viewModel.form.passwd, onCommit: {
+                            TextField("请输入密码", text: $viewModel.form.password, onCommit: {
                                 
                             })
                             .autocapitalization(.none)
                         } else {
-                            SecureField("请输入密码", text: $viewModel.form.passwd, onCommit: {
+                            SecureField("请输入密码", text: $viewModel.form.password, onCommit: {
                                 
                             })
                         }
@@ -90,7 +90,7 @@ extension LoginView {
     func loadLocalAccount() {
         if let accountDict = UserDefaults.standard.dictionary(forKey: "account") as? [String: String] {
             self.viewModel.form.username = accountDict["username"] ?? ""
-            self.viewModel.form.passwd = accountDict["password"] ?? ""
+            self.viewModel.form.password = accountDict["password"] ?? ""
         }
     }
     
@@ -99,15 +99,10 @@ extension LoginView {
     }
     
     func postLogin() {
-        self.viewModel.checkAccount {result in
-            self.viewRouter.isLogined = true
-            UserDefaults.standard.setValue([
-                "username": self.viewModel.form.username,
-                "password": self.viewModel.form.passwd,
-            ], forKey: "account")
-            
-            if result as! Bool == true {
+        self.viewModel.checkAccount { (isValid) in
+            if isValid {
                 self.isShowForgetPassword = false
+                self.viewRouter.isLogined = true
             }else {
                 self.isShowForgetPassword = true
             }
@@ -121,6 +116,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", passwd: " "))).environmentObject(ViewRouter())
+        LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", password: " "))).environmentObject(ViewRouter())
     }
 }

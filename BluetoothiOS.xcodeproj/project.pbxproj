@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01F439250F9862009ACC90 /* ViewRouter.swift */; };
+		AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1747312511BCFF0082996B /* RegisterResponse.swift */; };
 		AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74B9250FD4BA00E63445 /* APIRouter.swift */; };
 		AF1F74BD250FD71B00E63445 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF1F74BC250FD71B00E63445 /* Alamofire */; };
 		AF1F74BF250FD76F00E63445 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74BE250FD76F00E63445 /* Constants.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		AF01F439250F9862009ACC90 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		AF1747312511BCFF0082996B /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		AF1F74B9250FD4BA00E63445 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		AF1F74BE250FD76F00E63445 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentModel.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				AF1F74B9250FD4BA00E63445 /* APIRouter.swift */,
 				AF60CDD8250FDACA00CFAE5B /* APIClient.swift */,
 				AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */,
+				AF1747312511BCFF0082996B /* RegisterResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				AF60CDDD2510548C00CFAE5B /* CommonTextField.swift in Sources */,
 				AF877EDE2508D7E800D5CE1A /* StudentRegisterViewModel.swift in Sources */,
 				AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */,
+				AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */,
 				AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */,
 				AF7848C4243C399D0009964E /* StudentRegisterView.swift in Sources */,
 				AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */,
