@@ -11,18 +11,14 @@ import Combine
 import SwiftUI
 
 class ViewRouter: ObservableObject {
-    let objectWillChange = PassthroughSubject<ViewRouter, Never>()
-    
-    var currentView = "page" {
-        didSet {
-            self.objectWillChange.send(self)
-        }
-    }
-    
-    var isLogined = false {
-        didSet {
-            self.objectWillChange.send(self)
-        }
-    }
-    
+    @Published var isLogined: Bool = false
+
+//    let objectWillChange = PassthroughSubject<ViewRouter, Never>()
+//
+//    var isLogined = false {
+//        didSet {
+//            self.objectWillChange.send(self)
+//        }
+//    }
+
 }

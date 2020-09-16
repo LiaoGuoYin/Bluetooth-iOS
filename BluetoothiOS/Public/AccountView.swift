@@ -11,10 +11,10 @@ import CoreImage.CIFilterBuiltins
 
 struct AccountView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @State var loginViewModel: LoginViewModel?
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
-    var macAddress: String = "F3K4:2JX0"
     
     var body: some View {
         NavigationView {
@@ -25,16 +25,16 @@ struct AccountView: View {
                         label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 16) {
-                                    Text("廖国胤")
+                                    Text(loginViewModel?.responseData?.name ?? "未登录姓名")
                                         .font(.headline)
-                                    Text(macAddress)
+                                    Text(loginViewModel?.responseData?.mac ?? "未登录 mac")
                                         .font(.subheadline)
-                                    (Text("学号: ") + Text("1710030215"))
+                                    (Text("学号: ") + Text(loginViewModel?.responseData?.number ?? "未登录学号"))
                                         .font(.subheadline)
                                     
                                 }
                                 Spacer()
-                                Image(uiImage:generateQRCodeImage(qrString: macAddress))
+                                Image(uiImage:generateQRCodeImage(qrString: loginViewModel?.responseData?.mac ?? "未登录 mac"))
                                     .resizable()
                                     .frame(width: 64,height: 64,alignment: .center)
                                     .padding()

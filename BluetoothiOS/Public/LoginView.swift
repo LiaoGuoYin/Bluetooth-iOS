@@ -9,12 +9,11 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var viewModel: LoginViewModel
-    @State private var isShowPassword: Bool = false
-    @State private var isShowForgetPassword: Bool = false
-    @State private var isShowRegisteringForm: Bool = false
     
     @EnvironmentObject var viewRouter: ViewRouter
+    @ObservedObject var viewModel: LoginViewModel
+    @State private var isShowPassword: Bool = false
+    @State private var isShowAlert: Bool = false
     
     var body: some View {
         NavigationView {
@@ -22,7 +21,7 @@ struct LoginView: View {
                 Section(footer:
                             HStack {
                                 Spacer()
-                                Button(action: { self.postForget() }) {
+                                Button(action: { self.showForget() }) {
                                     Text("忘记密码?")
                                         .padding(.vertical)
                                 }
@@ -75,9 +74,9 @@ struct LoginView: View {
             )
             .navigationBarTitle(Text("LOGIN"), displayMode: .inline)
         }
-        .alert(isPresented: self.$isShowForgetPassword) {
+        .alert(isPresented: self.$isShowAlert) {
             //            Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
-            Alert.init(title: Text("密码错误"), message: Text("用户名或密码错误"), dismissButton: .default(Text("确认")))
+            Alert.init(title: Text(String(viewModel.message)), message: nil, dismissButton: .default(Text("OK")))
         }
         .onAppear(perform: {
             loadLocalAccount()
@@ -94,23 +93,18 @@ extension LoginView {
         }
     }
     
-    func showRegistering() {
-        self.isShowRegisteringForm.toggle()
-    }
-    
     func postLogin() {
-        self.viewModel.checkAccount { (isValid) in
+        self.viewModel.login { (isValid) in
+            self.isShowAlert = true
             if isValid {
-                self.isShowForgetPassword = false
                 self.viewRouter.isLogined = true
-            }else {
-                self.isShowForgetPassword = true
             }
         }
     }
     
-    func postForget() {
-        self.isShowForgetPassword.toggle()
+    func showForget() {
+        self.viewModel.message = "忘记密码请联系管理员"
+        self.isShowAlert.toggle()
     }
 }
 

@@ -12,27 +12,31 @@ import Alamofire
 class LoginViewModel: ObservableObject {
     
     @Published var form: LoginUser
+    @Published var message: String = ""
+    @Published var responseData: LoginResponseData?
     
     init(form: LoginUser) {
         self.form = form
     }
     
-    func checkAccount(isValidAccount: @escaping (Bool) -> ()) {
+    func login(isValidAccount: @escaping (Bool) -> ()) {
         APIClient.studentLogin(username: form.username, password: form.password) { (result) in
             switch result {
+            case .failure(let error):
+                print(error)
+                isValidAccount(false)
             case .success(let loginResponse):
+                self.message = loginResponse.msg
+                self.responseData = loginResponse.data
                 if loginResponse.code == 10000 {
-                        UserDefaults.standard.setValue([
-                            "username": self.form.username,
-                            "password": self.form.password,
-                        ], forKey: "account")
+                    UserDefaults.standard.setValue([
+                        "username": self.form.username,
+                        "password": self.form.password,
+                    ], forKey: "account")
                     isValidAccount(true)
                 } else {
                     isValidAccount(false)
                 }
-            case .failure(let error):
-                print(error)
-                isValidAccount(false)
             }
         }
     }
