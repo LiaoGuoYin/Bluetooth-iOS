@@ -18,33 +18,21 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(footer:
-                            HStack {
-                                Spacer()
-                                Button(action: { self.showForget() }) {
-                                    Text("忘记密码?")
-                                        .padding(.vertical)
-                                }
-                            }) {
+                Section(footer: forgetPasswordButton) {
                     HStack {
                         Text("账号:\t")
-                        TextField("1710030215", text: $viewModel.form.username)
+                        TextField("1001", text: $viewModel.form.username)
                             .keyboardType(.numberPad)
                     }
                     HStack {
                         Text("密码:\t")
-                        
                         if isShowPassword {
-                            TextField("请输入密码", text: $viewModel.form.password, onCommit: {
-                                
-                            })
-                            .autocapitalization(.none)
+                            TextField("请输入密码", text: $viewModel.form.password)
+                                .autocapitalization(.none)
                         } else {
-                            SecureField("请输入密码", text: $viewModel.form.password, onCommit: {
-                                
-                            })
+                            SecureField("请输入密码", text: $viewModel.form.password)
                         }
-                        
+                        Spacer()
                         Button(action: {self.isShowPassword.toggle()}) {
                             Image(systemName: isShowPassword ? "lock.open.fill": "lock")
                         }
@@ -54,19 +42,12 @@ struct LoginView: View {
                             Text(user.rawValue.capitalized).tag(user)
                         }
                     }
-                    
                 }
             }
             .navigationBarItems(
-                leading:
-                    NavigationLink(
-                        destination:
-                            (StudentRegisterView(viewModel: StudentRegisterViewModel(studentForm: StudentForm())))
-                        ,
-                        label: {
-                            Text("注册")
-                        })
-                ,
+                leading: NavigationLink(
+                    destination: RegistView(viewModel: RegistViewModel(StudentForm()))
+                    ,label: { Text("注册") }),
                 trailing: Button(action: { self.postLogin() }) {
                     Text("登录")
                         .padding(.vertical)
@@ -75,12 +56,21 @@ struct LoginView: View {
             .navigationBarTitle(Text("LOGIN"), displayMode: .inline)
         }
         .alert(isPresented: self.$isShowAlert) {
-            //            Alert(title: Text("忘记密码别找我！"), message: Text("暂不支持在线找回"), dismissButton: .default(Text("OK")))
             Alert.init(title: Text(String(viewModel.message)), message: nil, dismissButton: .default(Text("OK")))
         }
         .onAppear(perform: {
             loadLocalAccount()
         })
+    }
+    
+    var forgetPasswordButton: some View {
+        HStack {
+            Spacer()
+            Button(action: { self.isShowAlert.toggle() }) {
+                Text("忘记密码?")
+                    .padding(.vertical)
+            }
+        }
     }
 }
 
@@ -102,10 +92,6 @@ extension LoginView {
         }
     }
     
-    func showForget() {
-        self.viewModel.message = "忘记密码请联系管理员"
-        self.isShowAlert.toggle()
-    }
 }
 
 struct LoginView_Previews: PreviewProvider {
@@ -113,3 +99,4 @@ struct LoginView_Previews: PreviewProvider {
         LoginView(viewModel: LoginViewModel(form: LoginUser(username: "", password: " "))).environmentObject(ViewRouter())
     }
 }
+

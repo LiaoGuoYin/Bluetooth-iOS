@@ -24,6 +24,7 @@ struct K {
         static let name = "name"
         static let mac = "mac"
         static let iClass = "iClass"
+        static let phone = "phone"
     }
 }
 

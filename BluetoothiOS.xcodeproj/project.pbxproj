@@ -22,13 +22,9 @@
 		AF6C26442448748E006C7568 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C26432448748E006C7568 /* BLEManager.swift */; };
 		AF6C2646244876DD006C7568 /* BLEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C2645244876DD006C7568 /* BLEView.swift */; };
 		AF7848C2243C37ED0009964E /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C1243C37ED0009964E /* CourseView.swift */; };
-		AF7848C4243C399D0009964E /* StudentRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C3243C399D0009964E /* StudentRegisterView.swift */; };
 		AF7848C6243C5A480009964E /* CourseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C5243C5A480009964E /* CourseRowView.swift */; };
 		AF7848C8243C689C0009964E /* StudentRecordHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */; };
 		AF877EDE2508D7E800D5CE1A /* StudentRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */; };
-		AF877EE0250922D900D5CE1A /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF877EDF250922D900D5CE1A /* StudentModel.swift */; };
-		AF8EF9B1250DF55000638309 /* TeacherRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8EF9B0250DF55000638309 /* TeacherRegisterView.swift */; };
-		AF8EF9B3250DF59200638309 /* TechearRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8EF9B2250DF59200638309 /* TechearRegisterViewModel.swift */; };
 		AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA013C224F0C64000DE1708 /* CourseViewModel.swift */; };
 		AFA013C724F0E79700DE1708 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA013C624F0E79700DE1708 /* CourseModel.swift */; };
 		AFA6BAAA24A9DBD90018C611 /* NewCourseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */; };
@@ -39,6 +35,8 @@
 		AFBB512C243A1A9A00D38E6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */; };
 		AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB513C243A1FD400D38E6E /* AccountView.swift */; };
 		AFBB5141243A31CC00D38E6E /* StudentRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB5140243A31CC00D38E6E /* StudentRecordView.swift */; };
+		AFCFF2302512689000C7268D /* RegistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCFF22F2512689000C7268D /* RegistView.swift */; };
+		AFCFF23425126C7100C7268D /* RegistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCFF23325126C7100C7268D /* RegistViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,13 +54,9 @@
 		AF6C26432448748E006C7568 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		AF6C2645244876DD006C7568 /* BLEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEView.swift; sourceTree = "<group>"; };
 		AF7848C1243C37ED0009964E /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
-		AF7848C3243C399D0009964E /* StudentRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegisterView.swift; sourceTree = "<group>"; };
 		AF7848C5243C5A480009964E /* CourseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRowView.swift; sourceTree = "<group>"; };
 		AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRecordHistoryView.swift; sourceTree = "<group>"; };
 		AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegisterViewModel.swift; sourceTree = "<group>"; };
-		AF877EDF250922D900D5CE1A /* StudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
-		AF8EF9B0250DF55000638309 /* TeacherRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherRegisterView.swift; sourceTree = "<group>"; };
-		AF8EF9B2250DF59200638309 /* TechearRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechearRegisterViewModel.swift; sourceTree = "<group>"; };
 		AFA013C224F0C64000DE1708 /* CourseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewModel.swift; sourceTree = "<group>"; };
 		AFA013C624F0E79700DE1708 /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
 		AFA6BAA924A9DBD90018C611 /* NewCourseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCourseFormView.swift; sourceTree = "<group>"; };
@@ -75,6 +69,8 @@
 		AFBB512D243A1A9A00D38E6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFBB513C243A1FD400D38E6E /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		AFBB5140243A31CC00D38E6E /* StudentRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRecordView.swift; sourceTree = "<group>"; };
+		AFCFF22F2512689000C7268D /* RegistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistView.swift; sourceTree = "<group>"; };
+		AFCFF23325126C7100C7268D /* RegistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +110,8 @@
 			children = (
 				AF4E12A0246422A90004F833 /* LoginView.swift */,
 				AF60CDDE2510D5DF00CFAE5B /* LoginViewModel.swift */,
+				AFCFF22F2512689000C7268D /* RegistView.swift */,
+				AFCFF23325126C7100C7268D /* RegistViewModel.swift */,
 				AFBB513C243A1FD400D38E6E /* AccountView.swift */,
 				AF60CDDC2510548C00CFAE5B /* CommonTextField.swift */,
 			);
@@ -134,8 +132,6 @@
 			children = (
 				AF877EE62509325900D5CE1A /* Course */,
 				AFA013C524F0E70600DE1708 /* CourseDetail */,
-				AF8EF9B0250DF55000638309 /* TeacherRegisterView.swift */,
-				AF8EF9B2250DF59200638309 /* TechearRegisterViewModel.swift */,
 			);
 			path = Teacher;
 			sourceTree = "<group>";
@@ -207,8 +203,6 @@
 		AFBB5139243A1FA200D38E6E /* Student */ = {
 			isa = PBXGroup;
 			children = (
-				AF877EDF250922D900D5CE1A /* StudentModel.swift */,
-				AF7848C3243C399D0009964E /* StudentRegisterView.swift */,
 				AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */,
 				AFBB5140243A31CC00D38E6E /* StudentRecordView.swift */,
 				AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */,
@@ -295,6 +289,7 @@
 				AF1F74BF250FD76F00E63445 /* Constants.swift in Sources */,
 				AF6C2646244876DD006C7568 /* BLEView.swift in Sources */,
 				AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */,
+				AFCFF23425126C7100C7268D /* RegistViewModel.swift in Sources */,
 				AF24B89024A83F790065A628 /* CourseDetailStudentView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* StudentRecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
@@ -302,10 +297,9 @@
 				AF877EDE2508D7E800D5CE1A /* StudentRegisterViewModel.swift in Sources */,
 				AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */,
 				AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */,
+				AFCFF2302512689000C7268D /* RegistView.swift in Sources */,
 				AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */,
-				AF7848C4243C399D0009964E /* StudentRegisterView.swift in Sources */,
 				AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */,
-				AF8EF9B3250DF59200638309 /* TechearRegisterViewModel.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,
@@ -315,9 +309,7 @@
 				AF24B88E24A826130065A628 /* CourseDetailStudentModel.swift in Sources */,
 				AF60CDDF2510D5DF00CFAE5B /* LoginViewModel.swift in Sources */,
 				AFA6BAAA24A9DBD90018C611 /* NewCourseFormView.swift in Sources */,
-				AF8EF9B1250DF55000638309 /* TeacherRegisterView.swift in Sources */,
 				AF6C26442448748E006C7568 /* BLEManager.swift in Sources */,
-				AF877EE0250922D900D5CE1A /* StudentModel.swift in Sources */,
 				AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */,
 				AF7848C8243C689C0009964E /* StudentRecordHistoryView.swift in Sources */,
 				AF7848C2243C37ED0009964E /* CourseView.swift in Sources */,

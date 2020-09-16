@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 class APIClient {
+    
     @discardableResult
     private static func performRequest<T:Decodable>(route:APIRouter, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (Result<T, AFError>)->Void) -> DataRequest {
         return AF.request(route)
@@ -24,6 +25,10 @@ class APIClient {
     
     static func studentRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentRegist(studentRegistForm: form), completion: completion)
+    }
+    
+    static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherRegist(form: form), completion: completion)
     }
     
 }
