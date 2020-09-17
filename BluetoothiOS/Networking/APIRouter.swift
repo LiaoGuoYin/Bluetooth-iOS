@@ -13,12 +13,13 @@ enum APIRouter: URLRequestConvertible {
     
     case studentLogin(username:String, password:String)
     case studentRegist(studentRegistForm: StudentForm)
+    case teacherLogin(username:String, password:String)
     case teacherRegist(form: StudentForm)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .studentLogin:
+        case .studentLogin, .teacherLogin:
             return .post
         case .studentRegist:
             return .post
@@ -34,6 +35,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/login/student"
         case .studentRegist:
             return "/lntusign/api/register/student"
+        case .teacherLogin:
+            return "/lntusign/api/login/teacher"
         case .teacherRegist:
             return "/lntusign/api/register/teacher"
         }
@@ -42,7 +45,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .studentLogin(let username, let password):
+        case .studentLogin(let username, let password), .teacherLogin(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .studentRegist(let form):
             return [

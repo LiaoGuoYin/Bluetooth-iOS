@@ -27,7 +27,7 @@ struct RegistView: View {
                 }
                 HStack {
                     Text("手机：")
-                    TextField("********", text: $viewModel.form.phone)
+                    TextField("17671615141", text: $viewModel.form.phone)
                         .keyboardType(.numberPad)
                 }
                 HStack {
@@ -43,7 +43,7 @@ struct RegistView: View {
             if viewModel.userType == .student {
                 Section(
                     header: Text("其他信息"),
-                    footer: Text("蓝牙地址查看方式：设置-关于-Bluetooth").padding(.vertical)
+                    footer: Text("蓝牙地址查看方式：设置 - 关于 - Bluetooth").padding(.vertical)
                 ) {
                     //                    HStack {
                     //                        Picker("学院：", selection: self.$) {
@@ -73,7 +73,7 @@ struct RegistView: View {
         })
         .disableAutocorrection(true)
         .listStyle(GroupedListStyle())
-        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarTitle((viewModel.userType == UserType.student) ? "学生": "教师", displayMode: .inline)
     }
 }
 
@@ -117,6 +117,6 @@ extension RegistView {
 
 struct RegistView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistView(viewModel: RegistViewModel(StudentForm()))
+        RegistView(viewModel: RegistViewModel(StudentForm(), userType: .student))
     }
 }

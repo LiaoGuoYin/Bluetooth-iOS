@@ -14,8 +14,9 @@ class RegistViewModel: ObservableObject {
     @Published var userType: UserType = UserType.student
     @Published var message: String = ""
     
-    init(_ form: StudentForm) {
+    init(_ form: StudentForm, userType: UserType) {
         self.form = form
+        self.userType = userType
     }
     
     func clear() {

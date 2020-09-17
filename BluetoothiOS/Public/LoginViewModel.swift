@@ -20,7 +20,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func login(isValidAccount: @escaping (Bool) -> ()) {
-        APIClient.studentLogin(username: form.username, password: form.password) { (result) in
+        APIClient.Login(username: form.username, password: form.password, userType: form.userType) { (result) in
             switch result {
             case .failure(let error):
                 print(error)
@@ -40,7 +40,6 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-    
 }
 
 struct LoginUser: Codable {

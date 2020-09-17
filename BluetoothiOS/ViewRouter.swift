@@ -11,16 +11,8 @@ import Combine
 import SwiftUI
 
 class ViewRouter: ObservableObject {
-    @Published var isLogined: Bool = false
     
-    @Published var userType: UserType = UserType.teacher
-
-//    let objectWillChange = PassthroughSubject<ViewRouter, Never>()
-//
-//    var isLogined = false {
-//        didSet {
-//            self.objectWillChange.send(self)
-//        }
-//    }
-
+    @Published var isLogined: Bool = false
+    @Published var userType: UserType = UserType.student
+    
 }

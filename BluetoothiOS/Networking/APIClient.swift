@@ -19,12 +19,18 @@ class APIClient {
             }
     }
     
-    static func studentLogin(username: String, password: String, completion: @escaping (Result<LoginResponse, AFError>) -> Void) {
-        performRequest(route: APIRouter.studentLogin(username: username, password: password), completion: completion)
-    }
-    
     static func studentRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentRegist(studentRegistForm: form), completion: completion)
+    }
+    
+    static func Login(username: String, password: String,userType: UserType, completion: @escaping (Result<LoginResponse, AFError>) -> Void) {
+        if userType == .student {
+            performRequest(route: APIRouter.studentLogin(username: username, password: password), completion: completion)
+        } else if userType == .teacher {
+            performRequest(route: APIRouter.teacherLogin(username: username, password: password), completion: completion)
+        } else {
+//            performRequest(route: APIRouter.adminLogin(username: username, password: password), completion: completion)
+        }
     }
     
     static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
