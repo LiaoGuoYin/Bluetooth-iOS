@@ -19,8 +19,8 @@ class LoginViewModel: ObservableObject {
         self.form = form
     }
     
-    func login(isValidAccount: @escaping (Bool) -> ()) {
-        APIClient.Login(username: form.username, password: form.password, userType: form.userType) { (result) in
+    func login(userType: UserType, isValidAccount: @escaping (Bool) -> ()) {
+        APIClient.Login(username: form.username, password: form.password, userType: userType) { (result) in
             switch result {
             case .failure(let error):
                 print(error)

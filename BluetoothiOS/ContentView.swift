@@ -15,22 +15,30 @@ struct ContentView: View {
     
     var body: some View {
         if viewRouter.isLogined {
-            TabView {
-                TeacherCourseView()
-                    .tabItem {
-                        Image(systemName: "tag.fill")
-                        Text("Record")
-                    }
-                    .tag(2)
-                
+            if viewRouter.userType == UserType.student {
                 AccountView(loginViewModel: self.loginViewModel)
                     .environmentObject(viewRouter)
                     .tabItem {
                         Image(systemName: "rectangle.stack.person.crop.fill")
                         Text("Account")
                     }
-                    .tag(1)
+            } else {
+                TabView {
+                    TeacherCourseView()
+                        .tabItem {
+                            Image(systemName: "tag.fill")
+                            Text("Record")
+                        }
+                    
+                    AccountView(loginViewModel: self.loginViewModel)
+                        .environmentObject(viewRouter)
+                        .tabItem {
+                            Image(systemName: "rectangle.stack.person.crop.fill")
+                            Text("Account")
+                        }
+                }
             }
+            
         } else {
             LoginView(viewModel: self.loginViewModel).environmentObject(viewRouter)
                 .transition(.scale)

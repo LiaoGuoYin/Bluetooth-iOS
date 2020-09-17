@@ -48,10 +48,7 @@ struct LoginView: View {
                 leading: NavigationLink( destination:
                                             RegistView(viewModel: RegistViewModel(StudentForm(), userType: viewRouter.userType))
                                          ,label: { Text("注册") }),
-                trailing: Button(action: {
-                    self.checkInputText()
-                    self.postLogin()
-                }) {
+                trailing: Button(action: { self.postLogin() }) {
                     Text("登录")
                         .padding(.vertical)
                 }
@@ -89,21 +86,14 @@ extension LoginView {
         }
     }
     
-    func checkInputText() {
-        if (viewModel.form.username.count == 4) && (viewModel.form.userType == .student){
-            viewModel.message = "四位ID 是教师工号，请确认是否选了正确的用户类型"
-        }
-    }
-    
     func postLogin() {
-        self.viewModel.login { (isValid) in
+        viewModel.login(userType: viewRouter.userType) { (isValid) in
             self.isShowAlert = true
             if isValid {
                 self.viewRouter.isLogined = true
             }
         }
     }
-    
 }
 
 struct LoginView_Previews: PreviewProvider {
