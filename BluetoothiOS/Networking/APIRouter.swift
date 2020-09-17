@@ -15,15 +15,17 @@ enum APIRouter: URLRequestConvertible {
     case studentRegist(studentRegistForm: StudentForm)
     case teacherLogin(username:String, password:String)
     case teacherRegist(form: StudentForm)
+    case teacherGetCourse(username: String)
+    case teacherGetStudentListByClassName(className: String)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .studentLogin, .teacherLogin:
+        case .studentLogin:
             return .post
         case .studentRegist:
             return .post
-        case .teacherRegist:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName:
             return .post
         }
     }
@@ -39,6 +41,10 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/login/teacher"
         case .teacherRegist:
             return "/lntusign/api/register/teacher"
+        case .teacherGetCourse:
+            return "/lntusign/api/teacher/getcourse"
+        case .teacherGetStudentListByClassName:
+            return "/lntusign/api/teacher/getstudents"
         }
     }
     
@@ -49,19 +55,23 @@ enum APIRouter: URLRequestConvertible {
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .studentRegist(let form):
             return [
-                K.StudentRegisterParameterKey.number: form.number,
-                K.StudentRegisterParameterKey.password: form.password,
-                K.StudentRegisterParameterKey.iClass: form.iClass,
-                K.StudentRegisterParameterKey.mac: form.mac,
-                K.StudentRegisterParameterKey.name: form.name
+                K.RegisterParameterKey.number: form.number,
+                K.RegisterParameterKey.password: form.password,
+                K.RegisterParameterKey.iClass: form.iClass,
+                K.RegisterParameterKey.mac: form.mac,
+                K.RegisterParameterKey.name: form.name
             ]
         case .teacherRegist(let form):
             return [
-                K.StudentRegisterParameterKey.number: form.number,
-                K.StudentRegisterParameterKey.password: form.password,
-                K.StudentRegisterParameterKey.name: form.name,
-                K.StudentRegisterParameterKey.phone: form.phone
+                K.RegisterParameterKey.number: form.number,
+                K.RegisterParameterKey.password: form.password,
+                K.RegisterParameterKey.name: form.name,
+                K.RegisterParameterKey.phone: form.phone
             ]
+        case .teacherGetCourse(let username):
+            return [K.APIParameterKey.username: username]
+        case .teacherGetStudentListByClassName(let className):
+            return [K.TeacherParmeterKey.className: className]
         }
     }
     

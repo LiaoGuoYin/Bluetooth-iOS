@@ -15,7 +15,7 @@ struct LoginResponse: Codable {
 }
 
 // MARK: - LoginResponseData
-struct LoginResponseData: Codable {
+struct LoginResponseData: Codable, CustomStringConvertible {
     let id, number, passwd, name: String
     let iClass, mac, phone: String?
     let datetime: Int
@@ -24,4 +24,14 @@ struct LoginResponseData: Codable {
         case id = "_id"
         case number, passwd, name, iClass, mac, datetime, phone
     }
+    
+    var description: String {
+        /*
+         姓名,班级,学号,MAC,\r
+         丁一,111,1,BCE143B46210,√\r
+         吴一帆,183,2,7836CC44578C,\r
+         */
+        return "\(name),\(String(describing: iClass)),\(number),\(String(describing: mac)),\r"
+    }
+    
 }

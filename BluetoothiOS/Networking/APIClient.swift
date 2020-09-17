@@ -29,12 +29,20 @@ class APIClient {
         } else if userType == .teacher {
             performRequest(route: APIRouter.teacherLogin(username: username, password: password), completion: completion)
         } else {
-//            performRequest(route: APIRouter.adminLogin(username: username, password: password), completion: completion)
+            //            performRequest(route: APIRouter.adminLogin(username: username, password: password), completion: completion)
         }
     }
     
     static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherRegist(form: form), completion: completion)
+    }
+    
+    static func teacherGetCourse(username: String, completion: @escaping (Result<CourseResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherGetCourse(username: username), completion: completion)
+    }
+    
+    static func teacherGetStudentListByClassName(className: String, completion: @escaping (Result<ClassStudentResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherGetStudentListByClassName(className: className), completion: completion)
     }
     
 }

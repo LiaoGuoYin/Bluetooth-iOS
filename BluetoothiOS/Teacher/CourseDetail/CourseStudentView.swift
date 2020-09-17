@@ -9,28 +9,31 @@
 import SwiftUI
 
 struct CourseStudentView: View {
+    typealias Student = LoginResponseData
+    
     @State var viewModel: TeacherCourseViewModel
-    @Binding var students: Array<Student>
+    @State var classList: [String] = []
+    @State var studentList: Array<Student> = []
     @State private var isShowingSheet: Bool = false
     @State private var isShowNewPage: Bool = false
     
-    
     var body: some View {
         List {
-            ForEach(students, id: \.self) { (item: Student) in
+            ForEach(studentList, id: \.id) { student in
                 HStack(spacing: 16) {
-                    Text(item.name)
+                    Text(student.name)
                         .font(.headline)
-                        .frame(width: 80)
+                        .frame(width: 100)
+                        .lineLimit(1)
                     VStack(alignment:.leading, spacing: 8) {
-                        Text(item.classOf)
+                        Text(student.iClass ?? "Unknow")
                             .font(.caption)
-                        Text(item.mac)
+                        Text(student.mac ?? "Unknow")
                             .font(.caption)
                     }
                     Spacer()
-                    Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
-                        .foregroundColor(.blue)
+                    //                    Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
+                    //                        .foregroundColor(.blue)
                 }
                 .padding()
                 .onTapGesture(count: 2, perform: {
@@ -45,33 +48,57 @@ struct CourseStudentView: View {
         })
         .actionSheet(isPresented: $isShowingSheet, content: {
             ActionSheet(title: Text("是否开始考勤？"),
-                        message: Text("当前班级学生：\(students.count) 人"),
+                        message: Text("当前班级学生：\(studentList.count) 人"),
                         buttons: [.default(Text("开始"), action: {
                             self.isShowNewPage.toggle()
                         }), .cancel(Text("取消"))])
         })
+        .onAppear(perform: loadAllClass)
         .navigationBarTitle(Text("学生名单"))
         .navigationBarItems(trailing: sendSheetToBLEButton)
     }
 }
 
 extension CourseStudentView {
+    
+    init() {
+        self.init(viewModel: TeacherCourseViewModel())
+    }
+    
+    func loadAllClass() {
+        for each in classList {
+            loadClassStudentList(className: each)
+        }
+    }
+    
+    func loadClassStudentList(className: String) {
+        APIClient.teacherGetStudentListByClassName(className: className) { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let studentListOfClass):
+                self.studentList = studentListOfClass.data
+                print(studentListOfClass.data)
+            }
+        }
+    }
+    
     private func onAdd(_ student: Student) {
-        students.append(student)
+        studentList.append(student)
     }
     
     private func onMoveStudent(source: IndexSet, destination: Int) {
-        students.move(fromOffsets: source, toOffset: destination)
+        studentList.move(fromOffsets: source, toOffset: destination)
     }
     
     private func onDeleteStudent(at indexSet: IndexSet) {
-        students.remove(atOffsets: indexSet)
+        studentList.remove(atOffsets: indexSet)
     }
     
     var sendSheetToBLEButton: some View {
         Button(action: {
             self.isShowingSheet.toggle()
-            let selectedCourseString = serializeStudentsToStringForSending(students: self.students)
+            let selectedCourseString = serializeStudentsToStringForSending(students: studentList)
             self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
         }, label: {
             Text("考勤")
@@ -85,6 +112,6 @@ extension CourseStudentView {
 
 struct CourseDetailStudentView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseStudentView(viewModel: TeacherCourseViewModel(), students: .constant(studentsDemo))
+        CourseStudentView(viewModel: TeacherCourseViewModel(), classList: ["信管研192", "土木研193"])
     }
 }

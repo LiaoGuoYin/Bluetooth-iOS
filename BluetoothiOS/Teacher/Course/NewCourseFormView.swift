@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct NewCourseFormView: View {
+    
     @ObservedObject var viewModel: TeacherCourseViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -36,7 +37,7 @@ struct NewCourseFormView: View {
                     }
                 }
                 
-                Section(header: Text("学生列表")) {
+                Section(header: studentListSectionHeader) {
                     List {
                         ForEach(viewModel.form.students, id: \.self) { (item: Student) in
                             HStack {
@@ -79,6 +80,22 @@ struct NewCourseFormView: View {
 }
 
 extension NewCourseFormView {
+    
+    var studentListSectionHeader: some View {
+        HStack {
+            Text("学生列表")
+            Spacer()
+            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
+                Text("fresh")
+                    .padding(6)
+                    .foregroundColor(.white)
+                    .background(Color(.systemBlue))
+                    .cornerRadius(5)
+            }
+        }
+        .padding(3)
+    }
+    
     func clearForm() {
         self.viewModel.clearCourseForm()
     }
@@ -88,7 +105,7 @@ extension NewCourseFormView {
     }
     
     func submitForm() {
-        self.viewModel.courseList.append(self.viewModel.form)
+//        self.viewModel.courseList.append(self.viewModel.form)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

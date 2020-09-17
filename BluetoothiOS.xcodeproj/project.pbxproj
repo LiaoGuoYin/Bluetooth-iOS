@@ -12,8 +12,8 @@
 		AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74B9250FD4BA00E63445 /* APIRouter.swift */; };
 		AF1F74BD250FD71B00E63445 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF1F74BC250FD71B00E63445 /* Alamofire */; };
 		AF1F74BF250FD76F00E63445 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74BE250FD76F00E63445 /* Constants.swift */; };
-		AF24B88E24A826130065A628 /* CourseDetailStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */; };
-		AF24B89024A83F790065A628 /* CourseDetailStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88F24A83F790065A628 /* CourseDetailStudentView.swift */; };
+		AF24B88E24A826130065A628 /* CourseStudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88D24A826130065A628 /* CourseStudentModel.swift */; };
+		AF24B89024A83F790065A628 /* CourseStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF24B88F24A83F790065A628 /* CourseStudentView.swift */; };
 		AF4E12A1246422A90004F833 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E12A0246422A90004F833 /* LoginView.swift */; };
 		AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDD8250FDACA00CFAE5B /* APIClient.swift */; };
 		AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */; };
@@ -24,6 +24,7 @@
 		AF7848C2243C37ED0009964E /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C1243C37ED0009964E /* CourseView.swift */; };
 		AF7848C6243C5A480009964E /* CourseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C5243C5A480009964E /* CourseRowView.swift */; };
 		AF7848C8243C689C0009964E /* StudentRecordHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */; };
+		AF7D9120251307B80090EFAF /* TeacherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7D911F251307B80090EFAF /* TeacherResponse.swift */; };
 		AF877EDE2508D7E800D5CE1A /* StudentRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */; };
 		AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA013C224F0C64000DE1708 /* CourseViewModel.swift */; };
 		AFA013C724F0E79700DE1708 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA013C624F0E79700DE1708 /* CourseModel.swift */; };
@@ -44,8 +45,8 @@
 		AF1747312511BCFF0082996B /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		AF1F74B9250FD4BA00E63445 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		AF1F74BE250FD76F00E63445 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentModel.swift; sourceTree = "<group>"; };
-		AF24B88F24A83F790065A628 /* CourseDetailStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailStudentView.swift; sourceTree = "<group>"; };
+		AF24B88D24A826130065A628 /* CourseStudentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentModel.swift; sourceTree = "<group>"; };
+		AF24B88F24A83F790065A628 /* CourseStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseStudentView.swift; sourceTree = "<group>"; };
 		AF4E12A0246422A90004F833 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AF60CDD8250FDACA00CFAE5B /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		AF7848C1243C37ED0009964E /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 		AF7848C5243C5A480009964E /* CourseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRowView.swift; sourceTree = "<group>"; };
 		AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRecordHistoryView.swift; sourceTree = "<group>"; };
+		AF7D911F251307B80090EFAF /* TeacherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherResponse.swift; sourceTree = "<group>"; };
 		AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegisterViewModel.swift; sourceTree = "<group>"; };
 		AFA013C224F0C64000DE1708 /* CourseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewModel.swift; sourceTree = "<group>"; };
 		AFA013C624F0E79700DE1708 /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				AF60CDD8250FDACA00CFAE5B /* APIClient.swift */,
 				AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */,
 				AF1747312511BCFF0082996B /* RegisterResponse.swift */,
+				AF7D911F251307B80090EFAF /* TeacherResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -151,8 +154,8 @@
 		AFA013C524F0E70600DE1708 /* CourseDetail */ = {
 			isa = PBXGroup;
 			children = (
-				AF24B88D24A826130065A628 /* CourseDetailStudentModel.swift */,
-				AF24B88F24A83F790065A628 /* CourseDetailStudentView.swift */,
+				AF24B88D24A826130065A628 /* CourseStudentModel.swift */,
+				AF24B88F24A83F790065A628 /* CourseStudentView.swift */,
 			);
 			path = CourseDetail;
 			sourceTree = "<group>";
@@ -290,7 +293,7 @@
 				AF6C2646244876DD006C7568 /* BLEView.swift in Sources */,
 				AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */,
 				AFCFF23425126C7100C7268D /* RegistViewModel.swift in Sources */,
-				AF24B89024A83F790065A628 /* CourseDetailStudentView.swift in Sources */,
+				AF24B89024A83F790065A628 /* CourseStudentView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* StudentRecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
 				AF60CDDD2510548C00CFAE5B /* CommonTextField.swift in Sources */,
@@ -301,12 +304,13 @@
 				AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */,
 				AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
+				AF7D9120251307B80090EFAF /* TeacherResponse.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,
 				AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */,
 				AFA013C724F0E79700DE1708 /* CourseModel.swift in Sources */,
 				AF7848C6243C5A480009964E /* CourseRowView.swift in Sources */,
-				AF24B88E24A826130065A628 /* CourseDetailStudentModel.swift in Sources */,
+				AF24B88E24A826130065A628 /* CourseStudentModel.swift in Sources */,
 				AF60CDDF2510D5DF00CFAE5B /* LoginViewModel.swift in Sources */,
 				AFA6BAAA24A9DBD90018C611 /* NewCourseFormView.swift in Sources */,
 				AF6C26442448748E006C7568 /* BLEManager.swift in Sources */,

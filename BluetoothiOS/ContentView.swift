@@ -41,7 +41,6 @@ struct ContentView: View {
             
         } else {
             LoginView(viewModel: self.loginViewModel).environmentObject(viewRouter)
-                .transition(.scale)
         }
     }
 }

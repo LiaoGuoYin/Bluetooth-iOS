@@ -7,7 +7,7 @@
 //
 
 struct Student: CustomStringConvertible {
-    var id: Int
+    var number: Int
     var name: String
     var classOf: String
     var mac: String
@@ -19,7 +19,7 @@ struct Student: CustomStringConvertible {
          丁一,111,1,BCE143B46210,√\r
          吴一帆,183,2,7836CC44578C,\r
          */
-        return "\(name),\(classOf),\(id),\(mac),\r"
+        return "\(name),\(classOf),\(number),\(mac),\r"
     }
     
     /// 蓝牙回传的用户状态：到场，旷课
@@ -31,15 +31,15 @@ struct Student: CustomStringConvertible {
 
 extension Student: Hashable {
     init() {
-        self.init(id: -1, name: "测试用户", classOf: "信管17-2", mac: "3CA581792440")
+        self.init(number: -1, name: "测试用户", classOf: "信管17-2", mac: "3CA581792440")
     }
     
     static func == (lhs: Student, rhs: Student) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.number == rhs.number
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(number)
     }
 }
 
@@ -71,7 +71,7 @@ func deSerializingReceivedStudentsStringToArray(receivedString: String) -> [Stud
         guard items.count >= 3 else {
             continue
         }
-        var newStudent = Student(id: Int(items[2]) ?? 0, name: String(items[0]), classOf: String(items[1]), mac: String(items[3]))
+        var newStudent = Student(number: Int(items[2]) ?? 0, name: String(items[0]), classOf: String(items[1]), mac: String(items[3]))
         if items.count == 5 {
             newStudent.status = .present
         }
@@ -83,7 +83,7 @@ func deSerializingReceivedStudentsStringToArray(receivedString: String) -> [Stud
 /// 序列化学生指定课程的学生列表，准备发送给蓝牙，打卡名单
 /// - Parameter selection: 打卡班级
 /// - Returns: 学生名单
-func serializeStudentsToStringForSending(students: Array<Student>) -> String {
+func serializeStudentsToStringForSending(students: Array<LoginResponseData>) -> String {
     var resultString: String = "姓名,班级,学号,MAC,\r\n"
     for student in students {
         resultString.addString(student.description)

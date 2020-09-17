@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TeacherCourseView: View {
+    
     @ObservedObject var viewModel: TeacherCourseViewModel
     @State private var isShowCourseSheet: Bool = false
     
@@ -16,33 +17,33 @@ struct TeacherCourseView: View {
         NavigationView {
             Form {
                 Section( header: Text("课程列表") ) {
-                    ForEach(viewModel.courseList.indices, id:\.self) { index in
-                        NavigationLink(destination:
-                                        CourseStudentView(viewModel: viewModel, students: self.$viewModel.courseList[index].students)
-                        ) {
-                            TeacherCourseRowView(course: $viewModel.courseList[index])
-                        }
+                    ForEach(0..<viewModel.courseList.count, id: \.self) { (index) in
+                        TeacherCourseRowView(course: $viewModel.courseList[index])
+                            .padding(.vertical)
+                        NavigationLink(
+                            destination: CourseStudentView(viewModel: viewModel, classList: viewModel.courseList[index].classList),
+                            label: {
+                                Text("开始打卡")
+                            })
                     }
                     .onMove(perform: onMoveCourse)
                     .onDelete(perform: onDeleteCourse)
                 }
             }
             .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
-            .navigationBarItems(leading: EditButton(),
+            .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
         }
         .sheet(isPresented: $isShowCourseSheet) {
             NewCourseFormView(viewModel: self.viewModel)
         }
+        .onAppear(perform: viewModel.getchCourse)
     }
 }
 
 extension TeacherCourseView {
     init() {
         self.init(viewModel: TeacherCourseViewModel())
-        for _ in 1..<3 {
-            viewModel.addCourse(Course())
-        }
     }
     
     func loadLocalData() {
@@ -52,14 +53,22 @@ extension TeacherCourseView {
     func onMoveCourse(source: IndexSet, destination: Int) {
         viewModel.moveCourse(from: source, to: destination)
     }
-    
+
     func onDeleteCourse(at indexSet: IndexSet) {
         viewModel.deleteCourse(indexSet)
     }
     
+    var refreshToFetchCourseButton: some View {
+        Button(action: viewModel.getchCourse) {
+            Image(systemName: "arrow.clockwise.circle.fill")
+                .foregroundColor(.pink)
+        }
+    }
+    
     var addButton: some View {
         Button(action: { self.isShowCourseSheet.toggle() }) {
-            Image(systemName: "plus.square")
+            Image(systemName: "plus.square.fill")
+                .foregroundColor(.pink)
                 .font(.headline)
                 .padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 0))
         }
