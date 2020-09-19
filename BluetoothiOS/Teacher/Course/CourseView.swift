@@ -42,8 +42,9 @@ struct TeacherCourseView: View {
 }
 
 extension TeacherCourseView {
+    
     init() {
-        self.init(viewModel: TeacherCourseViewModel())
+        self.init(viewModel: TeacherCourseViewModel(teachNumber: "1001"))
     }
     
     func loadLocalData() {

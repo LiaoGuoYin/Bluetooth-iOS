@@ -23,15 +23,14 @@ struct CourseStudentView: View {
                 HStack(spacing: 16) {
                     Text(student.name)
                         .font(.headline)
-                        .frame(width: 100)
+                        .frame(width: 150)
                         .lineLimit(1)
                     VStack(alignment:.leading, spacing: 8) {
-                        Text(student.iClass ?? "Unknow")
-                            .font(.caption)
                         Text(student.mac ?? "Unknow")
                             .font(.caption)
+                        Text(student.iClass ?? "Unknow")
+                            .font(.caption)
                     }
-                    Spacer()
                     //                    Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
                     //                        .foregroundColor(.blue)
                 }
@@ -62,7 +61,7 @@ struct CourseStudentView: View {
 extension CourseStudentView {
     
     init() {
-        self.init(viewModel: TeacherCourseViewModel())
+        self.init(viewModel: TeacherCourseViewModel(teachNumber: "1001"))
     }
     
     func loadAllClass() {
@@ -77,8 +76,7 @@ extension CourseStudentView {
             case .failure(let error):
                 print(error)
             case .success(let studentListOfClass):
-                self.studentList = studentListOfClass.data
-                print(studentListOfClass.data)
+                self.studentList.append(contentsOf: studentListOfClass.data)
             }
         }
     }
@@ -112,6 +110,6 @@ extension CourseStudentView {
 
 struct CourseDetailStudentView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseStudentView(viewModel: TeacherCourseViewModel(), classList: ["信管研192", "土木研193"])
+        CourseStudentView(viewModel: TeacherCourseViewModel(teachNumber: "1001"), classList: ["信管研192", "土木研193"])
     }
 }

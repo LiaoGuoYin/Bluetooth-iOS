@@ -45,4 +45,8 @@ class APIClient {
         performRequest(route: APIRouter.teacherGetStudentListByClassName(className: className), completion: completion)
     }
     
+    static func teacherCreateCourse(_ teacherNumber: String,_ course: Course, completion: @escaping (Result<LoginResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherCreateCourse(teacherNumber: teacherNumber, course: course), completion: completion)
+    }
+    
 }

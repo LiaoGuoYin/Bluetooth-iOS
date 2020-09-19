@@ -24,7 +24,7 @@ struct ContentView: View {
                     }
             } else {
                 TabView {
-                    TeacherCourseView()
+                    TeacherCourseView(viewModel: TeacherCourseViewModel(teachNumber: loginViewModel.form.username))
                         .tabItem {
                             Image(systemName: "tag.fill")
                             Text("Record")

@@ -10,7 +10,8 @@ import Foundation
 
 struct K {
     struct ProductionServer {
-        static let baseURL = "http://10.31.86.31"
+//        static let baseURL = "http://10.31.86.31"
+        static let baseURL = "https://www.hushtime.cn"
     }
     
     struct APIParameterKey {
@@ -29,6 +30,8 @@ struct K {
     
     struct TeacherParmeterKey {
         static let className = "iClass"
+        static let classroom = "classroom"
+        static let courseName = "course"
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 struct NewCourseFormView: View {
     
     @ObservedObject var viewModel: TeacherCourseViewModel
+    @State private var isShowAlert: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -20,7 +21,7 @@ struct NewCourseFormView: View {
                     HStack {
                         Text("课程名称：")
                             .foregroundColor(.gray)
-                        TextField("Python 程序设计", text: $viewModel.form.name)
+                        TextField("程序设计基础", text: $viewModel.form.name)
                             .font(.body)
                     }
                     HStack {
@@ -32,27 +33,27 @@ struct NewCourseFormView: View {
                     HStack {
                         Text("教授班级：")
                             .foregroundColor(.gray)
-                        TextField("测试17-2", text: $viewModel.form.classOf)
+                        TextField("测试研172", text: $viewModel.form.classOf)
                             .font(.body)
                     }
                 }
                 
-                Section(header: studentListSectionHeader) {
-                    List {
-                        ForEach(viewModel.form.students, id: \.self) { (item: Student) in
-                            HStack {
-                                Text(item.name)
-                                    .frame(width: 80)
-                                Spacer()
-                                Text(item.classOf)
-                                Spacer()
-                                Text(item.mac)
-                            }
-                        }
-                    }
-                }
+                //                Section(header: studentListSectionHeader) {
+                //                    List {
+                //                        ForEach(viewModel.form.students, id: \.self) { (item: Student) in
+                //                            HStack {
+                //                                Text(item.name)
+                //                                    .frame(width: 80)
+                //                                Spacer()
+                //                                Text(item.classOf)
+                //                                Spacer()
+                //                                Text(item.mac)
+                //                            }
+                //                        }
+                //                    }
+                //                }
                 
-                Button(action: { self.clearForm() }) {
+                Button(action: clearForm) {
                     HStack {
                         Spacer()
                         Text("重置")
@@ -61,7 +62,7 @@ struct NewCourseFormView: View {
                     }
                 }
                 
-                Button(action: { self.submitForm() }) {
+                Button(action: submitForm) {
                     HStack {
                         Spacer()
                         Text("提交")
@@ -69,12 +70,18 @@ struct NewCourseFormView: View {
                     }
                 }
             }
+            .alert(isPresented: $isShowAlert, content: {
+                Alert(title: Text(viewModel.message),
+                      primaryButton: .destructive(Text("继续修改"), action: self.clearForm),
+                      secondaryButton: .default(Text("完成"), action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                      })
+            )})
             .disableAutocorrection(true)
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("新增课程"), displayMode: .inline)
             .navigationBarItems(
-                leading: Button(action: { self.dismissForm() }) {Text("Cancel").foregroundColor(.red)},
-                trailing: Button(action: { self.submitForm() }) { Text("Done")})
+                trailing: Button(action: submitForm) { Text("提交")})
         }
     }
 }
@@ -100,18 +107,14 @@ extension NewCourseFormView {
         self.viewModel.clearCourseForm()
     }
     
-    func dismissForm() {
-        self.presentationMode.wrappedValue.dismiss()
-    }
-    
     func submitForm() {
-//        self.viewModel.courseList.append(self.viewModel.form)
-        self.presentationMode.wrappedValue.dismiss()
+        viewModel.createCourse()
+        isShowAlert.toggle()
     }
 }
 
 struct NewCourseFormView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCourseFormView(viewModel: TeacherCourseViewModel())
+        NewCourseFormView(viewModel: TeacherCourseViewModel(teachNumber: "1001"))
     }
 }

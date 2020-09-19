@@ -10,6 +10,7 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct AccountView: View {
+    
     @EnvironmentObject var viewRouter: ViewRouter
     @State var loginViewModel: LoginViewModel?
     

@@ -12,12 +12,13 @@ class TeacherCourseViewModel: ObservableObject {
     
     @Published var courseList: Array<CourseResponseData>
     @Published var form: Course
-    @Published var teacherNumber: String = "0001" // FOR demo TODO
+    @Published var teacherNumber: String
     @Published var message: String = ""
     
-    init() {
+    init(teachNumber: String) {
         self.courseList = Array<CourseResponseData>()
         self.form = Course()
+        self.teacherNumber = teachNumber
     }
     
     //    MARK: - Access to the model
@@ -35,11 +36,22 @@ class TeacherCourseViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-                print(error)
             case .success(let courseResponse):
                 self.message = courseResponse.msg
                 self.courseList = courseResponse.data
-                print(courseResponse)
+            }
+        }
+    }
+    
+    func createCourse() -> Void {
+        APIClient.teacherCreateCourse(teacherNumber, form) { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+                print(self.message)
+            case .success(let response):
+                self.message = response.msg
+                print(self.message)
             }
         }
     }
@@ -75,5 +87,6 @@ extension TeacherCourseViewModel {
         self.form = Course()
         self.form.name = ""
         self.form.classOf = ""
+        self.form.roomOf = ""
     }
 }
