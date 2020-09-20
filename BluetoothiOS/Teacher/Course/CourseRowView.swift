@@ -12,14 +12,11 @@ struct TeacherCourseRowView: View {
     @Binding var course: CourseResponseData
     
     var body: some View {
-        HStack {
-            VStack(alignment:.leading, spacing: 16) {
-                Text(course.name)
-                    .font(.headline)
-                Text("授课班级：\(course.classList.count) 个")
-            }
+        HStack(alignment: .firstTextBaseline) {
+            Text(course.name)
+                .font(.headline)
             Spacer()
-            Text(course.roomOf)
+            Text(course.classList)
                 .font(.subheadline)
         }
         .cornerRadius(6)

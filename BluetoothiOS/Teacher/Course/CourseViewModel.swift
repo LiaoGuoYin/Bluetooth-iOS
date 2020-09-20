@@ -36,6 +36,7 @@ class TeacherCourseViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
+                print(error)
             case .success(let courseResponse):
                 self.message = courseResponse.msg
                 self.courseList = courseResponse.data
@@ -55,10 +56,6 @@ class TeacherCourseViewModel: ObservableObject {
             }
         }
     }
-    
-//    func addCourse(_ course: Course) {
-//        courseList.append(course)
-//    }
 
     func deleteCourse(_ courseIndexSet: IndexSet) {
         courseList.remove(atOffsets: courseIndexSet)

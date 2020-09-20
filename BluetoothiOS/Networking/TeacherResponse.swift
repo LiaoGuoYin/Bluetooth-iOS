@@ -17,8 +17,8 @@ struct CourseResponse: Codable {
 struct CourseResponseData: Codable {
     let name: String
     let status: String
-    let datetime: Int
-    let classList: [String]
+    let datetime: Int64
+    let classList: String
     let roomOf: String
     
     enum CodingKeys: String, CodingKey {
@@ -32,7 +32,7 @@ struct CourseResponseData: Codable {
 
 extension CourseResponseData {
     init() {
-        self.init(name: "Swift程序设计", status: "0", datetime: 1234243, classList: ["电信研183", "信管研183"], roomOf: "尔雅221")
+        self.init(name: "Swift程序设计", status: "0", datetime: 1234243, classList: "电信研183", roomOf: "尔雅221")
     }
 }
 

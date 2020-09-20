@@ -16,26 +16,29 @@ struct TeacherCourseView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section( header: Text("课程列表") ) {
+                Section(header: Text("课程列表") ) {
                     ForEach(0..<viewModel.courseList.count, id: \.self) { (index) in
-                        TeacherCourseRowView(course: $viewModel.courseList[index])
-                            .padding(.vertical)
-                        NavigationLink(
-                            destination: CourseStudentView(viewModel: viewModel, classList: viewModel.courseList[index].classList),
-                            label: {
-                                Text("开始打卡")
-                            })
+                        VStack(spacing: 16) {
+                            TeacherCourseRowView(course: $viewModel.courseList[index])
+                            NavigationLink(
+                                destination: CourseStudentView(viewModel: viewModel, classList: [viewModel.courseList[index].classList]),
+                                label: {
+                                    Text(viewModel.courseList[index].roomOf)
+                                        .font(.subheadline)
+                                })
+                        }
+                        .padding(.vertical, 12)
                     }
                     .onMove(perform: onMoveCourse)
                     .onDelete(perform: onDeleteCourse)
                 }
             }
+            .sheet(isPresented: $isShowCourseSheet) {
+                NewCourseFormView(viewModel: self.viewModel)
+            }
             .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
-        }
-        .sheet(isPresented: $isShowCourseSheet) {
-            NewCourseFormView(viewModel: self.viewModel)
         }
         .onAppear(perform: viewModel.getchCourse)
     }
@@ -54,7 +57,7 @@ extension TeacherCourseView {
     func onMoveCourse(source: IndexSet, destination: Int) {
         viewModel.moveCourse(from: source, to: destination)
     }
-
+    
     func onDeleteCourse(at indexSet: IndexSet) {
         viewModel.deleteCourse(indexSet)
     }
