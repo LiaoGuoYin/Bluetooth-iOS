@@ -57,13 +57,20 @@ class TeacherCourseViewModel: ObservableObject {
         }
     }
 
-    func deleteCourse(_ courseIndexSet: IndexSet) {
-        courseList.remove(atOffsets: courseIndexSet)
+    func deleteCourse(_ offsets: IndexSet) {
+        if let actualOffset = offsets.first {
+            APIClient.teacherDeleteCourse(self.teacherNumber, courseList[actualOffset].name) { (result) in
+                switch result {
+                case .failure(let error):
+                    self.message = error.localizedDescription
+                case .success(let response):
+                    self.message = response.msg
+                    self.courseList.remove(at: actualOffset)
+                }
+            }
+        }
     }
 
-    func moveCourse(from source: IndexSet, to destination: Int) {
-        courseList.move(fromOffsets: source, toOffset: destination)
-    }
 //
 //    //    MARK: - Students Intents
 //    func addStudent(_ courseIndex: Int, _ student: Student) {

@@ -12,6 +12,7 @@ struct TeacherCourseView: View {
     
     @ObservedObject var viewModel: TeacherCourseViewModel
     @State private var isShowCourseSheet: Bool = false
+    @State private var isShowAlert: Bool = false
     
     var body: some View {
         NavigationView {
@@ -29,7 +30,6 @@ struct TeacherCourseView: View {
                         }
                         .padding(.vertical, 12)
                     }
-                    .onMove(perform: onMoveCourse)
                     .onDelete(perform: onDeleteCourse)
                 }
             }
@@ -39,6 +39,9 @@ struct TeacherCourseView: View {
             .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
+            .alert(isPresented: $isShowAlert, content: {
+                Alert(title: Text(viewModel.message), message: nil, dismissButton: .default(Text("OK")))
+            })
         }
         .onAppear(perform: viewModel.getchCourse)
     }
@@ -54,12 +57,9 @@ extension TeacherCourseView {
         
     }
     
-    func onMoveCourse(source: IndexSet, destination: Int) {
-        viewModel.moveCourse(from: source, to: destination)
-    }
-    
-    func onDeleteCourse(at indexSet: IndexSet) {
-        viewModel.deleteCourse(indexSet)
+    func onDeleteCourse(at offsets: IndexSet) -> Void {
+        viewModel.deleteCourse(offsets)
+        self.isShowAlert.toggle()
     }
     
     var refreshToFetchCourseButton: some View {

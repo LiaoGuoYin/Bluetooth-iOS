@@ -18,6 +18,7 @@ enum APIRouter: URLRequestConvertible {
     case teacherGetCourse(username: String)
     case teacherGetStudentListByClassName(className: String)
     case teacherCreateCourse(teacherNumber: String, course: Course)
+    case teacherDeleteCourse(teahcerNumber: String, courseName: String)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
@@ -26,7 +27,7 @@ enum APIRouter: URLRequestConvertible {
             return .post
         case .studentRegist:
             return .post
-        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse:
             return .post
         }
     }
@@ -48,6 +49,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/getstudents"
         case .teacherCreateCourse:
             return "/lntusign/api/teacher/createcourse"
+        case .teacherDeleteCourse:
+            return "/lntusign/api/teacher/deletecourse"
         }
     }
     
@@ -81,6 +84,11 @@ enum APIRouter: URLRequestConvertible {
                 K.TeacherParmeterKey.classroom: course.roomOf,
                 K.RegisterParameterKey.iClass: course.classOf,
                 K.RegisterParameterKey.number: teahcerNumber
+            ]
+        case .teacherDeleteCourse(let teacherNumber, let courseName):
+            return [
+                K.RegisterParameterKey.number: teacherNumber,
+                K.TeacherParmeterKey.courseName: courseName
             ]
         }
     }
