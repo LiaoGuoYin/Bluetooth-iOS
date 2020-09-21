@@ -11,8 +11,11 @@ import Foundation
 
 enum APIRouter: URLRequestConvertible {
     
-    case studentLogin(username:String, password:String)
+    case studentLogin(username: String, password: String)
     case studentRegist(studentRegistForm: StudentForm)
+    case studentMACAppeal(username: String)
+    case studentSignList(username: String)
+    case studentSignAppeal(username: String, courseName: String)
     case teacherLogin(username:String, password:String)
     case teacherRegist(form: StudentForm)
     case teacherGetCourse(username: String)
@@ -23,9 +26,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .studentLogin:
-            return .post
-        case .studentRegist:
+        case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal:
             return .post
         case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse:
             return .post
@@ -39,6 +40,12 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/login/student"
         case .studentRegist:
             return "/lntusign/api/register/student"
+        case .studentSignAppeal:
+            return "/lntusign/api/student/signappeal"
+        case .studentMACAppeal:
+            return "/lntusign/api/student/modifymac"
+        case .studentSignList:
+            return "/lntusign/api/student/getsignlist"
         case .teacherLogin:
             return "/lntusign/api/login/teacher"
         case .teacherRegist:
@@ -66,6 +73,15 @@ enum APIRouter: URLRequestConvertible {
                 K.RegisterParameterKey.iClass: form.iClass,
                 K.RegisterParameterKey.mac: form.mac,
                 K.RegisterParameterKey.name: form.name
+            ]
+        case .studentMACAppeal(let username):
+            return [K.RegisterParameterKey.number: username]
+        case .studentSignList(let username):
+            return [K.RegisterParameterKey.number: username]
+        case .studentSignAppeal(let username, let courseName):
+            return [
+                K.RegisterParameterKey.number: username,
+                K.RegisterParameterKey.courseName: courseName
             ]
         case .teacherRegist(let form):
             return [

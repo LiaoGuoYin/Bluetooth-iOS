@@ -138,7 +138,6 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
                 } else if characteristic.uuid == WRITE_CBUUID {
                     self.connectedWriteCharacteristic = characteristic
                     message.addString("写特征找到，可以开始发送数据")
-                    //                    sendDataToDevice(sendString: testRecivedStudents, characteristic)
                 }
             }
         }
