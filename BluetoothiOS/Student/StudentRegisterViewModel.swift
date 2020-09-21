@@ -9,6 +9,7 @@
 import Foundation
 
 class StudentRegisterViewModel: ObservableObject {
+    
     @Published var form: StudentForm
     @Published var message: String = ""
     

@@ -64,7 +64,7 @@ struct AccountView: View {
                         })
                     
                     NavigationLink(
-                        destination: StudentRecordHistoryView(),
+                        destination: StudentRecordHistoryView(signList: [SignListResponseData(id: "29930", tNumber: "94", courseName: "Swift", sName: "Swift New", iClass: nil, sNumber: "1001", sMAC: "12:34:sd:sf:s2:cj", status: "0", date: "", datetime: 1585792859305)]),
                         label: {
                             ImageAndTextView(imageName: "seal.fill", textName: "所有签到", imageColor: .purple)
                         })

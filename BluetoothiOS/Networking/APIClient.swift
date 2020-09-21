@@ -33,6 +33,10 @@ class APIClient {
         }
     }
     
+    static func studentSignList(username: String, completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.studentSignList(username: username), completion: completion)
+    }
+    
     static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherRegist(form: form), completion: completion)
     }
