@@ -22,7 +22,7 @@ struct AccountView: View {
             List {
                 Section(header: Text("个人信息")) {
                     NavigationLink(
-                        destination: Text("Destination"),
+                        destination: StudentModifyMacView(loginViewModel: loginViewModel!),
                         label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 16) {
@@ -35,7 +35,7 @@ struct AccountView: View {
                                     
                                 }
                                 Spacer()
-                                Image(uiImage:generateQRCodeImage(qrString: loginViewModel?.responseData?.mac ?? "未登录 mac"))
+                                Image(uiImage: generateQRCodeImage(qrString: loginViewModel?.responseData?.mac ?? "未登录 mac"))
                                     .resizable()
                                     .frame(width: 64,height: 64,alignment: .center)
                                     .padding()

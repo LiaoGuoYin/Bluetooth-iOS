@@ -34,9 +34,7 @@ struct StudentRecordHistoryView: View {
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitle(Text("考勤记录"), displayMode: .inline)
-        .onAppear(perform: {
-            loadRemoteSignHistoryRecord()
-        })
+        .onAppear(perform: loadRemoteSignHistoryRecord)
     }
 }
 
@@ -54,10 +52,10 @@ struct HistoryBlockRow: View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text(sign.courseName)
-                Text(sign.studentName)
-                Text(sign.mac)
-                    .font(.caption)
-                Text(String(sign.datetime))
+                    .font(.headline)
+                Text(sign.studentName + " " + sign.mac)
+                    .font(.subheadline)
+                Text(sign.datetime)
                     .font(.caption)
             }
             Spacer()
@@ -79,200 +77,3 @@ extension StudentRecordHistoryView {
         }
     }
 }
-//
-//let demoCourseSignList = """
-//[
-//    {
-//      "_id": "5e856e5acf0ad2099791b8ca",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600599685337",
-//      "datetime": 1585802842014
-//    },
-//    {
-//      "_id": "5e85475bcf0ad2099791b8c6",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": null,
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "0",
-//      "date": "1600589702797",
-//      "datetime": 1585792859305
-//    },
-//    {
-//      "_id": "5e85462ccf0ad2099791b8be",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": null,
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "0",
-//      "date": "1600589399808",
-//      "datetime": 1585792556308
-//    },
-//    {
-//      "_id": "5e8536bdcf0ad2099791b8b7",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600585448872",
-//      "datetime": 1585788605270
-//    },
-//    {
-//      "_id": "5e8536bdcf0ad2099791b8b1",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600585448827",
-//      "datetime": 1585788605253
-//    },
-//    {
-//      "_id": "5e853517cf0ad2099791b8ab",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600585027367",
-//      "datetime": 1585788183753
-//    },
-//    {
-//      "_id": "5e853517cf0ad2099791b8a5",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600585027326",
-//      "datetime": 1585788183734
-//    },
-//    {
-//      "_id": "5e853167cf0ad2099791b896",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600584082881",
-//      "datetime": 1585787239280
-//    },
-//    {
-//      "_id": "5e853094cf0ad2099791b891",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600583871728",
-//      "datetime": 1585787028117
-//    },
-//    {
-//      "_id": "5e852f54cf0ad2099791b88b",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600583552059",
-//      "datetime": 1585786708442
-//    },
-//    {
-//      "_id": "5e8501aacf0ad2099791b886",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": null,
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "0",
-//      "date": "1600571862602",
-//      "datetime": 1585775018767
-//    },
-//    {
-//      "_id": "5e84fa3acf0ad2099791b87a",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": null,
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "0",
-//      "date": "1600569958612",
-//      "datetime": 1585773114744
-//    },
-//    {
-//      "_id": "5e84f6cfcf0ad2099791b870",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600569083722",
-//      "datetime": 1585772239838
-//    },
-//    {
-//      "_id": "5e84d0b0cf0ad2099791b861",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600559325001",
-//      "datetime": 1585762480961
-//    },
-//    {
-//      "_id": "5e84d0b0cf0ad2099791b85b",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600559324947",
-//      "datetime": 1585762480928
-//    },
-//    {
-//      "_id": "5f62cf3ccdb3a5d22bf83c85",
-//      "tNumber": "0001",
-//      "course": "高等数学上",
-//      "sName": "艾思译",
-//      "iClass": "信管研192",
-//      "sNumber": "471920358",
-//      "sMac": "BC:E1:43:B4:62:10",
-//      "sStatus": "1",
-//      "date": "1600311104576",
-//      "datetime": 1600311100878
-//    }
-//  ]
-//""".data(using: .utf8)!

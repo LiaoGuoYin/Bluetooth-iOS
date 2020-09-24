@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01F439250F9862009ACC90 /* ViewRouter.swift */; };
+		AF03B26E251CF9E0003EAC52 /* StudentModifyMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */; };
 		AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1747312511BCFF0082996B /* RegisterResponse.swift */; };
 		AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74B9250FD4BA00E63445 /* APIRouter.swift */; };
 		AF1F74BD250FD71B00E63445 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF1F74BC250FD71B00E63445 /* Alamofire */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		AF01F439250F9862009ACC90 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModifyMacView.swift; sourceTree = "<group>"; };
 		AF1747312511BCFF0082996B /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		AF1F74B9250FD4BA00E63445 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		AF1F74BE250FD76F00E63445 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */,
 				AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */,
 				AFE7511D2519097900D9416A /* StudentRecordHistoryViewModel.swift */,
+				AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */,
 			);
 			path = Student;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AF7D9120251307B80090EFAF /* TeacherResponse.swift in Sources */,
+				AF03B26E251CF9E0003EAC52 /* StudentModifyMacView.swift in Sources */,
 				AFE7511E2519097900D9416A /* StudentRecordHistoryViewModel.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,

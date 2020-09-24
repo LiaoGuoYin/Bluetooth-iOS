@@ -21,7 +21,7 @@ struct SignListResponseData: Codable {
     let classOf: String?
     let status: Bool
     let date: String
-    let datetime: Int
+    let datetime: String
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -49,7 +49,12 @@ extension SignListResponseData {
         classOf = try? container.decode(String.self, forKey: .classOf)
         mac = try container.decode(String.self, forKey: .mac)
         date = try container.decode(String.self, forKey: .date)
-        datetime = try container.decode(Int.self, forKey: .datetime)
+        let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
+        
+        let date = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        datetime = dateFormatter.string(from: date)
         
         let tmpStatus = try container.decode(String.self, forKey: .status)
         status = (tmpStatus == "0") ? true: false

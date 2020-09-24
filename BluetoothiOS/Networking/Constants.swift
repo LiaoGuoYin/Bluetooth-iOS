@@ -27,6 +27,7 @@ struct K {
         static let iClass = "iClass"
         static let phone = "phone"
         static let courseName = "tName"
+        static let newMac = "newMac"
     }
     
     struct TeacherParmeterKey {

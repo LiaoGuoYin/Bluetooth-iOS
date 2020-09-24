@@ -37,6 +37,10 @@ class APIClient {
         performRequest(route: APIRouter.studentSignList(username: username), completion: completion)
     }
     
+    static func studentModifyMac(username: String, newMac: String, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.studentModifyMac(username: username, newMac: newMac), completion: completion)
+    }
+    
     static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherRegist(form: form), completion: completion)
     }

@@ -16,19 +16,24 @@ enum APIRouter: URLRequestConvertible {
     case studentMACAppeal(username: String)
     case studentSignList(username: String)
     case studentSignAppeal(username: String, courseName: String)
+    case studentModifyMac(username: String, newMac: String)
+    
     case teacherLogin(username:String, password:String)
     case teacherRegist(form: StudentForm)
     case teacherGetCourse(username: String)
     case teacherGetStudentListByClassName(className: String)
     case teacherCreateCourse(teacherNumber: String, course: Course)
     case teacherDeleteCourse(teahcerNumber: String, courseName: String)
+    case teacherGetStudentAppeal(teacherNumber: String)
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal:
+        case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal, .studentModifyMac:
             return .post
         case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse:
+            return .post
+        case .teacherGetStudentAppeal:
             return .post
         }
     }
@@ -46,6 +51,9 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/student/modifymac"
         case .studentSignList:
             return "/lntusign/api/student/getsignlist"
+        case .studentModifyMac:
+            return "/lntusign/api/student/modifymac"
+            
         case .teacherLogin:
             return "/lntusign/api/login/teacher"
         case .teacherRegist:
@@ -58,6 +66,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/createcourse"
         case .teacherDeleteCourse:
             return "/lntusign/api/teacher/deletecourse"
+        case .teacherGetStudentAppeal:
+            return "/lntusign/api/teacher/getstuappeal"
         }
     }
     
@@ -83,6 +93,11 @@ enum APIRouter: URLRequestConvertible {
                 K.RegisterParameterKey.number: username,
                 K.RegisterParameterKey.courseName: courseName
             ]
+        case .studentModifyMac(let username, let newMac):
+            return [
+                K.APIParameterKey.username: username,
+                K.RegisterParameterKey.newMac: newMac
+            ]
         case .teacherRegist(let form):
             return [
                 K.RegisterParameterKey.number: form.number,
@@ -105,6 +120,10 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.RegisterParameterKey.number: teacherNumber,
                 K.TeacherParmeterKey.courseName: courseName
+            ]
+        case . teacherGetStudentAppeal(let teacherNumber):
+            return [
+                K.APIParameterKey.username: teacherNumber
             ]
         }
     }
