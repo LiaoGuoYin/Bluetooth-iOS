@@ -16,20 +16,32 @@ struct StudentModifyMacView: View {
     @State private var newMac = ""
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("原 MAC: \(loginViewModel.responseData?.mac  ?? "None")"), content: {
-                    HStack {
-                        Text("NEW MAC: ")
-                        TextField(loginViewModel.responseData?.mac ?? "4C:1A:3D:49:3E:6C", text: $newMac)
+        Form {
+            Section {
+                HStack {
+                    Spacer()
+                    VStack {
+                        Image(uiImage: QRGenerator().generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
+                            .resizable()
+                            .frame(width: 81,height: 81,alignment: .center)
+                            .padding()
+                        Text("NOW MAC: \(loginViewModel.responseData?.mac  ?? "None")")
+                            .foregroundColor(.gray)
                     }
-                })
-                Button(action: submitModifyRequest) {
-                    HStack {
-                        Spacer()
-                        Text("提交")
-                        Spacer()
-                    }
+                    Spacer()
+                }
+                .padding()
+                
+                HStack {
+                    Text("NEW MAC: ")
+                    TextField(loginViewModel.responseData?.mac ?? "4C:1A:3D:49:3E:6C", text: $newMac)
+                }
+            }
+            Button(action: submitModifyRequest) {
+                HStack {
+                    Spacer()
+                    Text("提交")
+                    Spacer()
                 }
             }
         }

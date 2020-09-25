@@ -1,5 +1,5 @@
 //
-//  CommonTextField.swift
+//  CommonView.swift
 //  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/9/15.
@@ -8,6 +8,7 @@
 
 import Combine
 import SwiftUI
+import CoreImage.CIFilterBuiltins
 
 struct TextFieldWithFocus: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
@@ -90,5 +91,22 @@ struct TextFieldWithFocus: UIViewRepresentable {
 struct TextFieldWithFocus_Previews: PreviewProvider {
     static var previews: some View {
         TextFieldWithFocus(text: .constant(""), placeholder: "placeholder", isFirstResponder: .constant(false))
+    }
+}
+
+struct QRGenerator {
+    let context = CIContext()
+    let filter = CIFilter.qrCodeGenerator()
+    
+    func generateQRCodeImage(qrString: String) -> UIImage {
+        let data = Data(qrString.utf8)
+        filter.setValue(data, forKey: "inputMessage")
+        
+        if let qrCodeImage = filter.outputImage {
+            if let qrCodeCGImage = context.createCGImage(qrCodeImage, from: qrCodeImage.extent) {
+                return UIImage(cgImage: qrCodeCGImage)
+            }
+        }
+        return UIImage(systemName: "xmark") ?? UIImage()
     }
 }

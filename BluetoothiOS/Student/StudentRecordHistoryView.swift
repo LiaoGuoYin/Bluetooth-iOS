@@ -11,44 +11,24 @@ import SwiftUI
 struct StudentRecordHistoryView: View {
     
     @State var signList: Array<SignListResponseData>
-    @State var isShowAppealForm: Bool = false
-    @State var isShowAlert: Bool = false
+    @State var username: String
     @State private var tappedId: String = ""
-    var username = "471920358"
     
     var body: some View {
         List {
-            Section(header: Text("历史考勤记录")) {
+            Section(header: Text("历史考勤")) {
                 ForEach(signList, id: \.id) { record in
-                    HistoryBlockRow(sign: record)
-                        .onTapGesture(perform: {
-                            tappedId = record.id
-                            self.isShowAlert.toggle()
+                    NavigationLink(
+                        destination: StudentSignAppealForm(sign: record),
+                        label: {
+                            HistoryBlockRow(sign: record)
                         })
                 }
-                .padding()
-                .alert(isPresented: $isShowAlert, content: {
-                    Alert(title: Text("记录有误？"),
-                          message: Text("是否申诉本条记录"),
-                          primaryButton: Alert.Button.destructive(Text("申诉"), action: {isShowAppealForm.toggle()}),
-                          secondaryButton: Alert.Button.default(Text("不用了")))
-                })
-                .sheet(isPresented: $isShowAppealForm, content: {
-                    StudentSignAppealForm(sign: signList.filter({ (sign: SignListResponseData) -> Bool in
-                        return sign.id == tappedId
-                    })[0])
-                })
             }
         }
         .listStyle(GroupedListStyle())
-        .navigationBarTitle(Text("考勤记录"), displayMode: .inline)
+        .navigationBarTitle(Text("所有签到记录"), displayMode: .inline)
         .onAppear(perform: loadRemoteSignHistoryRecord)
-    }
-}
-
-struct CoursePunchCardHistoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        StudentRecordHistoryView(signList: [])
     }
 }
 
@@ -83,5 +63,11 @@ extension StudentRecordHistoryView {
                 self.signList = signResponse.data
             }
         }
+    }
+}
+
+struct CoursePunchCardHistoryView_Previews: PreviewProvider {
+    static var previews: some View {
+        StudentRecordHistoryView(signList: [], username: "1001")
     }
 }

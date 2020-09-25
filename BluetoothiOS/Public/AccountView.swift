@@ -7,15 +7,11 @@
 //
 
 import SwiftUI
-import CoreImage.CIFilterBuiltins
 
 struct AccountView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
     @State var loginViewModel: LoginViewModel
-    
-    let context = CIContext()
-    let filter = CIFilter.qrCodeGenerator()
     
     var body: some View {
         NavigationView {
@@ -35,7 +31,7 @@ struct AccountView: View {
                                     
                                 }
                                 Spacer()
-                                Image(uiImage: generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
+                                Image(uiImage: QRGenerator().generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
                                     .resizable()
                                     .frame(width: 64,height: 64,alignment: .center)
                                     .padding()
@@ -57,21 +53,21 @@ struct AccountView: View {
                         Text("5 次")
                     }
                     
-                    NavigationLink(
-                        destination: Text("Destination"),
-                        label: {
-                            ImageAndTextView(imageName: "command", textName: "签到申诉记录",imageColor: .gray)
-                        })
+                    //                    NavigationLink(
+                    //                        destination: Text("Destination"),
+                    //                        label: {
+                    //                            ImageAndTextView(imageName: "command", textName: "签到申诉记录",imageColor: .gray)
+                    //                        })
                     
                     NavigationLink(
-                        destination: StudentRecordHistoryView(signList: [], isShowAlert: false, username: loginViewModel.form.username ),
+                        destination: StudentRecordHistoryView(signList: [], username: loginViewModel.form.username ),
                         label: {
                             ImageAndTextView(imageName: "seal.fill", textName: "所有签到", imageColor: .purple)
                         })
                 }
                 .padding(8)
                 
-                Button(action: {self.exitLogin()}) {
+                Button(action: exitLogin) {
                     ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)
                         .padding(8)
                 }
@@ -80,6 +76,11 @@ struct AccountView: View {
             .navigationBarTitle("账户中心")
         }
     }
+    
+    func exitLogin() {
+        self.viewRouter.isLogined.toggle()
+    }
+    
 }
 
 struct AccountView_Previews: PreviewProvider {
@@ -100,23 +101,5 @@ struct ImageAndTextView: View {
                 .frame(width: 22)
             Text(textName)
         }
-    }
-}
-
-extension AccountView {
-    func generateQRCodeImage(qrString: String) -> UIImage {
-        let data = Data(qrString.utf8)
-        filter.setValue(data, forKey: "inputMessage")
-        
-        if let qrCodeImage = filter.outputImage {
-            if let qrCodeCGImage = context.createCGImage(qrCodeImage, from: qrCodeImage.extent) {
-                return UIImage(cgImage: qrCodeCGImage)
-            }
-        }
-        return UIImage(systemName: "xmark") ?? UIImage()
-    }
-    
-    func exitLogin() {
-        self.viewRouter.isLogined = false
     }
 }

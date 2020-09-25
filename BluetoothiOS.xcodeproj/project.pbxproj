@@ -19,7 +19,7 @@
 		AF4E12A1246422A90004F833 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4E12A0246422A90004F833 /* LoginView.swift */; };
 		AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDD8250FDACA00CFAE5B /* APIClient.swift */; };
 		AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */; };
-		AF60CDDD2510548C00CFAE5B /* CommonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDDC2510548C00CFAE5B /* CommonTextField.swift */; };
+		AF60CDDD2510548C00CFAE5B /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDDC2510548C00CFAE5B /* CommonView.swift */; };
 		AF60CDDF2510D5DF00CFAE5B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60CDDE2510D5DF00CFAE5B /* LoginViewModel.swift */; };
 		AF6C26442448748E006C7568 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C26432448748E006C7568 /* BLEManager.swift */; };
 		AF6C2646244876DD006C7568 /* BLEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6C2645244876DD006C7568 /* BLEView.swift */; };
@@ -55,7 +55,7 @@
 		AF4E12A0246422A90004F833 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AF60CDD8250FDACA00CFAE5B /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AF60CDDA250FDB1300CFAE5B /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
-		AF60CDDC2510548C00CFAE5B /* CommonTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTextField.swift; sourceTree = "<group>"; };
+		AF60CDDC2510548C00CFAE5B /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
 		AF60CDDE2510D5DF00CFAE5B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AF6C26432448748E006C7568 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		AF6C2645244876DD006C7568 /* BLEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEView.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 				AFCFF22F2512689000C7268D /* RegistView.swift */,
 				AFCFF23325126C7100C7268D /* RegistViewModel.swift */,
 				AFBB513C243A1FD400D38E6E /* AccountView.swift */,
-				AF60CDDC2510548C00CFAE5B /* CommonTextField.swift */,
+				AF60CDDC2510548C00CFAE5B /* CommonView.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				AF24B89024A83F790065A628 /* CourseStudentView.swift in Sources */,
 				AFBB5141243A31CC00D38E6E /* StudentRecordView.swift in Sources */,
 				AFBB513D243A1FD400D38E6E /* AccountView.swift in Sources */,
-				AF60CDDD2510548C00CFAE5B /* CommonTextField.swift in Sources */,
+				AF60CDDD2510548C00CFAE5B /* CommonView.swift in Sources */,
 				AF877EDE2508D7E800D5CE1A /* StudentRegisterViewModel.swift in Sources */,
 				AFA013C324F0C64000DE1708 /* CourseViewModel.swift in Sources */,
 				AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */,
