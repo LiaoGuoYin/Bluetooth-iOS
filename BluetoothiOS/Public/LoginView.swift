@@ -21,8 +21,12 @@ struct LoginView: View {
                 Section(footer: forgetPasswordButton) {
                     HStack {
                         Text("账号: ")
-                        TextField("1001", text: $viewModel.form.username)
-                            .keyboardType(.numberPad)
+                        if viewRouter.userType != UserType.admin {
+                            TextField("1001", text: $viewModel.form.username)
+                                .keyboardType(.numberPad)
+                        } else {
+                            TextField("0", text: $viewModel.form.username)
+                        }
                     }
                     HStack {
                         Text("密码: ")
@@ -44,23 +48,19 @@ struct LoginView: View {
                     }
                 }
             }
-            .navigationBarItems(
-                leading: NavigationLink( destination:
-                                            RegistView(viewModel: RegistViewModel(StudentForm(), userType: viewRouter.userType))
-                                         ,label: { Text("注册") }),
-                trailing: Button(action: { self.postLogin() }) {
-                    Text("登录")
-                        .padding(.vertical)
-                }
-            )
+            .navigationBarItems(leading:NavigationLink(destination:
+                                                        RegistView(viewModel: RegistViewModel(StudentForm(), userType: viewRouter.userType))
+                                                       ,label: { Text("注册") }),
+                                trailing: Button(action: postLogin) {
+                                    Text("登录")
+                                        .padding(.vertical)
+                                })
             .navigationBarTitle(Text("LOGIN"), displayMode: .inline)
         }
         .alert(isPresented: self.$isShowAlert) {
-            Alert.init(title: Text(String(viewModel.message)), message: nil, dismissButton: .default(Text("OK")))
+            Alert.init(title: Text(String(viewModel.message)), dismissButton: .default(Text("OK")))
         }
-        .onAppear(perform: {
-            loadLocalAccount()
-        })
+        .onAppear(perform: loadLocalAccount)
     }
     
     var forgetPasswordButton: some View {

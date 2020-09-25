@@ -9,9 +9,9 @@
 import Foundation
 
 struct CourseResponse: Codable {
-    let code: Int
-    let msg: String
-    let data: [CourseResponseData]
+    var code: Int
+    var msg: String
+    var data: [CourseResponseData] = []
 }
 
 struct CourseResponseData: Codable {

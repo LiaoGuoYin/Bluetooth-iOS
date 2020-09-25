@@ -26,15 +26,21 @@ enum APIRouter: URLRequestConvertible {
     case teacherDeleteCourse(teahcerNumber: String, courseName: String)
     case teacherGetStudentAppeal(teacherNumber: String)
     
+    case adminLogin(username: String, password: String)
+    case adminProcessSignAppeal
+    case adminProcessMacModify
+    
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal, .studentModifyMac:
             return .post
-        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal:
             return .post
-        case .teacherGetStudentAppeal:
+        case .adminLogin:
             return .post
+        case .adminProcessSignAppeal, .adminProcessMacModify:
+            return .get
         }
     }
     
@@ -68,13 +74,20 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/deletecourse"
         case .teacherGetStudentAppeal:
             return "/lntusign/api/teacher/getstuappeal"
+            
+        case .adminLogin:
+            return "/lntusign/api/login/admin"
+        case .adminProcessSignAppeal:
+            return "/lntusign/api/admin/getstuappealall"
+        case .adminProcessMacModify:
+            return "/lntusign/api/admin/getmacmodifyall"
         }
     }
     
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .studentLogin(let username, let password), .teacherLogin(let username, let password):
+        case .studentLogin(let username, let password), .teacherLogin(let username, let password), .adminLogin(let username, let password):
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .studentRegist(let form):
             return [
@@ -92,10 +105,10 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.TeacherParmeterKey.courseName: sign.courseName,
                 K.TeacherParmeterKey.teacherName: teacherName,
-                K.StudentParameterKey.name: sign.studentName,
-                K.StudentParameterKey.number: sign.studentNumber,
+                K.StudentParameterKey.name: sign.studentName ?? "None",
+                K.StudentParameterKey.number: sign.studentNumber ?? "None",
                 K.StudentParameterKey.iClass: sign.classOf ?? "None",
-                K.StudentParameterKey.mac: sign.mac,
+                K.StudentParameterKey.mac: sign.mac ?? "None",
                 K.StudentParameterKey.date: sign.datetimeString ?? "None"
                 
             ]
@@ -131,6 +144,8 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.APIParameterKey.username: teacherNumber
             ]
+        case .adminProcessMacModify, .adminProcessSignAppeal:
+            return nil
         }
     }
     

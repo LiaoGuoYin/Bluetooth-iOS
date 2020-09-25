@@ -20,22 +20,48 @@ class LoginViewModel: ObservableObject {
     }
     
     func login(userType: UserType, isValidAccount: @escaping (Bool) -> ()) {
-        APIClient.Login(username: form.username, password: form.password, userType: userType) { (result) in
-            switch result {
-            case .failure(let error):
-                print(error)
-                isValidAccount(false)
-            case .success(let loginResponse):
-                self.message = loginResponse.msg
-                self.responseData = loginResponse.data
-                if loginResponse.code == 10000 {
-                    UserDefaults.standard.setValue([
-                        "username": self.form.username,
-                        "password": self.form.password,
-                    ], forKey: "account")
-                    isValidAccount(true)
-                } else {
+        if userType == UserType.admin {
+            APIClient.adminLogin(username: form.username, password: form.password, userType: .admin) { (result) in
+                switch result {
+                case .failure(let error):
+                    self.message = error.localizedDescription
                     isValidAccount(false)
+                case .success(let adminLoginResponse):
+                    self.message = adminLoginResponse.msg
+                    if adminLoginResponse.data != nil {
+                        if adminLoginResponse.code == 10000 {
+                            UserDefaults.standard.setValue([
+                                "username": self.form.username,
+                                "password": self.form.password,
+                            ], forKey: "account")
+                            isValidAccount(true)
+                        } else {
+                            self.message = adminLoginResponse.msg
+                            isValidAccount(false)
+                        }
+                    } else {
+                        isValidAccount(false)
+                    }
+                }
+            }
+        } else {
+            APIClient.Login(username: form.username, password: form.password, userType: userType) { (result) in
+                switch result {
+                case .failure(let error):
+                    self.message = error.localizedDescription
+                    isValidAccount(false)
+                case .success(let loginResponse):
+                    self.message = loginResponse.msg
+                    self.responseData = loginResponse.data
+                    if loginResponse.code == 10000 {
+                        UserDefaults.standard.setValue([
+                            "username": self.form.username,
+                            "password": self.form.password,
+                        ], forKey: "account")
+                        isValidAccount(true)
+                    } else {
+                        isValidAccount(false)
+                    }
                 }
             }
         }

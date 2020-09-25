@@ -28,7 +28,6 @@ struct AccountView: View {
                                         .font(.subheadline)
                                     (Text("学号: ") + Text(loginViewModel.responseData?.number ?? "未登录学号"))
                                         .font(.subheadline)
-                                    
                                 }
                                 Spacer()
                                 Image(uiImage: QRGenerator().generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
@@ -60,14 +59,14 @@ struct AccountView: View {
                     //                        })
                     
                     NavigationLink(
-                        destination: StudentRecordHistoryView(signList: [], username: loginViewModel.form.username ),
+                        destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
                         label: {
                             ImageAndTextView(imageName: "seal.fill", textName: "所有签到", imageColor: .purple)
                         })
                 }
                 .padding(8)
                 
-                Button(action: exitLogin) {
+                Button(action: {viewRouter.isLogined.toggle()}) {
                     ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)
                         .padding(8)
                 }
@@ -75,10 +74,6 @@ struct AccountView: View {
             .listStyle(GroupedListStyle())
             .navigationBarTitle("账户中心")
         }
-    }
-    
-    func exitLogin() {
-        self.viewRouter.isLogined.toggle()
     }
     
 }

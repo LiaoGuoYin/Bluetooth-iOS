@@ -23,14 +23,18 @@ class APIClient {
         performRequest(route: APIRouter.studentRegist(studentRegistForm: form), completion: completion)
     }
     
-    static func Login(username: String, password: String,userType: UserType, completion: @escaping (Result<LoginResponse, AFError>) -> Void) {
+    static func Login(username: String, password: String, userType: UserType, completion: @escaping (Result<LoginResponse, AFError>) -> Void) {
         if userType == .student {
             performRequest(route: APIRouter.studentLogin(username: username, password: password), completion: completion)
         } else if userType == .teacher {
             performRequest(route: APIRouter.teacherLogin(username: username, password: password), completion: completion)
         } else {
-            //            performRequest(route: APIRouter.adminLogin(username: username, password: password), completion: completion)
+            
         }
+    }
+    
+    static func adminLogin(username: String, password: String, userType: UserType, completion: @escaping (Result<AdminLoginResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminLogin(username: username, password: password), completion: completion)
     }
     
     static func studentSignList(username: String, completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
@@ -40,7 +44,6 @@ class APIClient {
     static func studentSignAppeal(sign: SignListResponseData, teacherName: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentSignAppeal(sign: sign, teacherName: teacherName), completion: completion)
     }
-    
     
     static func studentModifyMac(username: String, newMac: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentModifyMac(username: username, newMac: newMac), completion: completion)
@@ -64,6 +67,14 @@ class APIClient {
     
     static func teacherDeleteCourse(_ teahcerNumber: String, _ courseName: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherDeleteCourse(teahcerNumber: teahcerNumber, courseName: courseName), completion: completion)
+    }
+    
+    static func adminProcessMacModify(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
+    }
+    
+    static func adminProcessSignAppeal(completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminProcessSignAppeal, completion: completion)
     }
     
 }

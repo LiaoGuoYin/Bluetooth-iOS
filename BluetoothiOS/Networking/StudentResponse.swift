@@ -9,18 +9,19 @@
 import Foundation
 
 struct SignListResponse: Codable {
-    let code: Int
-    let msg: String
-    let data: [SignListResponseData]
+    var code: Int
+    var msg: String
+    var data: [SignListResponseData] = []
 }
 
 struct SignListResponseData: Codable {
     let id, teacherNumber: String
-    let studentNumber, studentName, mac: String
+    let studentNumber: String?
+    let studentName, mac: String?
     let courseName: String
     let classOf: String?
     let status: Bool
-    let date: String
+    let timeStamp: Int
     let datetime: String
     let datetimeString: String?
     
@@ -32,8 +33,8 @@ struct SignListResponseData: Codable {
         case mac = "sMac"
         case courseName = "course"
         case classOf = "iClass"
-        case status = "sStatus"
-        case date
+        case status
+        case timeStamp = "date"
         case datetime
         case datetimeString
     }
@@ -45,23 +46,23 @@ extension SignListResponseData {
         
         id = try container.decode(String.self, forKey: .id)
         teacherNumber = try container.decode(String.self, forKey: .teacherNumber)
-        studentNumber = try container.decode(String.self, forKey: .studentNumber)
-        studentName = try container.decode(String.self, forKey: .studentName)
+        studentNumber = try? container.decode(String.self, forKey: .studentNumber)
+        studentName = try? container.decode(String.self, forKey: .studentName)
         courseName = try container.decode(String.self, forKey: .courseName)
         classOf = try? container.decode(String.self, forKey: .classOf)
-        mac = try container.decode(String.self, forKey: .mac)
-        date = try container.decode(String.self, forKey: .date)
+        mac = try? container.decode(String.self, forKey: .mac)
+        timeStamp = try container.decode(Int.self, forKey: .timeStamp)
         let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
         
         let date = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         datetime = dateFormatter.string(from: date)
-
+        
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         datetimeString = dateFormatter.string(from: date)
         
-        let tmpStatus = try container.decode(String.self, forKey: .status)
-        status = (tmpStatus == "0") ? true: false
+        let tmpStatus = try container.decode(Int.self, forKey: .status)
+        status = (tmpStatus == 0) ? true: false
     }
 }

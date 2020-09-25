@@ -1,5 +1,5 @@
 //
-//  StudentRecordHistoryView.swift
+//  StudentSignHistoryView.swift
 //  BluetoothPunchCard
 //
 //  Created by LiaoGuoYin on 2020/4/7.
@@ -10,13 +10,12 @@ import SwiftUI
 
 struct StudentSignHistoryView: View {
     
-    @State var signList: Array<SignListResponseData>
-    @State var username: String
+    @State var viewModel: StudentSignHistoryViewModel
     
     var body: some View {
         List {
             Section(header: Text("历史考勤")) {
-                ForEach(signList, id: \.id) { record in
+                ForEach(viewModel.signList, id: \.id) { record in
                     NavigationLink(
                         destination: StudentSignAppealForm(sign: record),
                         label: {
@@ -27,7 +26,7 @@ struct StudentSignHistoryView: View {
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitle(Text("所有签到记录"), displayMode: .inline)
-        .onAppear(perform: loadRemoteSignHistoryRecord)
+        .onAppear(perform: viewModel.refreshRemoteSignHistoryRecord)
     }
 }
 
@@ -40,7 +39,7 @@ struct HistoryBlockRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(sign.courseName)
                     .font(.headline)
-                Text(sign.studentName + " " + sign.mac)
+                Text((sign.studentName ?? "None") + " " + (sign.mac ?? "None MAC"))
                     .font(.subheadline)
                 Text(sign.datetime)
                     .font(.caption)
@@ -52,21 +51,9 @@ struct HistoryBlockRow: View {
     }
 }
 
-extension StudentSignHistoryView {
-    func loadRemoteSignHistoryRecord() {
-        APIClient.studentSignList(username: username) { (result) in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let signResponse):
-                self.signList = signResponse.data
-            }
-        }
+struct CoursePunchCardHistoryView_Previews: PreviewProvider {
+    static var previews: some View {
+        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "1001"))
     }
 }
 
-struct CoursePunchCardHistoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        StudentSignHistoryView(signList: [], username: "1001")
-    }
-}
