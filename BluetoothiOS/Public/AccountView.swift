@@ -12,7 +12,7 @@ import CoreImage.CIFilterBuiltins
 struct AccountView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
-    @State var loginViewModel: LoginViewModel?
+    @State var loginViewModel: LoginViewModel
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
@@ -22,20 +22,20 @@ struct AccountView: View {
             List {
                 Section(header: Text("个人信息")) {
                     NavigationLink(
-                        destination: StudentModifyMacView(loginViewModel: loginViewModel!),
+                        destination: StudentModifyMacView(loginViewModel: loginViewModel),
                         label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 16) {
-                                    Text(loginViewModel?.responseData?.name ?? "未登录姓名")
+                                    Text(loginViewModel.responseData?.name ?? "未登录姓名")
                                         .font(.headline)
-                                    Text(loginViewModel?.responseData?.mac ?? "未登录 mac")
+                                    Text(loginViewModel.responseData?.mac ?? "未登录 mac")
                                         .font(.subheadline)
-                                    (Text("学号: ") + Text(loginViewModel?.responseData?.number ?? "未登录学号"))
+                                    (Text("学号: ") + Text(loginViewModel.responseData?.number ?? "未登录学号"))
                                         .font(.subheadline)
                                     
                                 }
                                 Spacer()
-                                Image(uiImage: generateQRCodeImage(qrString: loginViewModel?.responseData?.mac ?? "未登录 mac"))
+                                Image(uiImage: generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
                                     .resizable()
                                     .frame(width: 64,height: 64,alignment: .center)
                                     .padding()
@@ -64,7 +64,7 @@ struct AccountView: View {
                         })
                     
                     NavigationLink(
-                        destination: StudentRecordHistoryView(signList: [], isShowAppeal: false, username: loginViewModel?.form.username ?? "0"),
+                        destination: StudentRecordHistoryView(signList: [], isShowAlert: false, username: loginViewModel.form.username ),
                         label: {
                             ImageAndTextView(imageName: "seal.fill", textName: "所有签到", imageColor: .purple)
                         })
@@ -84,7 +84,7 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView()
+        AccountView(loginViewModel: LoginViewModel(form: LoginUser(username: "1001", password: "1001")))
     }
 }
 

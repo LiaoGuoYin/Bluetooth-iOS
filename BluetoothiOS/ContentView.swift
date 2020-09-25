@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         if viewRouter.isLogined {
             if viewRouter.userType == UserType.student {
-                AccountView(loginViewModel: self.loginViewModel)
+                AccountView(loginViewModel: loginViewModel)
                     .environmentObject(viewRouter)
                     .tabItem {
                         Image(systemName: "rectangle.stack.person.crop.fill")
@@ -30,7 +30,7 @@ struct ContentView: View {
                             Text("Record")
                         }
                     
-                    AccountView(loginViewModel: self.loginViewModel)
+                    AccountView(loginViewModel: loginViewModel)
                         .environmentObject(viewRouter)
                         .tabItem {
                             Image(systemName: "rectangle.stack.person.crop.fill")

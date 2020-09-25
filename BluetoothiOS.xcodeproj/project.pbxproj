@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01F439250F9862009ACC90 /* ViewRouter.swift */; };
 		AF03B26E251CF9E0003EAC52 /* StudentModifyMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */; };
+		AF03B317251D8C1F003EAC52 /* StudentSignAppealForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03B316251D8C1F003EAC52 /* StudentSignAppealForm.swift */; };
 		AF1747322511BCFF0082996B /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1747312511BCFF0082996B /* RegisterResponse.swift */; };
 		AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1F74B9250FD4BA00E63445 /* APIRouter.swift */; };
 		AF1F74BD250FD71B00E63445 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF1F74BC250FD71B00E63445 /* Alamofire */; };
@@ -40,12 +41,12 @@
 		AFCFF2302512689000C7268D /* RegistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCFF22F2512689000C7268D /* RegistView.swift */; };
 		AFCFF23425126C7100C7268D /* RegistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCFF23325126C7100C7268D /* RegistViewModel.swift */; };
 		AFE7511C251907D100D9416A /* StudentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7511B251907D100D9416A /* StudentResponse.swift */; };
-		AFE7511E2519097900D9416A /* StudentRecordHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE7511D2519097900D9416A /* StudentRecordHistoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF01F439250F9862009ACC90 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModifyMacView.swift; sourceTree = "<group>"; };
+		AF03B316251D8C1F003EAC52 /* StudentSignAppealForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignAppealForm.swift; sourceTree = "<group>"; };
 		AF1747312511BCFF0082996B /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
 		AF1F74B9250FD4BA00E63445 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		AF1F74BE250FD76F00E63445 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		AFCFF22F2512689000C7268D /* RegistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistView.swift; sourceTree = "<group>"; };
 		AFCFF23325126C7100C7268D /* RegistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistViewModel.swift; sourceTree = "<group>"; };
 		AFE7511B251907D100D9416A /* StudentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentResponse.swift; sourceTree = "<group>"; };
-		AFE7511D2519097900D9416A /* StudentRecordHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRecordHistoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,7 +216,7 @@
 				AFBB5140243A31CC00D38E6E /* StudentRecordView.swift */,
 				AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */,
 				AF7848C7243C689C0009964E /* StudentRecordHistoryView.swift */,
-				AFE7511D2519097900D9416A /* StudentRecordHistoryViewModel.swift */,
+				AF03B316251D8C1F003EAC52 /* StudentSignAppealForm.swift */,
 				AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */,
 			);
 			path = Student;
@@ -315,7 +315,6 @@
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AF7D9120251307B80090EFAF /* TeacherResponse.swift in Sources */,
 				AF03B26E251CF9E0003EAC52 /* StudentModifyMacView.swift in Sources */,
-				AFE7511E2519097900D9416A /* StudentRecordHistoryViewModel.swift in Sources */,
 				AFBB5122243A1A9700D38E6E /* SceneDelegate.swift in Sources */,
 				AF4E12A1246422A90004F833 /* LoginView.swift in Sources */,
 				AF1F74BA250FD4BA00E63445 /* APIRouter.swift in Sources */,
@@ -324,6 +323,7 @@
 				AFE7511C251907D100D9416A /* StudentResponse.swift in Sources */,
 				AF24B88E24A826130065A628 /* CourseStudentModel.swift in Sources */,
 				AF60CDDF2510D5DF00CFAE5B /* LoginViewModel.swift in Sources */,
+				AF03B317251D8C1F003EAC52 /* StudentSignAppealForm.swift in Sources */,
 				AFA6BAAA24A9DBD90018C611 /* NewCourseFormView.swift in Sources */,
 				AF6C26442448748E006C7568 /* BLEManager.swift in Sources */,
 				AFBB5124243A1A9700D38E6E /* ContentView.swift in Sources */,

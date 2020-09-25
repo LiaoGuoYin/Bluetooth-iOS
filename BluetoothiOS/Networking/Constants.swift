@@ -19,18 +19,20 @@ struct K {
         static let password = "passwd"
     }
     
-    struct RegisterParameterKey {
+    struct StudentParameterKey {
         static let number = "number"
         static let password = "passwd"
         static let name = "name"
         static let mac = "mac"
         static let iClass = "iClass"
         static let phone = "phone"
-        static let courseName = "tName"
+        static let studentNumber = "sNumber"
         static let newMac = "newMac"
+        static let date = "date"
     }
     
     struct TeacherParmeterKey {
+        static let teacherName = "tName"
         static let className = "iClass"
         static let classroom = "classroom"
         static let courseName = "course"

@@ -15,7 +15,7 @@ enum APIRouter: URLRequestConvertible {
     case studentRegist(studentRegistForm: StudentForm)
     case studentMACAppeal(username: String)
     case studentSignList(username: String)
-    case studentSignAppeal(username: String, courseName: String)
+    case studentSignAppeal(sign: SignListResponseData, teacherName: String)
     case studentModifyMac(username: String, newMac: String)
     
     case teacherLogin(username:String, password:String)
@@ -78,32 +78,38 @@ enum APIRouter: URLRequestConvertible {
             return [K.APIParameterKey.username: username, K.APIParameterKey.password: password]
         case .studentRegist(let form):
             return [
-                K.RegisterParameterKey.number: form.number,
-                K.RegisterParameterKey.password: form.password,
-                K.RegisterParameterKey.iClass: form.iClass,
-                K.RegisterParameterKey.mac: form.mac,
-                K.RegisterParameterKey.name: form.name
+                K.StudentParameterKey.number: form.number,
+                K.StudentParameterKey.password: form.password,
+                K.StudentParameterKey.iClass: form.iClass,
+                K.StudentParameterKey.mac: form.mac,
+                K.StudentParameterKey.name: form.name
             ]
         case .studentMACAppeal(let username):
-            return [K.RegisterParameterKey.number: username]
+            return [K.StudentParameterKey.number: username]
         case .studentSignList(let username):
-            return [K.RegisterParameterKey.number: username]
-        case .studentSignAppeal(let username, let courseName):
+            return [K.StudentParameterKey.number: username]
+        case .studentSignAppeal(let sign, let teacherName):
             return [
-                K.RegisterParameterKey.number: username,
-                K.RegisterParameterKey.courseName: courseName
+                K.TeacherParmeterKey.courseName: sign.courseName,
+                K.TeacherParmeterKey.teacherName: teacherName,
+                K.StudentParameterKey.name: sign.studentName,
+                K.StudentParameterKey.number: sign.studentNumber,
+                K.StudentParameterKey.iClass: sign.classOf ?? "None",
+                K.StudentParameterKey.mac: sign.mac,
+                K.StudentParameterKey.date: sign.datetimeString ?? "None"
+                
             ]
         case .studentModifyMac(let username, let newMac):
             return [
                 K.APIParameterKey.username: username,
-                K.RegisterParameterKey.newMac: newMac
+                K.StudentParameterKey.newMac: newMac
             ]
         case .teacherRegist(let form):
             return [
-                K.RegisterParameterKey.number: form.number,
-                K.RegisterParameterKey.password: form.password,
-                K.RegisterParameterKey.name: form.name,
-                K.RegisterParameterKey.phone: form.phone
+                K.StudentParameterKey.number: form.number,
+                K.StudentParameterKey.password: form.password,
+                K.StudentParameterKey.name: form.name,
+                K.StudentParameterKey.phone: form.phone
             ]
         case .teacherGetCourse(let username):
             return [K.APIParameterKey.username: username]
@@ -113,12 +119,12 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.TeacherParmeterKey.courseName: course.name,
                 K.TeacherParmeterKey.classroom: course.roomOf,
-                K.RegisterParameterKey.iClass: course.classOf,
-                K.RegisterParameterKey.number: teahcerNumber
+                K.StudentParameterKey.iClass: course.classOf,
+                K.StudentParameterKey.number: teahcerNumber
             ]
         case .teacherDeleteCourse(let teacherNumber, let courseName):
             return [
-                K.RegisterParameterKey.number: teacherNumber,
+                K.StudentParameterKey.number: teacherNumber,
                 K.TeacherParmeterKey.courseName: courseName
             ]
         case . teacherGetStudentAppeal(let teacherNumber):

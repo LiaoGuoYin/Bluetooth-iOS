@@ -11,7 +11,9 @@ import SwiftUI
 struct StudentRecordHistoryView: View {
     
     @State var signList: Array<SignListResponseData>
-    @State var isShowAppeal: Bool = false
+    @State var isShowAppealForm: Bool = false
+    @State var isShowAlert: Bool = false
+    @State private var tappedId: String = ""
     var username = "471920358"
     
     var body: some View {
@@ -20,15 +22,21 @@ struct StudentRecordHistoryView: View {
                 ForEach(signList, id: \.id) { record in
                     HistoryBlockRow(sign: record)
                         .onTapGesture(perform: {
-                            self.isShowAppeal.toggle()
+                            tappedId = record.id
+                            self.isShowAlert.toggle()
                         })
                 }
                 .padding()
-                .alert(isPresented: $isShowAppeal, content: {
+                .alert(isPresented: $isShowAlert, content: {
                     Alert(title: Text("记录有误？"),
                           message: Text("是否申诉本条记录"),
-                          primaryButton: Alert.Button.destructive(Text("申诉"), action: {}),
+                          primaryButton: Alert.Button.destructive(Text("申诉"), action: {isShowAppealForm.toggle()}),
                           secondaryButton: Alert.Button.default(Text("不用了")))
+                })
+                .sheet(isPresented: $isShowAppealForm, content: {
+                    StudentSignAppealForm(sign: signList.filter({ (sign: SignListResponseData) -> Bool in
+                        return sign.id == tappedId
+                    })[0])
                 })
             }
         }

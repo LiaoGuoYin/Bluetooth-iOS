@@ -22,6 +22,7 @@ struct SignListResponseData: Codable {
     let status: Bool
     let date: String
     let datetime: String
+    let datetimeString: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -34,6 +35,7 @@ struct SignListResponseData: Codable {
         case status = "sStatus"
         case date
         case datetime
+        case datetimeString
     }
 }
 
@@ -55,6 +57,9 @@ extension SignListResponseData {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         datetime = dateFormatter.string(from: date)
+
+        dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+        datetimeString = dateFormatter.string(from: date)
         
         let tmpStatus = try container.decode(String.self, forKey: .status)
         status = (tmpStatus == "0") ? true: false

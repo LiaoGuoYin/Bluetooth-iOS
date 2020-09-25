@@ -19,7 +19,7 @@ class APIClient {
             }
     }
     
-    static func studentRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+    static func studentRegist(form: StudentForm, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentRegist(studentRegistForm: form), completion: completion)
     }
     
@@ -37,11 +37,16 @@ class APIClient {
         performRequest(route: APIRouter.studentSignList(username: username), completion: completion)
     }
     
-    static func studentModifyMac(username: String, newMac: String, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+    static func studentSignAppeal(sign: SignListResponseData, teacherName: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.studentSignAppeal(sign: sign, teacherName: teacherName), completion: completion)
+    }
+    
+    
+    static func studentModifyMac(username: String, newMac: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentModifyMac(username: username, newMac: newMac), completion: completion)
     }
     
-    static func teacherRegist(form: StudentForm, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+    static func teacherRegist(form: StudentForm, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherRegist(form: form), completion: completion)
     }
     
@@ -57,7 +62,7 @@ class APIClient {
         performRequest(route: APIRouter.teacherCreateCourse(teacherNumber: teacherNumber, course: course), completion: completion)
     }
     
-    static func teacherDeleteCourse(_ teahcerNumber: String, _ courseName: String, completion: @escaping (Result<RegistResponse, AFError>) -> Void) {
+    static func teacherDeleteCourse(_ teahcerNumber: String, _ courseName: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherDeleteCourse(teahcerNumber: teahcerNumber, courseName: courseName), completion: completion)
     }
     

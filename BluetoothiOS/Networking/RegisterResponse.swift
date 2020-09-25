@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RegistResponse: Codable {
+struct MessageResponse: Codable {
     var code: Int
     var msg: String
 }
