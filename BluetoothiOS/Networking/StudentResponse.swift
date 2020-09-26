@@ -21,7 +21,7 @@ struct SignListResponseData: Codable {
     let courseName: String
     let classOf: String?
     let status: Bool
-    let timeStamp: Int
+    let date: String
     let datetime: String
     let datetimeString: String?
     
@@ -34,7 +34,7 @@ struct SignListResponseData: Codable {
         case courseName = "course"
         case classOf = "iClass"
         case status
-        case timeStamp = "date"
+        case date
         case datetime
         case datetimeString
     }
@@ -51,16 +51,16 @@ extension SignListResponseData {
         courseName = try container.decode(String.self, forKey: .courseName)
         classOf = try? container.decode(String.self, forKey: .classOf)
         mac = try? container.decode(String.self, forKey: .mac)
-        timeStamp = try container.decode(Int.self, forKey: .timeStamp)
-        let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
+        date = try container.decode(String.self, forKey: .date)
         
-        let date = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
+        let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
+        let tmpDate = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        datetime = dateFormatter.string(from: date)
+        datetime = dateFormatter.string(from: tmpDate)
         
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
-        datetimeString = dateFormatter.string(from: date)
+        datetimeString = dateFormatter.string(from: tmpDate)
         
         let tmpStatus = try container.decode(Int.self, forKey: .status)
         status = (tmpStatus == 0) ? true: false

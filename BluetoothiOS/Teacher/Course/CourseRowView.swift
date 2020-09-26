@@ -16,7 +16,7 @@ struct TeacherCourseRowView: View {
             Text(course.name)
                 .font(.headline)
             Spacer()
-            Text(course.classList)
+            Text(course.roomOf)
                 .font(.subheadline)
         }
         .cornerRadius(6)

@@ -25,6 +25,7 @@ enum APIRouter: URLRequestConvertible {
     case teacherCreateCourse(teacherNumber: String, course: Course)
     case teacherDeleteCourse(teahcerNumber: String, courseName: String)
     case teacherGetStudentAppeal(teacherNumber: String)
+    case teacherGetClass
     
     case adminLogin(username: String, password: String)
     case adminProcessSignAppeal
@@ -37,6 +38,8 @@ enum APIRouter: URLRequestConvertible {
             return .post
         case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal:
             return .post
+        case .teacherGetClass:
+            return .get
         case .adminLogin:
             return .post
         case .adminProcessSignAppeal, .adminProcessMacModify:
@@ -74,6 +77,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/deletecourse"
         case .teacherGetStudentAppeal:
             return "/lntusign/api/teacher/getstuappeal"
+        case .teacherGetClass:
+            return "/lntusign/api/teacher/getclass"
             
         case .adminLogin:
             return "/lntusign/api/login/admin"
@@ -132,7 +137,7 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.TeacherParmeterKey.courseName: course.name,
                 K.TeacherParmeterKey.classroom: course.roomOf,
-                K.StudentParameterKey.iClass: course.classOf,
+                K.StudentParameterKey.iClass: course.classList,
                 K.StudentParameterKey.number: teahcerNumber
             ]
         case .teacherDeleteCourse(let teacherNumber, let courseName):
@@ -144,7 +149,7 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.APIParameterKey.username: teacherNumber
             ]
-        case .adminProcessMacModify, .adminProcessSignAppeal:
+        case .adminProcessMacModify, .adminProcessSignAppeal, .teacherGetClass:
             return nil
         }
     }

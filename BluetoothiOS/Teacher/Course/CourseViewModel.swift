@@ -10,6 +10,7 @@ import Foundation
 
 class TeacherCourseViewModel: ObservableObject {
     
+    @Published var classList: Array<String> = []
     @Published var courseList: Array<CourseResponseData>
     @Published var form: Course
     @Published var teacherNumber: String
@@ -19,6 +20,8 @@ class TeacherCourseViewModel: ObservableObject {
         self.courseList = Array<CourseResponseData>()
         self.form = Course()
         self.teacherNumber = teachNumber
+        self.classList = []
+        self.loadRemoteClass()
     }
     
     //    MARK: - Access to the model
@@ -44,22 +47,20 @@ class TeacherCourseViewModel: ObservableObject {
         }
     }
     
-    func createCourse() -> Void {
+    func createCourse(_ teacherNumber: String, _ form: Course) {
         APIClient.teacherCreateCourse(teacherNumber, form) { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-                print(self.message)
             case .success(let response):
                 self.message = response.msg
-                print(self.message)
             }
         }
     }
 
     func deleteCourse(_ offsets: IndexSet) {
         if let actualOffset = offsets.first {
-            APIClient.teacherDeleteCourse(self.teacherNumber, courseList[actualOffset].name) { (result) in
+            APIClient.teacherDeleteCourse(teacherNumber, courseList[actualOffset].name) { (result) in
                 switch result {
                 case .failure(let error):
                     self.message = error.localizedDescription
@@ -71,6 +72,19 @@ class TeacherCourseViewModel: ObservableObject {
         }
     }
 
+    func loadRemoteClass() {
+        APIClient.teacherGetClass { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+                self.message = error.localizedDescription
+            case .success(let classResponse):
+                self.message = classResponse.msg
+                self.classList = classResponse.data
+            }
+        }
+    }
+    
 //
 //    //    MARK: - Students Intents
 //    func addStudent(_ courseIndex: Int, _ student: Student) {
@@ -90,7 +104,7 @@ extension TeacherCourseViewModel {
     func clearCourseForm() {
         self.form = Course()
         self.form.name = ""
-        self.form.classOf = ""
+        self.form.classList = []
         self.form.roomOf = ""
     }
 }

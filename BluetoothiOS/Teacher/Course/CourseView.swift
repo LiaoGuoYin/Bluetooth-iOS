@@ -19,28 +19,36 @@ struct TeacherCourseView: View {
             Form {
                 Section(header: Text("课程列表") ) {
                     ForEach(0..<viewModel.courseList.count, id: \.self) { (index) in
-                        VStack(spacing: 16) {
+                        VStack {
                             TeacherCourseRowView(course: $viewModel.courseList[index])
                             NavigationLink(
-                                destination: CourseStudentView(viewModel: viewModel, classList: [viewModel.courseList[index].classList]),
-                                label: {
-                                    Text(viewModel.courseList[index].roomOf)
-                                        .font(.subheadline)
+                                destination: CourseStudentView(viewModel: viewModel, classList: viewModel.courseList[index].classList),
+                                label: { HStack {
+                                    ForEach(viewModel.courseList[index].classList, id: \.self) { (singleClass) in
+                                        Text(singleClass)
+                                            .foregroundColor(.white)
+                                            .padding(6)
+                                            .background(Color.pink.opacity(0.9))
+                                            .cornerRadius(6)
+                                            .font(.caption)
+                                    }
+                                }
                                 })
                         }
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 6)
                     }
                     .onDelete(perform: onDeleteCourse)
                 }
             }
             .sheet(isPresented: $isShowCourseSheet) {
                 NewCourseFormView(viewModel: self.viewModel)
+                    .onDisappear(perform: viewModel.getchCourse)
             }
             .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
             .alert(isPresented: $isShowAlert, content: {
-                Alert(title: Text(viewModel.message), message: nil, dismissButton: .default(Text("OK")))
+                Alert(title: Text(viewModel.message), dismissButton: .default(Text("OK")))
             })
         }
         .onAppear(perform: viewModel.getchCourse)
@@ -50,7 +58,7 @@ struct TeacherCourseView: View {
 extension TeacherCourseView {
     
     init() {
-        self.init(viewModel: TeacherCourseViewModel(teachNumber: "1001"))
+        self.init(viewModel: TeacherCourseViewModel(teachNumber: "0001"))
     }
     
     func loadLocalData() {

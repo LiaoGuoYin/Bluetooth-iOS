@@ -11,17 +11,13 @@ import Foundation
 struct Course: Codable {
     var id = UUID()
     var name: String
-    var classOf: String
+    var classList: [String]
     var roomOf: String
 }
 
 extension Course: Hashable {
     init() {
-        self.init(name: "Swift程序设计", classOf: "电信研183", roomOf: "尔雅楼221")
-    }
-    
-    init(students: Array<Student>) {
-        self.init()
+        self.init(name: "Swift程序设计", classList: [], roomOf: "尔雅楼221")
     }
     
     static func == (lhs: Course, rhs: Course) -> Bool {

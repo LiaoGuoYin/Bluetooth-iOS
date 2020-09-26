@@ -30,8 +30,10 @@ struct ContentView: View {
                     }
             }
         } else {
-            LoginView(viewModel: self.loginViewModel)
-                .environmentObject(viewRouter)
+            VStack {
+                LoginView(viewModel: self.loginViewModel)
+                    .environmentObject(viewRouter)
+            }
         }
     }
     

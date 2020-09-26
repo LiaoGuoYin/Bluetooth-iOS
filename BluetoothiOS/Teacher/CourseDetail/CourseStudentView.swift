@@ -19,29 +19,30 @@ struct CourseStudentView: View {
     
     var body: some View {
         List {
-            ForEach(studentList, id: \.id) { student in
-                HStack(spacing: 16) {
-                    Text(student.name)
-                        .font(.headline)
-                        .frame(width: 150)
-                        .lineLimit(1)
-                    VStack(alignment:.leading, spacing: 8) {
-                        Text(student.mac ?? "Unknow")
-                            .font(.caption)
-                        Text(student.iClass ?? "Unknow")
-                            .font(.caption)
+            Section(header: Text("共计学生: \(studentList.count)")) {
+                ForEach(studentList, id: \.id) { student in
+                    HStack(spacing: 16) {
+                        Text(student.name)
+                            .font(.headline)
+                            .frame(width: 150)
+                            .lineLimit(1)
+                        VStack(alignment:.leading, spacing: 8) {
+                            Text(student.mac ?? "Unknow")
+                                .font(.caption)
+                            Text(student.iClass ?? "Unknow")
+                                .font(.caption)
+                        }
                     }
-                    //                    Image(systemName: item.status.rawValue == Student.Status.present.rawValue ? "checkmark.seal.fill":"xmark.seal")
-                    //                        .foregroundColor(.blue)
+                    .padding()
+                    .onTapGesture(count: 2, perform: {
+                        self.isShowingSheet.toggle()
+                    })
                 }
-                .padding()
-                .onTapGesture(count: 2, perform: {
-                    self.isShowingSheet.toggle()
-                })
+                .onMove(perform: onMoveStudent)
+                .onDelete(perform: onDeleteStudent)
             }
-            .onMove(perform: onMoveStudent)
-            .onDelete(perform: onDeleteStudent)
         }
+        .listStyle(GroupedListStyle())
         .sheet(isPresented: self.$isShowNewPage, content: {
             BLEView()
         })

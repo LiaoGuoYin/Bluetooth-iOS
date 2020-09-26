@@ -69,6 +69,10 @@ class APIClient {
         performRequest(route: APIRouter.teacherDeleteCourse(teahcerNumber: teahcerNumber, courseName: courseName), completion: completion)
     }
     
+    static func teacherGetClass(completion: @escaping (Result<ClassListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherGetClass, completion: completion)
+    }
+    
     static func adminProcessMacModify(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
     }
