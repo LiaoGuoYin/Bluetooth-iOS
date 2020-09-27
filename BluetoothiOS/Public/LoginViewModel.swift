@@ -14,9 +14,23 @@ class LoginViewModel: ObservableObject {
     @Published var form: LoginUser
     @Published var message: String = ""
     @Published var responseData: LoginResponseData?
+    @Published var signList: Array<AdminSignListResponseData> = []
     
     init(form: LoginUser) {
         self.form = form
+        self.refreshRemoteSignAppealList()
+    }
+    
+    func refreshRemoteSignAppealList() {
+        APIClient.adminProcessSignAppeal { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+            case .success(let sign):
+                self.signList = sign.data
+                self.message = sign.msg
+            }
+        }
     }
     
     func login(userType: UserType, isValidAccount: @escaping (Bool) -> ()) {

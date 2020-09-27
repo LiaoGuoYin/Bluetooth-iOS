@@ -17,7 +17,7 @@ struct AdminView: View {
         TabView {
             NavigationView {
                 List(viewModel.signList, id: \.id) { record in
-                    HistoryBlockRow(sign: record)
+                    AdminHistoryBlockRow(sign: record)
                         .padding(6)
                 }
                 .listStyle(GroupedListStyle())
@@ -54,6 +54,25 @@ struct AdminView: View {
     var exitButton: some View {
         Button(action: {self.viewRouter.isLogined.toggle()}) {
             Text("退出")
+        }
+    }
+}
+
+struct AdminHistoryBlockRow: View {
+    @State var sign: AdminSignListResponseData
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(sign.courseName)
+                    .font(.headline)
+                Text((sign.studentName ?? "") + " " + (sign.mac ?? "None MAC"))
+                    .font(.subheadline)
+                Text(sign.datetime)
+                    .font(.caption)
+            }
+            Spacer()
+            Image(systemName: (sign.status ? "checkmark.seal.fill" : "xmark.seal"))
+                .foregroundColor(sign.status ? Color.blue : Color.pink.opacity(0.8))
         }
     }
 }

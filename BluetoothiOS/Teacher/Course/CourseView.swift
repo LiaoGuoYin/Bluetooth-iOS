@@ -44,7 +44,7 @@ struct TeacherCourseView: View {
                 NewCourseFormView(viewModel: self.viewModel)
                     .onDisappear(perform: viewModel.getchCourse)
             }
-            .navigationBarTitle(Text("考勤管理"), displayMode: .automatic)
+            .navigationBarTitle(Text("考勤打卡"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
             .alert(isPresented: $isShowAlert, content: {

@@ -101,7 +101,6 @@ extension CourseStudentView {
             self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
         }, label: {
             Text("考勤")
-                .foregroundColor(.blue)
             Image(systemName: "staroflife")
                 .font(.subheadline)
         })

@@ -11,7 +11,7 @@ import Foundation
 struct SignListResponse: Codable {
     var code: Int
     var msg: String
-    var data: [SignListResponseData] = []
+    var data: [SignListResponseData]
 }
 
 struct SignListResponseData: Codable {
@@ -21,9 +21,8 @@ struct SignListResponseData: Codable {
     let courseName: String
     let classOf: String?
     let status: Bool
-    let date: String
+    let datetimeString: String
     let datetime: String
-    let datetimeString: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -33,10 +32,9 @@ struct SignListResponseData: Codable {
         case mac = "sMac"
         case courseName = "course"
         case classOf = "iClass"
-        case status
-        case date
+        case status = "sStatus"
+        case datetimeString = "date"
         case datetime
-        case datetimeString
     }
 }
 
@@ -51,7 +49,7 @@ extension SignListResponseData {
         courseName = try container.decode(String.self, forKey: .courseName)
         classOf = try? container.decode(String.self, forKey: .classOf)
         mac = try? container.decode(String.self, forKey: .mac)
-        date = try container.decode(String.self, forKey: .date)
+        _ = try container.decode(String.self, forKey: .datetimeString)
         
         let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
         let tmpDate = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
@@ -62,7 +60,7 @@ extension SignListResponseData {
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         datetimeString = dateFormatter.string(from: tmpDate)
         
-        let tmpStatus = try container.decode(Int.self, forKey: .status)
-        status = (tmpStatus == 0) ? true: false
+        let tmpStatus = try container.decode(String.self, forKey: .status)
+        status = (tmpStatus == "1") ? true: false
     }
 }

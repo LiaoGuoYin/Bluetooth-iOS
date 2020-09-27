@@ -41,7 +41,7 @@ class APIClient {
         performRequest(route: APIRouter.studentSignList(username: username), completion: completion)
     }
     
-    static func studentSignAppeal(sign: SignListResponseData, teacherName: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
+    static func studentSignAppeal(sign: SignListResponseData, teacherName: String, completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.studentSignAppeal(sign: sign, teacherName: teacherName), completion: completion)
     }
     
@@ -77,7 +77,7 @@ class APIClient {
         performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
     }
     
-    static func adminProcessSignAppeal(completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
+    static func adminProcessSignAppeal(completion: @escaping (Result<AdminSignListResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.adminProcessSignAppeal, completion: completion)
     }
     

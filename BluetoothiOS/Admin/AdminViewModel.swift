@@ -10,7 +10,7 @@ import Foundation
 
 class AdminViewModel: ObservableObject {
     
-    @Published var signList: Array<SignListResponseData> = []
+    @Published var signList: Array<AdminSignListResponseData> = []
     @Published var macModifyList: Array<AdminMacManagerResponseData> = []
     @Published var message: String = ""
     
@@ -44,3 +44,4 @@ class AdminViewModel: ObservableObject {
         }
     }
 }
+

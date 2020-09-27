@@ -25,7 +25,7 @@ struct StudentModifyMacView: View {
                             .resizable()
                             .frame(width: 81,height: 81,alignment: .center)
                             .padding()
-                        Text("NOW MAC: \(loginViewModel.responseData?.mac  ?? "None")")
+                        Text("NOW MAC: \(loginViewModel.responseData?.mac  ?? "")")
                             .foregroundColor(.gray)
                     }
                     Spacer()
@@ -45,6 +45,7 @@ struct StudentModifyMacView: View {
                 }
             }
         }
+        .navigationBarTitle(Text("申请修改MAC地址"), displayMode: .inline)
         .alert(isPresented: $isShowAlert, content: {
             Alert.init(title: Text(message))
         })

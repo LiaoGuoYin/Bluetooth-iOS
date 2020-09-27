@@ -110,11 +110,11 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.TeacherParmeterKey.courseName: sign.courseName,
                 K.TeacherParmeterKey.teacherName: teacherName,
-                K.StudentParameterKey.name: sign.studentName ?? "None",
-                K.StudentParameterKey.number: sign.studentNumber ?? "None",
-                K.StudentParameterKey.iClass: sign.classOf ?? "None",
-                K.StudentParameterKey.mac: sign.mac ?? "None",
-                K.StudentParameterKey.date: sign.datetimeString ?? "None"
+                K.StudentParameterKey.name: sign.studentName ?? "",
+                K.StudentParameterKey.number: sign.studentNumber ?? "",
+                K.StudentParameterKey.iClass: sign.classOf ?? "",
+                K.StudentParameterKey.mac: sign.mac ?? "",
+                K.StudentParameterKey.date: sign.datetimeString 
                 
             ]
         case .studentModifyMac(let username, let newMac):

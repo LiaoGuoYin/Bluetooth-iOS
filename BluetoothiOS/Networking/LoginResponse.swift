@@ -31,7 +31,7 @@ struct LoginResponseData: Codable, CustomStringConvertible {
          丁一,111,1,BCE143B46210,√\r
          吴一帆,183,2,7836CC44578C,\r
          */
-        return "\(name),\(iClass ?? "未知班级"),\(number),\(mac ?? "None"),\r"
+        return "\(name),\(iClass ?? "未知班级"),\(number),\(mac?.split(separator: ":").joined(separator: "") ?? ""),\r"
     }
     
 }

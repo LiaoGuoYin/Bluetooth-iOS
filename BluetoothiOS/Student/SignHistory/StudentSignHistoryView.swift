@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct StudentSignHistoryView: View {
-    
     @State var viewModel: StudentSignHistoryViewModel
-    
     var body: some View {
         List {
             Section(header: Text("历史考勤")) {
@@ -31,15 +29,13 @@ struct StudentSignHistoryView: View {
 }
 
 struct HistoryBlockRow: View {
-    
     @State var sign: SignListResponseData
-    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text(sign.courseName)
                     .font(.headline)
-                Text((sign.studentName ?? "None") + " " + (sign.mac ?? "None MAC"))
+                Text((sign.studentName ?? "") + " " + (sign.mac ?? "None MAC"))
                     .font(.subheadline)
                 Text(sign.datetime)
                     .font(.caption)
@@ -53,7 +49,7 @@ struct HistoryBlockRow: View {
 
 struct CoursePunchCardHistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "1001"))
+        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "471920358"))
     }
 }
 
