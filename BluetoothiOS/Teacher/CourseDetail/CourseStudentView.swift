@@ -44,7 +44,7 @@ struct CourseStudentView: View {
         }
         .listStyle(GroupedListStyle())
         .sheet(isPresented: self.$isShowNewPage, content: {
-            BLEView()
+            BLEView(studentList: studentList)
         })
         .actionSheet(isPresented: $isShowingSheet, content: {
             ActionSheet(title: Text("是否开始考勤？"),
@@ -97,8 +97,6 @@ extension CourseStudentView {
     var sendSheetToBLEButton: some View {
         Button(action: {
             self.isShowingSheet.toggle()
-            let selectedCourseString = serializeStudentsToStringForSending(students: studentList)
-            self.viewModel.sendStudentStringToBLE(of: selectedCourseString)
         }, label: {
             Text("考勤")
             Image(systemName: "staroflife")

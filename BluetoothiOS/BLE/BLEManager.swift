@@ -38,7 +38,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     var connectedNotifyCharacteristic: CBCharacteristic?
     
     // 自动连接的蓝牙前缀
-    var names = ["NBee_BLEF22A7C", "LGY"]
+    var names = ["NBee_BLEF22A7C"]
     
     override init() {
         super.init()

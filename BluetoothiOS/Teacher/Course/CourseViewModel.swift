@@ -24,15 +24,6 @@ class TeacherCourseViewModel: ObservableObject {
         self.loadRemoteClass()
     }
     
-    //    MARK: - Access to the model
-    func sendStudentStringToBLE(of studentString: String) {
-        if let connectedCharacteristic = BLEManager.shared.connectedWriteCharacteristic {
-            BLEManager.shared.sendDataToDevice(sendString: studentString, connectedCharacteristic)
-        } else {
-            print("没有连接到蓝牙 Write Characteristic，发送数据失败")
-        }
-    }
-    
     //    MARK: - Course Intents
     func getchCourse() -> Void {
         APIClient.teacherGetCourse(username: teacherNumber) { (result) in
