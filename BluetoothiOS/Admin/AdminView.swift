@@ -21,8 +21,8 @@ struct AdminView: View {
                         .padding(6)
                 }
                 .listStyle(GroupedListStyle())
-                .navigationBarTitle(Text("签到记录"), displayMode: .large)
-                .navigationBarItems(leading: refreshSignButton)
+                .navigationBarTitle(Text("签到申诉记录"), displayMode: .large)
+                .navigationBarItems(leading: refreshSignAppealButton)
             }
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(1)
             
@@ -39,7 +39,7 @@ struct AdminView: View {
         }
     }
     
-    var refreshSignButton: some View {
+    var refreshSignAppealButton: some View {
         Button(action: self.viewModel.refreshRemoteSignAppealList) {
             Text("刷新")
         }

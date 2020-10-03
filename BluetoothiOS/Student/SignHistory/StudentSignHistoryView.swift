@@ -49,7 +49,7 @@ struct HistoryBlockRow: View {
 
 struct CoursePunchCardHistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "471920358"))
+        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "00011"))
     }
 }
 

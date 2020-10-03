@@ -25,10 +25,8 @@ class AdminViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-                print(error)
             case .success(let sign):
                 self.signList = sign.data
-                self.message = sign.data.description
             }
         }
     }

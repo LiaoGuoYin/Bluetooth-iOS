@@ -21,11 +21,11 @@ struct StudentModifyMacView: View {
                 HStack {
                     Spacer()
                     VStack {
-                        Image(uiImage: QRGenerator().generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录 mac"))
+                        Image(uiImage: QRGenerator().generateQRCodeImage(qrString: loginViewModel.responseData?.mac ?? "未登录"))
                             .resizable()
                             .frame(width: 81,height: 81,alignment: .center)
                             .padding()
-                        Text("NOW MAC: \(loginViewModel.responseData?.mac  ?? "")")
+                        Text("原 MAC 地址: \(loginViewModel.responseData?.mac  ?? "")")
                             .foregroundColor(.gray)
                     }
                     Spacer()
@@ -33,8 +33,8 @@ struct StudentModifyMacView: View {
                 .padding()
                 
                 HStack {
-                    Text("NEW MAC: ")
-                    TextField(loginViewModel.responseData?.mac ?? "4C:1A:3D:49:3E:6C", text: $newMac)
+                    Text("新 MAC 地址")
+                    TextField(":::::", text: $newMac)
                 }
             }
             Button(action: submitModifyRequest) {

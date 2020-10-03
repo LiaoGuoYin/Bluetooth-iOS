@@ -67,7 +67,7 @@ struct AdminLoginForm: Codable {
 struct AdminSignListResponse: Codable {
     var code: Int
     var msg: String
-    var data: [AdminSignListResponseData]
+    var data: [AdminSignListResponseData] = []
 }
 
 struct AdminSignListResponseData: Codable {
