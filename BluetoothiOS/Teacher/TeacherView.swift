@@ -21,12 +21,13 @@ struct TeacherView: View {
             
             NavigationView {
                 List(viewModel.signList, id: \.id) { record in
-                    AdminHistoryBlockRow(sign: record)
+                    SignListRowView(sign: record)
                         .accentColor(.pink)
                         .padding(6)
                 }
-                .navigationBarTitle(Text("学生签到记录"), displayMode: .large)
+                .navigationBarTitle(Text("考勤记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignButton, trailing: exitButton)
+                .onAppear(perform: viewModel.refreshRemoteSignList)
             }
             .tabItem { Image(systemName: "square.and.at.rectangle") }
         }
@@ -41,7 +42,7 @@ struct TeacherView: View {
     }
     
     var refreshSignButton: some View {
-        Button(action: self.viewModel.refreshRemoteSignAppealList) {
+        Button(action: self.viewModel.refreshRemoteSignList) {
             Text("刷新")
         }
     }

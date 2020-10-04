@@ -14,15 +14,14 @@ class LoginViewModel: ObservableObject {
     @Published var form: LoginUser
     @Published var message: String = ""
     @Published var responseData: LoginResponseData?
-    @Published var signList: Array<AdminSignListResponseData> = []
+    @Published var signList: Array<SignListResponseData> = []
     
     init(form: LoginUser) {
         self.form = form
-        self.refreshRemoteSignAppealList()
     }
     
-    func refreshRemoteSignAppealList() {
-        APIClient.adminProcessSignAppeal { (result) in
+    func refreshRemoteSignList() {
+        APIClient.adminGetSignList { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription

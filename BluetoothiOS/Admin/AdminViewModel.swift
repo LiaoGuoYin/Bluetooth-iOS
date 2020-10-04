@@ -10,14 +10,28 @@ import Foundation
 
 class AdminViewModel: ObservableObject {
     
-    @Published var signList: Array<AdminSignListResponseData> = []
+    @Published var signList: Array<SignListResponseData> = []
+    @Published var signAppealList: Array<AdminSignAppealListResponseData> = []
     @Published var macModifyList: Array<AdminMacManagerResponseData> = []
     @Published var message: String = ""
     
     
     init() {
+        refreshRemoteSignList()
         refreshRemoteMacModifyList()
         refreshRemoteSignAppealList()
+    }
+    
+    
+    func refreshRemoteSignList() {
+        APIClient.adminGetSignList { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+            case .success(let signListResponse):
+                self.signList = signListResponse.data
+            }
+        }
     }
     
     func refreshRemoteSignAppealList() {
@@ -25,8 +39,8 @@ class AdminViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-            case .success(let sign):
-                self.signList = sign.data
+            case .success(let signResponse):
+                self.signAppealList = signResponse.data
             }
         }
     }

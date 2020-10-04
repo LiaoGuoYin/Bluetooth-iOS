@@ -62,15 +62,13 @@ struct AdminLoginForm: Codable {
     var passwd: String
 }
 
-
-
-struct AdminSignListResponse: Codable {
+struct AdminSignAppealListResponse: Codable {
     var code: Int
     var msg: String
-    var data: [AdminSignListResponseData] = []
+    var data: [AdminSignAppealListResponseData] = []
 }
 
-struct AdminSignListResponseData: Codable {
+struct AdminSignAppealListResponseData: Codable {
     let id, teacherNumber: String
     let studentNumber: String?
     let studentName, mac: String?
@@ -94,7 +92,7 @@ struct AdminSignListResponseData: Codable {
     }
 }
 
-extension AdminSignListResponseData {
+extension AdminSignAppealListResponseData {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         

@@ -30,6 +30,7 @@ enum APIRouter: URLRequestConvertible {
     case adminLogin(username: String, password: String)
     case adminProcessSignAppeal
     case adminProcessMacModify
+    case adminGetSignList
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
@@ -42,7 +43,7 @@ enum APIRouter: URLRequestConvertible {
             return .get
         case .adminLogin:
             return .post
-        case .adminProcessSignAppeal, .adminProcessMacModify:
+        case .adminProcessSignAppeal, .adminProcessMacModify, .adminGetSignList:
             return .get
         }
     }
@@ -86,6 +87,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/admin/getstuappealall"
         case .adminProcessMacModify:
             return "/lntusign/api/admin/getmacmodifyall"
+        case .adminGetSignList:
+            return "/lntusign/api/admin/getstusignlistall"
         }
     }
     
@@ -149,7 +152,7 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.APIParameterKey.username: teacherNumber
             ]
-        case .adminProcessMacModify, .adminProcessSignAppeal, .teacherGetClass:
+        case .adminProcessMacModify, .adminProcessSignAppeal, .adminGetSignList, .teacherGetClass:
             return nil
         }
     }

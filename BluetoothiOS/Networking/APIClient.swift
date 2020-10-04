@@ -77,8 +77,12 @@ class APIClient {
         performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
     }
     
-    static func adminProcessSignAppeal(completion: @escaping (Result<AdminSignListResponse, AFError>) -> Void) {
+    static func adminProcessSignAppeal(completion: @escaping (Result<AdminSignAppealListResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.adminProcessSignAppeal, completion: completion)
+    }
+    
+    static func adminGetSignList(completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminGetSignList, completion: completion)
     }
     
 }

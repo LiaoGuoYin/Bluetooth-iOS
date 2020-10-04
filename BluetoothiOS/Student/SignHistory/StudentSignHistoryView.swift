@@ -23,7 +23,7 @@ struct StudentSignHistoryView: View {
             }
         }
         .listStyle(GroupedListStyle())
-        .navigationBarTitle(Text("所有签到记录"), displayMode: .inline)
+        .navigationBarTitle(Text("所有考勤记录"), displayMode: .inline)
         .onAppear(perform: viewModel.refreshRemoteSignHistoryRecord)
     }
 }

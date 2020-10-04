@@ -15,14 +15,14 @@ struct SignListResponse: Codable {
 }
 
 struct SignListResponseData: Codable {
-    let id, teacherNumber: String
-    let studentNumber: String?
-    let studentName, mac: String?
-    let courseName: String
+    var id, teacherNumber: String
+    var studentNumber: String?
+    var studentName, mac: String?
+    var courseName: String
     let classOf: String?
-    let status: Bool
-    let datetimeString: String
-    let datetime: String
+    var status: Bool = false
+    var datetimeString: String
+    var datetime: String = "NaN"
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -49,7 +49,7 @@ extension SignListResponseData {
         courseName = try container.decode(String.self, forKey: .courseName)
         classOf = try? container.decode(String.self, forKey: .classOf)
         mac = try? container.decode(String.self, forKey: .mac)
-        _ = try container.decode(String.self, forKey: .datetimeString)
+        _ = try? container.decode(String.self, forKey: .datetimeString)
         
         let tmpDatetime = try container.decode(Int.self, forKey: .datetime)
         let tmpDate = Date(timeIntervalSince1970: TimeInterval(Int(tmpDatetime / 1000)))
@@ -60,7 +60,7 @@ extension SignListResponseData {
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         datetimeString = dateFormatter.string(from: tmpDate)
         
-        let tmpStatus = try container.decode(String.self, forKey: .status)
+        let tmpStatus = try? container.decode(String.self, forKey: .status)
         status = (tmpStatus == "1") ? true: false
     }
 }

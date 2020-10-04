@@ -39,21 +39,21 @@ struct AccountView: View {
                 }
                 .padding(8)
                 
-            Section(header: Text("签到记录")) {
-                HStack {
-                    ImageAndTextView(imageName: "xmark.seal.fill", textName: "无效签到次数", imageColor: .red)
-                    Spacer()
-                    Text("1 次")
-                }
-                HStack {
-                    ImageAndTextView(imageName: "checkmark.seal.fill", textName: "有效签到次数", imageColor: .green)
-                    Spacer()
-                    Text("5 次")
-                }
+            Section(header: Text("考勤记录")) {
+//                HStack {
+//                    ImageAndTextView(imageName: "xmark.seal.fill", textName: "无效签到次数", imageColor: .red)
+//                    Spacer()
+//                    Text("1 次")
+//                }
+//                HStack {
+//                    ImageAndTextView(imageName: "checkmark.seal.fill", textName: "有效签到次数", imageColor: .green)
+//                    Spacer()
+//                    Text("5 次")
+//                }
                 NavigationLink(
                     destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
                     label: {
-                        ImageAndTextView(imageName: "seal.fill", textName: "所有签到", imageColor: .purple)
+                        ImageAndTextView(imageName: "seal.fill", textName: "所有考勤", imageColor: .purple)
                     })
             }
                 .padding(8)

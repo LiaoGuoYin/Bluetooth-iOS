@@ -21,7 +21,7 @@ struct StudentSignAppealForm: View {
                 Section {
                     HistoryBlockRow(sign: sign)
                     HStack {
-                        Text("老师全名: ")
+                        Text("确认老师全名")
                         TextField("张三", text: $teacherName)
                     }
                 }
