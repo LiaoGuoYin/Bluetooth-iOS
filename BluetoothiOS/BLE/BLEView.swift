@@ -69,6 +69,7 @@ struct BLEView: View {
     var sendButton: some View {
         Button(action: { sendStudentStringToBLE(studentList)}) {
             Text("发送")
+                .foregroundColor(.pink)
         }
     }
     

@@ -163,6 +163,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
                             message.addString("收到数据：\(outputString)")
                             print("*****************")
                             print(outputString)
+//                            TODO
                             studentsDemo = deSerializingReceivedStudentsStringToArray(receivedString: outputString)
                             receiveData = Data()
                         }

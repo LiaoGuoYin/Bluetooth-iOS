@@ -53,7 +53,7 @@ struct NewCourseFormView: View {
                         })
                     }
                 }
-              
+                
                 Button(action: clearForm) {
                     HStack {
                         Spacer()
@@ -72,17 +72,19 @@ struct NewCourseFormView: View {
                 }
             }
             .alert(isPresented: $isShowAlert, content: {
-                Alert(title: Text(viewModel.message),
-                      primaryButton: .destructive(Text("继续修改"), action: self.clearForm),
-                      secondaryButton: .default(Text("完成"), action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                      })
-            )})
+                    Alert(title: Text(viewModel.message),
+                          primaryButton: .destructive(Text("继续修改"), action: self.clearForm),
+                          secondaryButton: .default(Text("完成"), action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                          })
+                    )})
             .disableAutocorrection(true)
             .listStyle(GroupedListStyle())
             .navigationBarTitle(Text("新增课程"), displayMode: .inline)
             .navigationBarItems(
-                trailing: Button(action: {submitForm(selectedClassSet)}) { Text("提交")})
+                trailing: Button(action: {submitForm(selectedClassSet)}) { Text("提交")
+                    .foregroundColor(.pink)
+                })
         }
     }
 }

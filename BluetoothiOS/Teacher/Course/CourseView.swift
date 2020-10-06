@@ -17,7 +17,7 @@ struct TeacherCourseView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("课程列表") ) {
+                Section {
                     ForEach(0..<viewModel.courseList.count, id: \.self) { (index) in
                         VStack {
                             TeacherCourseRowView(course: $viewModel.courseList[index])
@@ -35,7 +35,7 @@ struct TeacherCourseView: View {
                                 }
                                 })
                         }
-                        .padding(.vertical, 6)
+                        .padding(.vertical, 10)
                     }
                     .onDelete(perform: onDeleteCourse)
                 }
@@ -44,7 +44,7 @@ struct TeacherCourseView: View {
                 NewCourseFormView(viewModel: self.viewModel)
                     .onDisappear(perform: viewModel.getchCourse)
             }
-            .navigationBarTitle(Text("考勤打卡"), displayMode: .automatic)
+            .navigationBarTitle(Text("教师，\(viewModel.teacherNumber)"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
                                 trailing: addButton.foregroundColor(.blue))
             .alert(isPresented: $isShowAlert, content: {
@@ -61,10 +61,6 @@ extension TeacherCourseView {
         self.init(viewModel: TeacherCourseViewModel(teachNumber: "0001"))
     }
     
-    func loadLocalData() {
-        
-    }
-    
     func onDeleteCourse(at offsets: IndexSet) -> Void {
         viewModel.deleteCourse(offsets)
         self.isShowAlert.toggle()
@@ -72,17 +68,14 @@ extension TeacherCourseView {
     
     var refreshToFetchCourseButton: some View {
         Button(action: viewModel.getchCourse) {
-            Image(systemName: "arrow.clockwise.circle.fill")
-                .foregroundColor(.pink)
+            Text("刷新")
         }
     }
     
     var addButton: some View {
         Button(action: { self.isShowCourseSheet.toggle() }) {
-            Image(systemName: "plus.square.fill")
+            Text("新建课程")
                 .foregroundColor(.pink)
-                .font(.headline)
-                .padding(EdgeInsets(top: 0, leading: 50, bottom: 0, trailing: 0))
         }
     }
 }

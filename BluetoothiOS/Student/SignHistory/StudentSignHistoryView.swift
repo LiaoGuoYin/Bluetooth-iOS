@@ -12,19 +12,30 @@ struct StudentSignHistoryView: View {
     @State var viewModel: StudentSignHistoryViewModel
     var body: some View {
         List {
-            Section(header: Text("历史考勤")) {
+            Section(header: Text("点击失败记录进行申诉")) {
                 ForEach(viewModel.signList, id: \.id) { record in
-                    NavigationLink(
-                        destination: StudentSignAppealForm(sign: record),
-                        label: {
-                            HistoryBlockRow(sign: record)
-                        })
+                    if record.status {
+                        HistoryBlockRow(sign: record)
+                    } else {
+                        NavigationLink(
+                            destination: StudentSignAppealFormView(sign: record),
+                            label: {
+                                HistoryBlockRow(sign: record)
+                            })
+                    }
                 }
             }
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitle(Text("所有考勤记录"), displayMode: .inline)
+        .navigationBarItems(trailing: refreshRecordButton)
         .onAppear(perform: viewModel.refreshRemoteSignHistoryRecord)
+    }
+    
+    var refreshRecordButton: some View {
+        Button(action: viewModel.refreshRemoteSignHistoryRecord) {
+            Text("刷新")
+        }
     }
 }
 
@@ -49,7 +60,7 @@ struct HistoryBlockRow: View {
 
 struct CoursePunchCardHistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "00011"))
+        StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: "0002"))
     }
 }
 

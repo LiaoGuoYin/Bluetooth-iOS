@@ -22,26 +22,23 @@ struct TeacherView: View {
             NavigationView {
                 List(viewModel.signList, id: \.id) { record in
                     SignListRowView(sign: record)
-                        .accentColor(.pink)
                         .padding(6)
                 }
+                .listStyle(GroupedListStyle())
                 .navigationBarTitle(Text("考勤记录"), displayMode: .large)
-                .navigationBarItems(leading: refreshSignButton, trailing: exitButton)
-                .onAppear(perform: viewModel.refreshRemoteSignList)
+                .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
             }
             .tabItem { Image(systemName: "square.and.at.rectangle") }
         }
-        .accentColor(.pink)
     }
     
     var exitButton: some View {
         Button(action: {viewRouter.isLogined.toggle()}) {
             Text("退出登录")
-                .padding(8)
         }
     }
     
-    var refreshSignButton: some View {
+    var refreshSignListButton: some View {
         Button(action: self.viewModel.refreshRemoteSignList) {
             Text("刷新")
         }
@@ -50,7 +47,7 @@ struct TeacherView: View {
 
 struct TeacherView_Previews: PreviewProvider {
     static var previews: some View {
-        TeacherView(viewModel: LoginViewModel(form: LoginUser(username: "0001", password: "")))
+        TeacherView(viewModel: LoginViewModel(form: LoginUser(username: "0002", password: "")))
             .environmentObject(ViewRouter())
     }
 }

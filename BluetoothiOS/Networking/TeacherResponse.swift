@@ -67,3 +67,10 @@ struct ClassListResponse: Codable {
     let msg: String
     let data: [String]
 }
+
+struct CourseRecord: Codable {
+    var teacherNumber: String
+    var courseName: String
+    var date: String
+    var signList: [SignListResponseData] = []
+}

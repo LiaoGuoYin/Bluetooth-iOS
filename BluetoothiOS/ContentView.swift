@@ -18,22 +18,18 @@ struct ContentView: View {
             if viewRouter.userType == UserType.admin {
                 AdminView(viewModel: AdminViewModel())
                     .environmentObject(viewRouter)
+                    .accentColor(.pink)
             } else if viewRouter.userType == UserType.teacher {
                 TeacherView(viewModel: loginViewModel)
                     .environmentObject(viewRouter)
+                    .accentColor(.pink)
             } else {
-                AccountView(loginViewModel: loginViewModel)
+                StudentView(loginViewModel: loginViewModel)
                     .environmentObject(viewRouter)
-                    .tabItem {
-                        Image(systemName: "rectangle.stack.person.crop.fill")
-                        Text("Account")
-                    }
             }
         } else {
-            VStack {
-                LoginView(viewModel: self.loginViewModel)
-                    .environmentObject(viewRouter)
-            }
+            LoginView(viewModel: self.loginViewModel)
+                .environmentObject(viewRouter)
         }
     }
 }

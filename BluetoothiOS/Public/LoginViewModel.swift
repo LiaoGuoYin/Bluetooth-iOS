@@ -18,6 +18,7 @@ class LoginViewModel: ObservableObject {
     
     init(form: LoginUser) {
         self.form = form
+        self.refreshRemoteSignList()
     }
     
     func refreshRemoteSignList() {
@@ -25,9 +26,8 @@ class LoginViewModel: ObservableObject {
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-            case .success(let sign):
-                self.signList = sign.data
-                self.message = sign.msg
+            case .success(let signListResponse):
+                self.signList = signListResponse.data
             }
         }
     }

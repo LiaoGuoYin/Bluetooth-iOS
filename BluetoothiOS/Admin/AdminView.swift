@@ -70,7 +70,7 @@ struct AdminView: View {
     
     var exitButton: some View {
         Button(action: {self.viewRouter.isLogined.toggle()}) {
-            Text("退出")
+            Text("退出登录")
         }
     }
 }

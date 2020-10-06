@@ -26,6 +26,7 @@ enum APIRouter: URLRequestConvertible {
     case teacherDeleteCourse(teahcerNumber: String, courseName: String)
     case teacherGetStudentAppeal(teacherNumber: String)
     case teacherGetClass
+    case teacherUploadCourseRecord(record: CourseRecord)
     
     case adminLogin(username: String, password: String)
     case adminProcessSignAppeal
@@ -37,7 +38,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal, .studentModifyMac:
             return .post
-        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal, .teacherUploadCourseRecord:
             return .post
         case .teacherGetClass:
             return .get
@@ -80,6 +81,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/getstuappeal"
         case .teacherGetClass:
             return "/lntusign/api/teacher/getclass"
+        case .teacherUploadCourseRecord:
+            return "lntusign/api/teahcer/updatesigninfo"
             
         case .adminLogin:
             return "/lntusign/api/login/admin"
@@ -148,9 +151,16 @@ enum APIRouter: URLRequestConvertible {
                 K.StudentParameterKey.number: teacherNumber,
                 K.TeacherParmeterKey.courseName: courseName
             ]
-        case . teacherGetStudentAppeal(let teacherNumber):
+        case .teacherGetStudentAppeal(let teacherNumber):
             return [
                 K.APIParameterKey.username: teacherNumber
+            ]
+        case .teacherUploadCourseRecord(let record):
+            return [
+                K.APIParameterKey.username: record.teacherNumber,
+                K.TeacherParmeterKey.courseName: record.courseName,
+                K.StudentParameterKey.date: record.date,
+                K.TeacherParmeterKey.signList: record.signList
             ]
         case .adminProcessMacModify, .adminProcessSignAppeal, .adminGetSignList, .teacherGetClass:
             return nil

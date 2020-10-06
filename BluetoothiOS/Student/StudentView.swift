@@ -1,5 +1,5 @@
 //
-//  AccountView.swift
+//  StudentView.swift
 //  BluetoothPunchCard
 //
 //  Created by LiaoGuoYin on 2020/4/5.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AccountView: View {
+struct StudentView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
     @State var loginViewModel: LoginViewModel
@@ -16,7 +16,7 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("个人信息")) {
+                Section(header: Text("账户中心")) {
                     NavigationLink(
                         destination: StudentModifyMacView(loginViewModel: loginViewModel),
                         label: {
@@ -24,7 +24,7 @@ struct AccountView: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     Text(loginViewModel.responseData?.name ?? "未登录姓名")
                                         .font(.headline)
-                                    Text(loginViewModel.responseData?.mac ?? "未登录 mac")
+                                    (Text("MAC: ") + Text(loginViewModel.responseData?.mac ?? "未登录 mac"))
                                         .font(.subheadline)
                                     (Text("学号: ") + Text(loginViewModel.responseData?.number ?? "未登录学号"))
                                         .font(.subheadline)
@@ -36,43 +36,28 @@ struct AccountView: View {
                                     .padding()
                             }
                         })
+                    NavigationLink(
+                        destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
+                        label: {
+                            ImageAndTextView(imageName: "seal.fill", textName: "所有考勤记录", imageColor: .purple)
+                        })
                 }
-                .padding(8)
-                
-            Section(header: Text("考勤记录")) {
-//                HStack {
-//                    ImageAndTextView(imageName: "xmark.seal.fill", textName: "无效签到次数", imageColor: .red)
-//                    Spacer()
-//                    Text("1 次")
-//                }
-//                HStack {
-//                    ImageAndTextView(imageName: "checkmark.seal.fill", textName: "有效签到次数", imageColor: .green)
-//                    Spacer()
-//                    Text("5 次")
-//                }
-                NavigationLink(
-                    destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
-                    label: {
-                        ImageAndTextView(imageName: "seal.fill", textName: "所有考勤", imageColor: .purple)
-                    })
-            }
                 .padding(8)
                 
                 Button(action: {viewRouter.isLogined.toggle()}) {
                     ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)
-                        .padding(8)
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("账户中心")
+            .navigationBarTitle("学生，\(loginViewModel.form.username)")
         }
     }
     
 }
 
-struct AccountView_Previews: PreviewProvider {
+struct StudentView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView(loginViewModel: LoginViewModel(form: LoginUser(username: "1001", password: "1001")))
+        StudentView(loginViewModel: LoginViewModel(form: LoginUser(username: "1001", password: "1001")))
     }
 }
 

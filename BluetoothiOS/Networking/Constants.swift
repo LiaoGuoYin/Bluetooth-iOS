@@ -36,6 +36,7 @@ struct K {
         static let className = "iClass"
         static let classroom = "classroom"
         static let courseName = "course"
+        static let signList = "signlist"
     }
 }
 

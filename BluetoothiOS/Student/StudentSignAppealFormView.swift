@@ -1,5 +1,5 @@
 //
-//  StudentSignAppealForm.swift
+//  StudentSignAppealFormView.swift
 //  BluetoothiOS
 //
 //  Created by LiaoGuoYin on 2020/9/25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct StudentSignAppealForm: View {
+struct StudentSignAppealFormView: View {
     
     @State var sign: SignListResponseData
     @State var isShowAlert: Bool = false
@@ -21,7 +21,7 @@ struct StudentSignAppealForm: View {
                 Section {
                     HistoryBlockRow(sign: sign)
                     HStack {
-                        Text("确认老师全名")
+                        Text("确认老师全名: ")
                         TextField("张三", text: $teacherName)
                     }
                 }
@@ -36,13 +36,14 @@ struct StudentSignAppealForm: View {
                 }
             }
         }
+        .navigationBarTitle(Text("申诉"), displayMode: .inline)
         .alert(isPresented: $isShowAlert, content: {
-            Alert(title: Text("操作结果"), message: Text(message), dismissButton: .default(Text("OK")))
+            Alert(title: Text(message))
         })
     }
 }
 
-extension StudentSignAppealForm {
+extension StudentSignAppealFormView {
     func submitAppeal() {
         APIClient.studentSignAppeal(sign: sign, teacherName: teacherName) { (result) in
             switch result {
@@ -74,6 +75,6 @@ struct StudentSignAppealForm_Previews: PreviewProvider {
     }
 """.data(using: .utf8)!
         let signDemo = try! JSONDecoder().decode(SignListResponseData.self, from: signDemoData)
-        return StudentSignAppealForm(sign: signDemo)
+        return StudentSignAppealFormView(sign: signDemo)
     }
 }
