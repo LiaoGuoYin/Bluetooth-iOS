@@ -73,8 +73,17 @@ class APIClient {
         performRequest(route: APIRouter.teacherGetClass, completion: completion)
     }
     
-    static func teacherUploadCourse(_ record: CourseRecord,completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
-        performRequest(route: APIRouter.teacherUploadCourseRecord(record: record), completion: completion)
+    static func teacherUploadCourse(_ record: CourseRecord, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
+        let url = try! K.ProductionServer.baseURL.asURL()
+        var urlRequest = URLRequest(url: url.appendingPathComponent("/lntusign/api/teacher/updatesigninfo"))
+        urlRequest.httpMethod = HTTPMethod.post.rawValue
+        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
+        urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        urlRequest.httpBody = try! JSONEncoder().encode(record)
+        
+        AF.request(urlRequest).responseDecodable (decoder: JSONDecoder()){ (response: DataResponse<MessageResponse, AFError>) in
+            completion(response.result)
+        }
     }
     
     static func adminProcessMacModify(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {

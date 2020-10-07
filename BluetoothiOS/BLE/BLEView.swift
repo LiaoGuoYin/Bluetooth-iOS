@@ -12,7 +12,9 @@ struct BLEView: View {
     
     @ObservedObject var BLEConnection = BLEManager.shared
     @State var studentList: Array<LoginResponseData> = []
-    
+    @State var courseName: String
+    @State var teacherNumber: String
+
     var body: some View {
         NavigationView {
             VStack {
@@ -74,6 +76,8 @@ struct BLEView: View {
     }
     
     func sendStudentStringToBLE(_ studentList: Array<LoginResponseData>) {
+        BLEConnection.courseName = self.courseName
+        BLEConnection.teacherNumber = self.teacherNumber
         let studentListString = serializeStudentsToStringForSending(students: studentList)
         if let connectedCharacteristic = BLEManager.shared.connectedWriteCharacteristic {
             BLEManager.shared.sendDataToDevice(sendString: studentListString, connectedCharacteristic)
@@ -86,6 +90,6 @@ struct BLEView: View {
 
 struct BLEScanView_Previews: PreviewProvider {
     static var previews: some View {
-        BLEView()
+        BLEView(courseName: "DEMO", teacherNumber: "0002")
     }
 }

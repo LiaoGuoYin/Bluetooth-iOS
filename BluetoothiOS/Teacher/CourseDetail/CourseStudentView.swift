@@ -44,7 +44,7 @@ struct CourseStudentView: View {
         }
         .listStyle(GroupedListStyle())
         .sheet(isPresented: self.$isShowNewPage, content: {
-            BLEView(studentList: studentList)
+            BLEView(studentList: studentList, courseName: viewModel.form.name, teacherNumber: viewModel.teacherNumber)
         })
         .actionSheet(isPresented: $isShowingSheet, content: {
             ActionSheet(title: Text("是否开始考勤？"),

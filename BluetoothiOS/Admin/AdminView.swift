@@ -16,7 +16,7 @@ struct AdminView: View {
     var body: some View {
         TabView {
             NavigationView {
-                List(viewModel.signList, id: \.id) { record in
+                List(viewModel.signList.reversed(), id: \.id) { record in
                     SignListRowView(sign: record)
                         .padding(6)
                 }

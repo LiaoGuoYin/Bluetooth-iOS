@@ -16,7 +16,8 @@ let GBK_ENC_RAWVALUE = CFStringConvertEncodingToNSStringEncoding(CFStringEncodin
 let UTF8_ENC_RAWVALUE = String.Encoding.utf8.rawValue
 let USING_ENC = GBK_ENC_RAWVALUE
 
-class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, ObservableObject {
+class BLEManager: NSObject, ObservableObject {
+    
     @Published var message: String = "初始化成功，可以开始扫描。\n"
     @Published var scannedBLEDevices: [CBPeripheral] = []
     @Published var mode: BLEMode = BLEMode.disconnected
@@ -25,16 +26,16 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             switchMode()
         }
     }
-    
+    @Published var teacherNumber: String = "0002"
+    @Published var courseName: String = "DEMO"
+
     static let shared = BLEManager()
     var centralManager: CBCentralManager! = nil
     var peripheralManager: CBPeripheral! = nil
-    private var dataToSend = Data()
-    private var receiveData = Data()
-    var sendDataIndex: Int = 0
+    private var receivedData = Data()
+    var dataToSendIndex: Int = 0
     
     var connectedWriteCharacteristic: CBCharacteristic?
-    
     var connectedNotifyCharacteristic: CBCharacteristic?
     
     // 自动连接的蓝牙前缀
@@ -53,6 +54,9 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
             self.centralManagerDidUpdateState(self.centralManager)
         }
     }
+}
+
+extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     
     /// 检测蓝牙状态
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -61,11 +65,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         case .poweredOff:
             message = "蓝牙尚未未开启"
         case .poweredOn:
-            // 全开扫描
             message.addString("自检成功，可以开始扫描")
-        //            self.startScan()
-        // TODO 扫描指定 Service
-        //                self.centralManager.scanForPeripherals(withServices: [BLEConnection.bleServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         case .resetting:
             message = "resetting"
         case .unknown:
@@ -96,13 +96,6 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
                 }
             }
         }
-        // TODO 其他连接方式
-        // TODO 可能丢失。另一个线程
-    }
-    
-    /// 连接状态变化
-    func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
-        //        message.addString("扫描 Services 中")
     }
     
     /// 连接成功，扫描 Services
@@ -155,17 +148,16 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == NOTIFY_CBUUID {
             if let actualData = characteristic.value {
-                receiveData.append(actualData)
+                receivedData.append(actualData)
                 if let tmpString = String(data: actualData, encoding: String.Encoding(rawValue: USING_ENC)) {
-                    if (tmpString.contains("end")) {
-                        // 收到表尾：end
-                        if let outputString = String(data: receiveData, encoding: String.Encoding(rawValue: USING_ENC)) {
-                            message.addString("收到数据：\(outputString)")
-                            print("*****************")
-                            print(outputString)
-//                            TODO
-                            studentsDemo = deSerializingReceivedStudentsStringToArray(receivedString: outputString)
-                            receiveData = Data()
+                    if tmpString.contains("MAC") {
+                        receivedData = Data()
+                        receivedData.append(actualData)
+                    } else if (tmpString.contains("end")) {
+                        if let outputString = String(data: receivedData, encoding: String.Encoding(rawValue: USING_ENC)) {
+                            message.addString("收到数据：\r\n\(outputString)")
+                            uploadRecord(studentListString: outputString, teacherNumber: teacherNumber, courseName: courseName)
+                            receivedData = Data()
                         }
                     }
                 }
@@ -173,7 +165,7 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
         }
     }
     
-    /// 检测向外设写入数据是否成功
+    /// 向外设写入数据之后的回调
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         if let actualError = error {
             message.addString("写数据失败\(actualError)")
@@ -185,14 +177,6 @@ class BLEManager: NSObject, CBPeripheralDelegate, CBCentralManagerDelegate, Obse
     /// 断开设备
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         message.addString("断开设备：\(String(describing: peripheral.name))")
-    }
-    
-}
-
-extension String {
-    mutating func addString(_ str: String) {
-        NSLog(str)
-        self = self + str + "\n"
     }
 }
 
@@ -239,18 +223,18 @@ extension BLEManager {
     func sendDataToDevice(sendString: String, _ characteristic: CBCharacteristic) {
         var sendCount = 0
         
-        //      检查是否持有蓝牙连接
+        // 检查是否持有蓝牙连接
         guard (peripheralManager != nil) else { return }
         
         while ((1) != 0) {
-            if sendDataIndex >= sendString.count {
-                sendDataIndex = 0
+            if dataToSendIndex >= sendString.count {
+                dataToSendIndex = 0
                 break
             }
             
-            var amountToSend = sendString.count - sendDataIndex
+            var amountToSend = sendString.count - dataToSendIndex
             amountToSend = min(110, amountToSend)
-            let subSendString = sendString[sendDataIndex..<(sendDataIndex + amountToSend)]
+            let subSendString = sendString[dataToSendIndex..<(dataToSendIndex + amountToSend)]
             
             let chunk = subSendString.data(using: String.Encoding(rawValue: USING_ENC))
             guard (chunk != nil) else { return }
@@ -259,12 +243,11 @@ extension BLEManager {
             runDelay(0.02) {
                 self.peripheralManager.writeValue(chunk!, for: characteristic, type: .withResponse)
             }
-            
-            sendDataIndex += amountToSend
+            dataToSendIndex += amountToSend
         }
     }
     
-    /// 分片输出
+    /// 异步分包发送
     func runDelay(_ delay:TimeInterval,_ block:@escaping () -> ()) {
         let queue = DispatchQueue.main
         let delayTime = DispatchTime.now() + delay
@@ -273,11 +256,20 @@ extension BLEManager {
         }
     }
     
-}
-
-enum BLEMode {
-    case disconnected
-    case connected
+    /// 上传考勤记录
+    func uploadRecord(studentListString: String, teacherNumber: String, courseName: String) {
+        let studentList = deSerializingReceivedStudentsStringToArray(receivedString: studentListString)
+        message.addString(studentList.description)
+        let course = CourseRecord(teacherNumber: teacherNumber, courseName: courseName, signList: studentList)
+        APIClient.teacherUploadCourse(course) { (result) in
+            switch result {
+            case .failure(let error):
+                self.message.addString(error.localizedDescription)
+            case .success(let response):
+                self.message.addString(response.msg)
+            }
+        }
+    }
 }
 
 extension String {
@@ -292,4 +284,14 @@ extension String {
         let start = index(startIndex, offsetBy: max(0, range.lowerBound))
         return String(self[start...])
     }
+    
+    mutating func addString(_ str: String) {
+        NSLog(str)
+        self = self + str + "\n"
+    }
+}
+
+enum BLEMode {
+    case disconnected
+    case connected
 }

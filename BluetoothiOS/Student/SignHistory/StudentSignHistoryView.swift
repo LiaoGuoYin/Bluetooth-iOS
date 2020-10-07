@@ -13,7 +13,7 @@ struct StudentSignHistoryView: View {
     var body: some View {
         List {
             Section(header: Text("点击失败记录进行申诉")) {
-                ForEach(viewModel.signList, id: \.id) { record in
+                ForEach(viewModel.signList.reversed(), id: \.id) { record in
                     if record.status {
                         HistoryBlockRow(sign: record)
                     } else {

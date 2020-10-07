@@ -6,27 +6,22 @@
 //  Copyright © 2020 LiaoGuoYin. All rights reserved.
 //
 
-struct Student: CustomStringConvertible {
+struct Student {
     var number: Int
     var name: String
     var classOf: String
     var mac: String
-    var status: Status = .absent
+    var status: String = Status.absent.rawValue
     
     var description: String {
-        /*
-         姓名,班级,学号,MAC,\r
-         丁一,111,1,BCE143B46210,√\r
-         吴一帆,183,2,7836CC44578C,\r
-         */
         return "\(name),\(classOf),\(number),\(mac),\r"
     }
-    
-    /// 蓝牙回传的用户状态：到场，旷课
-    enum Status: String {
-        case present = "到场"
-        case absent = "旷课"
-    }
+}
+
+/// 蓝牙回传的用户状态：到场，旷课
+enum Status: String {
+    case present = "到场"
+    case absent = "旷课"
 }
 
 extension Student: Hashable {
@@ -43,20 +38,44 @@ extension Student: Hashable {
     }
 }
 
-var testRecivedStudents = """
-姓名,班级,学号,MAC,\r
-丁一,111,1,BCE143B46210,√\r
-吴一帆,183,2,7836CC44578C,\r
-杨清雷,183,3,3CA581792440,\r
-end\r
-"""
+extension Student: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case number
+        case name
+        case classOf = "iClass"
+        case mac
+        case status
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(number, forKey: .number)
+        try container.encode(name, forKey: .name)
+        try container.encode(classOf, forKey: .classOf)
+        try container.encode(mac, forKey: .mac)
+        try container.encode((status == Status.present.rawValue) ? "1": "0", forKey: .status)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let number = try container.decode(Int.self, forKey: .number)
+        let name = try container.decode(String.self, forKey: .name)
+        let classOf = try container.decode(String.self, forKey: .classOf)
+        let mac = try container.decode(String.self, forKey: .mac)
+        let status = try container.decode(String.self, forKey: .status)
+        
+        self.init(number: number, name: name, classOf: classOf, mac: mac, status: status)
+    }
+}
 
 /// 反序列化收到的字串
 /// - Parameter receivedString: 从蓝牙外设收到的字符串
 /// - Returns: 学生名单
-func deSerializingReceivedStudentsStringToArray(receivedString: String) -> [Student] {
+func deSerializingReceivedStudentsStringToArray(receivedString: String) -> Array<Student> {
     var parsedStudents: Array<Student> = []
-    if !(receivedString.hasPrefix("姓名,班级,学号") && receivedString.contains("end")) {
+    if !(receivedString.contains("MAC") && receivedString.contains("end")) {
         print("收到的数据不符合模版格式")
         return []
     }
@@ -73,7 +92,7 @@ func deSerializingReceivedStudentsStringToArray(receivedString: String) -> [Stud
         }
         var newStudent = Student(number: Int(items[2]) ?? 0, name: String(items[0]), classOf: String(items[1]), mac: String(items[3]))
         if items.count == 5 {
-            newStudent.status = .present
+            newStudent.status = Status.present.rawValue
         }
         parsedStudents.append(newStudent)
     }
@@ -91,11 +110,3 @@ func serializeStudentsToStringForSending(students: Array<LoginResponseData>) -> 
     resultString.addString("end\r\n")
     return resultString
 }
-
-var studentsDemo: Array<Student> = deSerializingReceivedStudentsStringToArray(receivedString: testRecivedStudents)
-
-func createDemoCourse(_ students: Array<Student>) -> Course {
-    return Course()
-}
-
-var courseDemo = createDemoCourse(studentsDemo)
