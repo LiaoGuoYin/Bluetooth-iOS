@@ -86,6 +86,14 @@ class APIClient {
         }
     }
     
+    static func processMacModify(processMac: MacModificationRequestData, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherProcessMacModify(processMac: processMac), completion: completion)
+    }
+    
+    static func processSignAppeal(signId: String, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherProcessSignAppeal(signId: signId), completion: completion)
+    }
+    
     static func adminProcessMacModify(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
     }

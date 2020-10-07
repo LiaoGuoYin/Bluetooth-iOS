@@ -26,6 +26,8 @@ enum APIRouter: URLRequestConvertible {
     case teacherDeleteCourse(teahcerNumber: String, courseName: String)
     case teacherGetStudentAppeal(teacherNumber: String)
     case teacherGetClass
+    case teacherProcessMacModify(processMac: MacModificationRequestData)
+    case teacherProcessSignAppeal(signId: String)
     
     case adminLogin(username: String, password: String)
     case adminProcessSignAppeal
@@ -37,7 +39,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal, .studentModifyMac:
             return .post
-        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal, .teacherProcessMacModify, .teacherProcessSignAppeal:
             return .post
         case .teacherGetClass:
             return .get
@@ -80,6 +82,10 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/getstuappeal"
         case .teacherGetClass:
             return "/lntusign/api/teacher/getclass"
+        case .teacherProcessMacModify:
+            return "/lntusign/api/teacher/processstumacmodify"
+        case .teacherProcessSignAppeal:
+            return "/lntusign/api/teacher/processstuappeal"
             
         case .adminLogin:
             return "/lntusign/api/login/admin"
@@ -150,6 +156,18 @@ enum APIRouter: URLRequestConvertible {
         case .teacherGetStudentAppeal(let teacherNumber):
             return [
                 K.APIParameterKey.username: teacherNumber
+            ]
+        case .teacherProcessMacModify(let processMac):
+            return [
+                K.StudentParameterKey.id: processMac.id,
+                K.StudentParameterKey.mac: processMac.mac,
+                K.StudentParameterKey.number: processMac.studentNumber,
+                K.StudentParameterKey.process: "1"
+            ]
+        case .teacherProcessSignAppeal(let signId):
+            return [
+                K.StudentParameterKey.id: signId,
+                K.StudentParameterKey.process: "1"
             ]
         case .adminProcessMacModify, .adminProcessSignAppeal, .adminGetSignList, .teacherGetClass:
             return nil

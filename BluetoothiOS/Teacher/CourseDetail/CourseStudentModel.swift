@@ -7,7 +7,7 @@
 //
 
 struct Student {
-    var number: Int
+    var number: String
     var name: String
     var classOf: String
     var mac: String
@@ -26,7 +26,7 @@ enum Status: String {
 
 extension Student: Hashable {
     init() {
-        self.init(number: -1, name: "测试用户", classOf: "信管17-2", mac: "3CA581792440")
+        self.init(number: "-1", name: "测试用户", classOf: "信管17-2", mac: "3CA581792440")
     }
     
     static func == (lhs: Student, rhs: Student) -> Bool {
@@ -54,19 +54,21 @@ extension Student: Codable {
         try container.encode(number, forKey: .number)
         try container.encode(name, forKey: .name)
         try container.encode(classOf, forKey: .classOf)
-        try container.encode(mac, forKey: .mac)
         try container.encode((status == Status.present.rawValue) ? "1": "0", forKey: .status)
+        
+        let macResult = mac.split(by: 2).joined(separator: ":")
+        try container.encode(macResult, forKey: .mac)
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let number = try container.decode(Int.self, forKey: .number)
+        let number = try container.decode(String.self, forKey: .number)
         let name = try container.decode(String.self, forKey: .name)
         let classOf = try container.decode(String.self, forKey: .classOf)
-        let mac = try container.decode(String.self, forKey: .mac)
         let status = try container.decode(String.self, forKey: .status)
+        let tmpMac = try container.decode(String.self, forKey: .mac)
         
-        self.init(number: number, name: name, classOf: classOf, mac: mac, status: status)
+        self.init(number: number, name: name, classOf: classOf, mac: tmpMac, status: status)
     }
 }
 
@@ -90,7 +92,7 @@ func deSerializingReceivedStudentsStringToArray(receivedString: String) -> Array
         guard items.count >= 3 else {
             continue
         }
-        var newStudent = Student(number: Int(items[2]) ?? 0, name: String(items[0]), classOf: String(items[1]), mac: String(items[3]))
+        var newStudent = Student(number: String(items[2]), name: String(items[0]), classOf: String(items[1]), mac: String(items[3]))
         if items.count == 5 {
             newStudent.status = Status.present.rawValue
         }

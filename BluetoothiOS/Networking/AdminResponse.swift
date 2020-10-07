@@ -118,3 +118,10 @@ extension AdminSignAppealListResponseData {
         status = (tmpStatus == 1) ? true: false
     }
 }
+
+struct MacModificationRequestData: Codable {
+    var id: String
+    var studentNumber: String
+    var mac: String
+    var process: String = "1"
+}

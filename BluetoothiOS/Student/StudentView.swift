@@ -24,9 +24,11 @@ struct StudentView: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     Text(loginViewModel.responseData?.name ?? "未登录姓名")
                                         .font(.headline)
-                                    (Text("MAC: ") + Text(loginViewModel.responseData?.mac ?? "未登录 mac"))
+                                    Text(loginViewModel.responseData?.iClass ?? "未登录班级")
                                         .font(.subheadline)
                                     (Text("学号: ") + Text(loginViewModel.responseData?.number ?? "未登录学号"))
+                                        .font(.subheadline)
+                                    (Text("MAC: ") + Text(loginViewModel.responseData?.mac ?? "未登录 mac"))
                                         .font(.subheadline)
                                 }
                                 Spacer()
@@ -39,7 +41,7 @@ struct StudentView: View {
                     NavigationLink(
                         destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
                         label: {
-                            ImageAndTextView(imageName: "seal.fill", textName: "所有考勤记录", imageColor: .purple)
+                            ImageAndTextView(imageName: "seal.fill", textName: "考勤记录", imageColor: .purple)
                         })
                 }
                 .padding(8)

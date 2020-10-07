@@ -29,6 +29,8 @@ struct K {
         static let studentNumber = "sNumber"
         static let newMac = "newMac"
         static let date = "date"
+        static let id = "id"
+        static let process = "process"
     }
     
     struct TeacherParmeterKey {
