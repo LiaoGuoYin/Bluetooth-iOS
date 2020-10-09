@@ -14,7 +14,7 @@ struct AdminMacManagerResponse: Codable {
     var data: [AdminMacManagerResponseData] = []
 }
 
-struct AdminMacManagerResponseData: Codable {
+struct AdminMacManagerResponseData: Codable, Hashable {
     var id: String
     var studentNumber: String
     var type: String
@@ -69,14 +69,14 @@ struct AdminSignAppealListResponse: Codable {
 }
 
 struct AdminSignAppealListResponseData: Codable {
-    let id, teacherNumber: String
-    let studentNumber: String?
-    let studentName, mac: String?
-    let courseName: String
-    let classOf: String?
-    let status: Bool
-    let datetimeString: String
-    let datetime: String
+    var id, teacherNumber: String
+    var studentNumber: String?
+    var studentName, mac: String?
+    var courseName: String
+    var classOf: String?
+    var status: Bool
+    var datetimeString: String
+    var datetime: String
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"

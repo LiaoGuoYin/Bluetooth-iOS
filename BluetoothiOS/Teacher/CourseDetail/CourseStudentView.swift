@@ -42,7 +42,7 @@ struct CourseStudentView: View {
             }
         }
         .listStyle(GroupedListStyle())
-        .sheet(isPresented: self.$isShowNewPage, content: {
+        .sheet(isPresented: $isShowNewPage, content: {
             BLEView(studentList: Array<Student>(studentSet), courseName: viewModel.form.name, teacherNumber: viewModel.teacherNumber)
         })
         .actionSheet(isPresented: $isShowingSheet, content: {

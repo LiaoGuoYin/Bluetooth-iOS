@@ -68,6 +68,8 @@ struct AdminView: View {
                       primaryButton:  Alert.Button.destructive(Text("取消")), secondaryButton: Alert.Button.default(Text("通过"), action: {
                         viewModel.processMacModification()
                         viewModel.processSignAppeal()
+                        self.viewModel.refreshRemoteMacModifyList()
+                        self.viewModel.refreshRemoteSignAppealList()
                   }))
             }
         })

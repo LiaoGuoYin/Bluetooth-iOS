@@ -15,10 +15,13 @@ class LoginViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var responseData: LoginResponseData?
     @Published var signList: Array<SignListResponseData> = []
-    
+    @Published var signAppealList: Array<AdminSignAppealListResponseData> = []
+    @Published var tappedAppealSignRecordId: String = ""
+
     init(form: LoginUser) {
         self.form = form
         self.refreshRemoteSignList()
+        self.refreshRemoteSignAppealList()
     }
     
     func refreshRemoteSignList() {
@@ -28,6 +31,29 @@ class LoginViewModel: ObservableObject {
                 self.message = error.localizedDescription
             case .success(let signListResponse):
                 self.signList = signListResponse.data
+            }
+        }
+    }
+    
+    func refreshRemoteSignAppealList() {
+        APIClient.adminProcessSignAppeal { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+            case .success(let signResponse):
+                self.signAppealList = signResponse.data
+            }
+        }
+    }
+    
+    func processSignAppeal() {
+        APIClient.processSignAppeal(signId: tappedAppealSignRecordId) { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+            case .success(let signResponse):
+                self.message = signResponse.msg
+                self.refreshRemoteSignAppealList()
             }
         }
     }

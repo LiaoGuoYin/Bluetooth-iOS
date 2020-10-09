@@ -61,10 +61,6 @@ struct BLEView: View {
                 .background(Color.blue)
             }
             .navigationBarItems(trailing: sendButton)
-            .onDisappear(perform: {
-                BLEConnection.message = "初始化成功，可以开始扫描。\n"
-                BLEConnection.disConnect()
-            })
         }
     }
     
