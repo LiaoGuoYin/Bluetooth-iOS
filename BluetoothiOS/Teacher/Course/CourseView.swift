@@ -22,7 +22,7 @@ struct TeacherCourseView: View {
                         VStack {
                             TeacherCourseRowView(course: $viewModel.courseList[index])
                             NavigationLink(
-                                destination: CourseStudentView(viewModel: viewModel, classList: viewModel.courseList[index].classList),
+                                destination: CourseStudentView(viewModel: viewModel, courseInfo: viewModel.courseList[index]),
                                 label: { HStack {
                                     ForEach(viewModel.courseList[index].classList, id: \.self) { (singleClass) in
                                         Text(singleClass)
@@ -42,7 +42,7 @@ struct TeacherCourseView: View {
             }
             .sheet(isPresented: $isShowCourseSheet) {
                 NewCourseFormView(viewModel: self.viewModel)
-                    .onDisappear(perform: viewModel.getchCourse)
+                    .onDisappear(perform: viewModel.getCourse)
             }
             .navigationBarTitle(Text("教师，\(viewModel.teacherNumber)"), displayMode: .automatic)
             .navigationBarItems(leading: refreshToFetchCourseButton,
@@ -51,7 +51,7 @@ struct TeacherCourseView: View {
                 Alert(title: Text(viewModel.message), dismissButton: .default(Text("OK")))
             })
         }
-        .onAppear(perform: viewModel.getchCourse)
+        .onAppear(perform: viewModel.getCourse)
     }
 }
 
@@ -67,7 +67,7 @@ extension TeacherCourseView {
     }
     
     var refreshToFetchCourseButton: some View {
-        Button(action: viewModel.getchCourse) {
+        Button(action: viewModel.getCourse) {
             Text("刷新")
         }
     }

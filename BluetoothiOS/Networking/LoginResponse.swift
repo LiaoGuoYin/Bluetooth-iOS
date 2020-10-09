@@ -15,7 +15,7 @@ struct LoginResponse: Codable {
 }
 
 // MARK: - LoginResponseData
-struct LoginResponseData: Codable, CustomStringConvertible {
+struct LoginResponseData: Codable, CustomStringConvertible, Hashable {
     let id, number, passwd, name: String
     let iClass, mac, phone: String?
     let datetime: Int

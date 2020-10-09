@@ -9,28 +9,31 @@
 import Foundation
 
 class TeacherCourseViewModel: ObservableObject {
+    typealias Student = LoginResponseData
     
-    @Published var classList: Array<String> = []
+    @Published var classList: Array<String>
+    @Published var studentList: Array<Student>
     @Published var courseList: Array<CourseResponseData>
     @Published var form: Course
     @Published var teacherNumber: String
     @Published var message: String = ""
     
     init(teachNumber: String) {
-        self.courseList = Array<CourseResponseData>()
-        self.form = Course()
         self.teacherNumber = teachNumber
+        self.form = Course()
         self.classList = []
-        self.loadRemoteClass()
+        self.studentList = []
+        self.courseList = []
+        getCourse()
+        initClass()
     }
     
     //    MARK: - Course Intents
-    func getchCourse() -> Void {
+    func getCourse() -> Void {
         APIClient.teacherGetCourse(username: teacherNumber) { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
-                print(error)
             case .success(let courseResponse):
                 self.message = courseResponse.msg
                 self.courseList = courseResponse.data
@@ -48,7 +51,7 @@ class TeacherCourseViewModel: ObservableObject {
             }
         }
     }
-
+    
     func deleteCourse(_ offsets: IndexSet) {
         if let actualOffset = offsets.first {
             APIClient.teacherDeleteCourse(teacherNumber, courseList[actualOffset].name) { (result) in
@@ -62,33 +65,37 @@ class TeacherCourseViewModel: ObservableObject {
             }
         }
     }
-
-    func loadRemoteClass() {
+    
+    // MARK: - Class
+    func initClass() {
         APIClient.teacherGetClass { (result) in
             switch result {
             case .failure(let error):
-                print(error)
                 self.message = error.localizedDescription
             case .success(let classResponse):
                 self.message = classResponse.msg
                 self.classList = classResponse.data
+                for each in self.classList {
+                    self.loadClassStudentList(className: each) { (tmpStudentList) in
+                        self.studentList.append(contentsOf: tmpStudentList)
+                    }
+                }
             }
         }
     }
     
-//
-//    //    MARK: - Students Intents
-//    func addStudent(_ courseIndex: Int, _ student: Student) {
-//        courseList[courseIndex].students.append(student)
-//    }
-//
-//    func deleteStudent(_ courseIndex: Int, studentIndex: Int) {
-//        courseList[courseIndex].students.remove(at: studentIndex)
-//    }
-//
-//    func moveStudent(_ courseIndex: Int,from source: IndexSet, to destination: Int) {
-//        courseList[courseIndex].students.move(fromOffsets: source, toOffset: destination)
-//    }
+    func loadClassStudentList(className: String, completion: @escaping (Array<Student>) -> ()) {
+        APIClient.teacherGetStudentListByClassName(className: className) { (result) in
+            switch result {
+            case .failure(let error):
+                self.message = error.localizedDescription
+                completion([])
+            case .success(let studentListOfClass):
+                completion(studentListOfClass.data)
+            }
+        }
+    }
+    
 }
 
 extension TeacherCourseViewModel {
