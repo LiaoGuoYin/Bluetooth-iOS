@@ -33,19 +33,17 @@ struct TeacherView: View {
                 .navigationBarTitle(Text("申诉记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignAppealButton)
             }
-            .onAppear(perform: viewModel.refreshRemoteSignAppealList)
             .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
             
             NavigationView {
-                List(viewModel.signList.reversed(), id: \.id) { record in
-                    SignListRowView(sign: record)
+                List(viewModel.signList.indices.reversed(), id: \.self) { index in
+                    SignListRowView(sign: $viewModel.signList[index])
                         .padding(6)
                 }
                 .listStyle(GroupedListStyle())
                 .navigationBarTitle(Text("考勤记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
             }
-            .onAppear(perform: viewModel.refreshRemoteSignList)
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
         }
         .alert(isPresented: $isShowAlert, content: {
@@ -55,7 +53,7 @@ struct TeacherView: View {
                 return Alert(title: Text("是否通过申请"),
                              primaryButton:  Alert.Button.destructive(Text("取消")), secondaryButton: Alert.Button.default(Text("通过"), action: {
                                 viewModel.processSignAppeal()
-                                self.viewModel.refreshRemoteSignAppealList()
+                                viewModel.refreshRemoteSignAppealList()
                              }))
             }
         })

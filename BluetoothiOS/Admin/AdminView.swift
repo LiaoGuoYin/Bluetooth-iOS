@@ -17,8 +17,8 @@ struct AdminView: View {
     var body: some View {
         TabView {
             NavigationView {
-                List(viewModel.signList.reversed(), id: \.id) { record in
-                    SignListRowView(sign: record)
+                List(viewModel.signList.indices.reversed(), id: \.self) { index in
+                    SignListRowView(sign: $viewModel.signList[index])
                         .padding(6)
                 }
                 .listStyle(GroupedListStyle())
@@ -27,22 +27,6 @@ struct AdminView: View {
             }
             .onAppear(perform: viewModel.refreshRemoteSignList)
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(0)
-            
-            NavigationView {
-                List(viewModel.signAppealList.indices.reversed(), id: \.self) { index in
-                    SignAppealRowView(sign: $viewModel.signAppealList[index])
-                        .padding(6)
-                        .onTapGesture(count: 1, perform: {
-                            self.viewModel.tappedAppealSignRecordId = viewModel.signAppealList[index].id
-                            self.isShowAlert.toggle()
-                        })
-                }
-                .listStyle(GroupedListStyle())
-                .navigationBarTitle(Text("申诉记录"), displayMode: .large)
-                .navigationBarItems(leading: refreshSignAppealButton)
-            }
-            .onAppear(perform: viewModel.refreshRemoteSignAppealList)
-            .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
             
             NavigationView {
                 List(viewModel.macModifyList.indices.reversed(), id: \.self) { index in
@@ -67,23 +51,13 @@ struct AdminView: View {
                 return Alert(title: Text("是否通过申请"),
                              primaryButton:  Alert.Button.destructive(Text("取消")), secondaryButton: Alert.Button.default(Text("通过"), action: {
                                 viewModel.processMacModification()
-                                viewModel.processSignAppeal()
                              }))
             }
         })
     }
     
-    var refreshSignAppealButton: some View {
-        Button(action: self.viewModel.refreshRemoteSignAppealList) {
-            Text("刷新")
-        }
-    }
-    
     var refreshSignListButton: some View {
-        Button(action: {
-            self.viewModel.refreshRemoteSignList()
-            self.isShowAlert.toggle()
-        }) {
+        Button(action: viewModel.refreshRemoteSignList) {
             Text("刷新")
         }
     }
@@ -102,7 +76,7 @@ struct AdminView: View {
 }
 
 struct SignListRowView: View {
-    @State var sign: SignListResponseData
+    @Binding var sign: SignListResponseData
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
