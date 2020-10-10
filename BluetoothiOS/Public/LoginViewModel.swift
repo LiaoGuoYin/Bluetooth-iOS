@@ -18,10 +18,15 @@ class LoginViewModel: ObservableObject {
     @Published var signAppealList: Array<AdminSignAppealListResponseData> = []
     @Published var tappedAppealSignRecordId: String = ""
 
-    init(form: LoginUser) {
-        self.form = form
+    init() {
+        self.form = LoginUser(username: "", password: "")
         self.refreshRemoteSignList()
         self.refreshRemoteSignAppealList()
+    }
+    
+    convenience init(form: LoginUser) {
+        self.init()
+        self.form = form
     }
     
     func refreshRemoteSignList() {

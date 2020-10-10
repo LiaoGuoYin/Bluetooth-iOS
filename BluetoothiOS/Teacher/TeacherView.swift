@@ -12,7 +12,7 @@ import SwiftUI
 struct TeacherView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
-    @State var viewModel: LoginViewModel
+    @ObservedObject var viewModel: LoginViewModel
     @State var isShowAlert: Bool = false
     
     var body: some View {
@@ -21,11 +21,11 @@ struct TeacherView: View {
                 .tabItem { Image(systemName: "tag.fill") }.tag(0)
             
             NavigationView {
-                List(viewModel.signAppealList.reversed(), id: \.id) { record in
-                    SignAppealRowView(sign: record)
+                List(viewModel.signAppealList.indices.reversed(), id: \.self) { index in
+                    SignAppealRowView(sign: $viewModel.signAppealList[index])
                         .padding(6)
                         .onTapGesture(count: 1, perform: {
-                            self.viewModel.tappedAppealSignRecordId = record.id
+                            self.viewModel.tappedAppealSignRecordId = viewModel.signAppealList[index].id
                             self.isShowAlert.toggle()
                         })
                 }
@@ -45,6 +45,7 @@ struct TeacherView: View {
                 .navigationBarTitle(Text("考勤记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
             }
+            .onAppear(perform: viewModel.refreshRemoteSignList)
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
         }
         .alert(isPresented: $isShowAlert, content: {
@@ -67,13 +68,13 @@ struct TeacherView: View {
     }
     
     var refreshSignListButton: some View {
-        Button(action: self.viewModel.refreshRemoteSignList) {
+        Button(action: viewModel.refreshRemoteSignList) {
             Text("刷新")
         }
     }
     
     var refreshSignAppealButton: some View {
-        Button(action: self.viewModel.refreshRemoteSignAppealList) {
+        Button(action: viewModel.refreshRemoteSignAppealList) {
             Text("刷新")
         }
     }

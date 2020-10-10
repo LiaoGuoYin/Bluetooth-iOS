@@ -13,7 +13,7 @@ struct AdminView: View {
     @ObservedObject var viewModel: AdminViewModel
     @EnvironmentObject var viewRouter: ViewRouter
     @State var isShowAlert: Bool = false
-
+    
     var body: some View {
         TabView {
             NavigationView {
@@ -29,11 +29,11 @@ struct AdminView: View {
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(0)
             
             NavigationView {
-                List(viewModel.signAppealList, id: \.id) { record in
-                    SignAppealRowView(sign: record)
+                List(viewModel.signAppealList.indices.reversed(), id: \.self) { index in
+                    SignAppealRowView(sign: $viewModel.signAppealList[index])
                         .padding(6)
                         .onTapGesture(count: 1, perform: {
-                            self.viewModel.tappedAppealSignRecordId = record.id
+                            self.viewModel.tappedAppealSignRecordId = viewModel.signAppealList[index].id
                             self.isShowAlert.toggle()
                         })
                 }
@@ -43,13 +43,13 @@ struct AdminView: View {
             }
             .onAppear(perform: viewModel.refreshRemoteSignAppealList)
             .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
-
+            
             NavigationView {
-                List(viewModel.macModifyList, id: \.id) { (each) in
-                    MACModificationRow(modification: each)
+                List(viewModel.macModifyList.indices.reversed(), id: \.self) { index in
+                    MACModificationRow(modification: $viewModel.macModifyList[index])
                         .padding(6)
                         .onTapGesture(count: 1, perform: {
-                            self.viewModel.tappedMacModificationId = each.id
+                            self.viewModel.tappedMacModificationId = viewModel.macModifyList[index].id
                             self.isShowAlert.toggle()
                         })
                 }
@@ -65,12 +65,10 @@ struct AdminView: View {
                 return Alert(title: Text("已审核，无需处理"))
             } else {
                 return Alert(title: Text("是否通过申请"),
-                      primaryButton:  Alert.Button.destructive(Text("取消")), secondaryButton: Alert.Button.default(Text("通过"), action: {
-                        viewModel.processMacModification()
-                        viewModel.processSignAppeal()
-                        self.viewModel.refreshRemoteMacModifyList()
-                        self.viewModel.refreshRemoteSignAppealList()
-                  }))
+                             primaryButton:  Alert.Button.destructive(Text("取消")), secondaryButton: Alert.Button.default(Text("通过"), action: {
+                                viewModel.processMacModification()
+                                viewModel.processSignAppeal()
+                             }))
             }
         })
     }
@@ -82,7 +80,10 @@ struct AdminView: View {
     }
     
     var refreshSignListButton: some View {
-        Button(action: self.viewModel.refreshRemoteSignList) {
+        Button(action: {
+            self.viewModel.refreshRemoteSignList()
+            self.isShowAlert.toggle()
+        }) {
             Text("刷新")
         }
     }
@@ -121,7 +122,7 @@ struct SignListRowView: View {
 
 
 struct SignAppealRowView: View {
-    @State var sign: AdminSignAppealListResponseData
+    @Binding var sign: AdminSignAppealListResponseData
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MACModificationRow: View {
-    @State var modification: AdminMacManagerResponseData
+    @Binding var modification: AdminMacManagerResponseData
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
@@ -61,6 +61,6 @@ struct MACModifyView_Previews: PreviewProvider {
         
         let demoMACMadification = try! JSONDecoder().decode([AdminMacManagerResponseData].self, from: demoData)
         
-        return MACModificationRow(modification: demoMACMadification.randomElement()!)
+        return MACModificationRow(modification: .constant(demoMACMadification.randomElement()!))
     }
 }

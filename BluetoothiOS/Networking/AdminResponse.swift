@@ -68,7 +68,7 @@ struct AdminSignAppealListResponse: Codable {
     var data: [AdminSignAppealListResponseData] = []
 }
 
-struct AdminSignAppealListResponseData: Codable {
+struct AdminSignAppealListResponseData: Codable, Hashable {
     var id, teacherNumber: String
     var studentNumber: String?
     var studentName, mac: String?
