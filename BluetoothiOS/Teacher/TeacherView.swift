@@ -21,28 +21,33 @@ struct TeacherView: View {
                 .tabItem { Image(systemName: "tag.fill") }.tag(0)
             
             NavigationView {
-                List(viewModel.signAppealList.indices.reversed(), id: \.self) { index in
-                    SignAppealRowView(sign: $viewModel.signAppealList[index])
-                        .padding(6)
-                        .onTapGesture(count: 1, perform: {
-                            self.viewModel.tappedAppealSignRecordId = viewModel.signAppealList[index].id
-                            self.isShowAlert.toggle()
-                        })
+                Form {
+                    Section(header: Text("待审核列表，已审核记录会被隐藏")) {
+                        List(viewModel.signAppealList.indices.reversed(), id: \.self) { index in
+                            SignAppealRowView(sign: $viewModel.signAppealList[index])
+                                .padding(6)
+                                .onTapGesture(count: 1, perform: {
+                                    self.viewModel.tappedAppealSignRecordId = viewModel.signAppealList[index].id
+                                    self.isShowAlert.toggle()
+                                })
+                        }
+                    }
                 }
-                .listStyle(GroupedListStyle())
                 .navigationBarTitle(Text("申诉记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignAppealButton)
+                .onAppear(perform: viewModel.refreshRemoteSignAppealList)
             }
             .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
             
             NavigationView {
-                List(viewModel.signList.indices.reversed(), id: \.self) { index in
-                    SignListRowView(sign: $viewModel.signList[index])
-                        .padding(6)
+                Form {
+                    List(viewModel.signList.indices.reversed(), id: \.self) { index in
+                        SignListRowView(sign: $viewModel.signList[index])
+                            .padding(6)
+                    }
+                    .navigationBarTitle(Text("考勤记录"), displayMode: .large)
+                    .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
                 }
-                .listStyle(GroupedListStyle())
-                .navigationBarTitle(Text("考勤记录"), displayMode: .large)
-                .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
             }
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
             .onAppear(perform: viewModel.refreshRemoteSignList)

@@ -28,12 +28,11 @@ enum APIRouter: URLRequestConvertible {
     case teacherGetClass
     case teacherProcessMacModify(processMac: MacModificationRequestData)
     case teacherProcessSignAppeal(signId: String)
-    case teacherGetStudentSignList(username: String)
-
+    case teacherGetStudentSignList(teacherNumber: String)
     
     case adminLogin(username: String, password: String)
-    case adminProcessSignAppeal
-    case adminProcessMacModify
+    case adminGetSignAppealList
+    case adminGetMacmodification
     case adminGetSignList
     
     // MARK: - HTTPMethod
@@ -47,7 +46,7 @@ enum APIRouter: URLRequestConvertible {
             return .get
         case .adminLogin:
             return .post
-        case .adminProcessSignAppeal, .adminProcessMacModify, .adminGetSignList:
+        case .adminGetSignAppealList, .adminGetMacmodification, .adminGetSignList:
             return .get
         }
     }
@@ -93,9 +92,9 @@ enum APIRouter: URLRequestConvertible {
             
         case .adminLogin:
             return "/lntusign/api/login/admin"
-        case .adminProcessSignAppeal:
+        case .adminGetSignAppealList:
             return "/lntusign/api/admin/getstuappealall"
-        case .adminProcessMacModify:
+        case .adminGetMacmodification:
             return "/lntusign/api/admin/getmacmodifyall"
         case .adminGetSignList:
             return "/lntusign/api/admin/getstusignlistall"
@@ -177,7 +176,7 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.APIParameterKey.username: username
             ]
-        case .adminProcessMacModify, .adminProcessSignAppeal, .adminGetSignList, .teacherGetClass:
+        case .adminGetMacmodification, .adminGetSignAppealList, .adminGetSignList, .teacherGetClass:
             return nil
         }
     }

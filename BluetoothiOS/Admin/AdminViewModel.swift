@@ -36,7 +36,7 @@ class AdminViewModel: ObservableObject {
     }
     
     func refreshRemoteSignAppealList() {
-        APIClient.adminProcessSignAppeal { (result) in
+        APIClient.adminGetSignAppealList { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription
@@ -47,7 +47,7 @@ class AdminViewModel: ObservableObject {
     }
     
     func refreshRemoteMacModifyList() {
-        APIClient.adminProcessMacModify { (result) in
+        APIClient.adminGetMacmodification { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription

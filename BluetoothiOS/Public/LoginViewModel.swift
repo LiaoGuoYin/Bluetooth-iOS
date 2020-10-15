@@ -40,7 +40,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func refreshRemoteSignAppealList() {
-        APIClient.adminProcessSignAppeal { (result) in
+        APIClient.teacherGetStudentSignAppeal(teacherNumber: self.form.username) { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription

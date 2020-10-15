@@ -87,7 +87,11 @@ class APIClient {
     }
 
     static func teacherGetStudentSignList(teacherNumber: String, completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
-        performRequest(route: APIRouter.teacherGetStudentSignList(username: teacherNumber), completion: completion)
+        performRequest(route: APIRouter.teacherGetStudentSignList(teacherNumber: teacherNumber), completion: completion)
+    }
+    
+    static func teacherGetStudentSignAppeal(teacherNumber: String, completion: @escaping (Result<AdminSignAppealListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherGetStudentAppeal(teacherNumber: teacherNumber), completion: completion)
     }
     
     static func processMacModify(processMac: MacModificationRequestData, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
@@ -98,12 +102,12 @@ class APIClient {
         performRequest(route: APIRouter.teacherProcessSignAppeal(signId: signId), completion: completion)
     }
     
-    static func adminProcessMacModify(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {
-        performRequest(route: APIRouter.adminProcessMacModify, completion: completion)
+    static func adminGetMacmodification(completion: @escaping (Result<AdminMacManagerResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminGetMacmodification, completion: completion)
     }
     
-    static func adminProcessSignAppeal(completion: @escaping (Result<AdminSignAppealListResponse, AFError>) -> Void) {
-        performRequest(route: APIRouter.adminProcessSignAppeal, completion: completion)
+    static func adminGetSignAppealList(completion: @escaping (Result<AdminSignAppealListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.adminGetSignAppealList, completion: completion)
     }
     
     static func adminGetSignList(completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
