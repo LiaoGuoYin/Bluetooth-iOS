@@ -45,6 +45,7 @@ struct TeacherView: View {
                 .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
             }
             .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
+            .onAppear(perform: viewModel.refreshRemoteSignList)
         }
         .alert(isPresented: $isShowAlert, content: {
             if ((viewModel.signAppealList.filter { $0.id == viewModel.tappedAppealSignRecordId }.first?.status) == true) {

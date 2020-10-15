@@ -85,6 +85,10 @@ class APIClient {
             completion(response.result)
         }
     }
+
+    static func teacherGetStudentSignList(teacherNumber: String, completion: @escaping (Result<SignListResponse, AFError>) -> Void) {
+        performRequest(route: APIRouter.teacherGetStudentSignList(username: teacherNumber), completion: completion)
+    }
     
     static func processMacModify(processMac: MacModificationRequestData, completion: @escaping (Result<MessageResponse, AFError>) -> Void) {
         performRequest(route: APIRouter.teacherProcessMacModify(processMac: processMac), completion: completion)

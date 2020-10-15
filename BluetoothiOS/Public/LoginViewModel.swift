@@ -17,10 +17,9 @@ class LoginViewModel: ObservableObject {
     @Published var signList: Array<SignListResponseData> = []
     @Published var signAppealList: Array<AdminSignAppealListResponseData> = []
     @Published var tappedAppealSignRecordId: String = ""
-
+    
     init() {
         self.form = LoginUser(username: "", password: "")
-        self.refreshRemoteSignList()
         self.refreshRemoteSignAppealList()
     }
     
@@ -30,7 +29,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func refreshRemoteSignList() {
-        APIClient.adminGetSignList { (result) in
+        APIClient.teacherGetStudentSignList(teacherNumber: self.form.username) { (result) in
             switch result {
             case .failure(let error):
                 self.message = error.localizedDescription

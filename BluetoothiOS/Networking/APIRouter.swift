@@ -28,6 +28,8 @@ enum APIRouter: URLRequestConvertible {
     case teacherGetClass
     case teacherProcessMacModify(processMac: MacModificationRequestData)
     case teacherProcessSignAppeal(signId: String)
+    case teacherGetStudentSignList(username: String)
+
     
     case adminLogin(username: String, password: String)
     case adminProcessSignAppeal
@@ -39,7 +41,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .studentLogin, .studentRegist, .studentMACAppeal, .studentSignList, .studentSignAppeal, .studentModifyMac:
             return .post
-        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal, .teacherProcessMacModify, .teacherProcessSignAppeal:
+        case .teacherRegist, .teacherLogin, .teacherGetCourse, .teacherGetStudentListByClassName, .teacherCreateCourse, .teacherDeleteCourse, .teacherGetStudentAppeal, .teacherProcessMacModify, .teacherProcessSignAppeal, .teacherGetStudentSignList:
             return .post
         case .teacherGetClass:
             return .get
@@ -86,6 +88,8 @@ enum APIRouter: URLRequestConvertible {
             return "/lntusign/api/teacher/processstumacmodify"
         case .teacherProcessSignAppeal:
             return "/lntusign/api/teacher/processstuappeal"
+        case .teacherGetStudentSignList:
+            return "/lntusign/api/teacher/getstusignlist"
             
         case .adminLogin:
             return "/lntusign/api/login/admin"
@@ -168,6 +172,10 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.StudentParameterKey.id: signId,
                 K.StudentParameterKey.process: "1"
+            ]
+        case .teacherGetStudentSignList(let username):
+            return [
+                K.APIParameterKey.username: username
             ]
         case .adminProcessMacModify, .adminProcessSignAppeal, .adminGetSignList, .teacherGetClass:
             return nil
