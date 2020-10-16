@@ -11,6 +11,7 @@ import SwiftUI
 struct StudentView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
+    @ObservedObject var BLEConnection = BLEManager.shared
     @State var loginViewModel: LoginViewModel
     
     var body: some View {
@@ -45,6 +46,10 @@ struct StudentView: View {
                         })
                 }
                 .padding(8)
+                
+                Section(header: Text("上课期间，请保持开启蓝牙以被扫描")) {
+                    Toggle("开启蓝牙", isOn: self.$BLEConnection.isOn)
+                }
                 
                 Button(action: {viewRouter.isLogined.toggle()}) {
                     ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)

@@ -88,6 +88,7 @@ extension CourseRecord {
         
         try container.encode(teacherNumber, forKey: .teacherNumber)
         try container.encode(courseName, forKey: .courseName)
+        try container.encode(date, forKey: .date)
         
         var signListContainer = container.nestedUnkeyedContainer(forKey: .signList)
         try self.signList.forEach({ (each) in

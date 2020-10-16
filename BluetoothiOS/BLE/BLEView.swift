@@ -65,15 +65,13 @@ struct BLEView: View {
     }
     
     var sendButton: some View {
-        Button(action: { sendStudentStringToBLE(studentList)}) {
+        Button(action: { sendStudentStringToBLE(studentList) }) {
             Text("发送")
                 .foregroundColor(.pink)
         }
     }
     
     func sendStudentStringToBLE(_ studentList: Array<LoginResponseData>) {
-        BLEConnection.courseName = self.courseName
-        BLEConnection.teacherNumber = self.teacherNumber
         let studentListString = serializeStudentsToStringForSending(students: studentList)
         if let connectedCharacteristic = BLEManager.shared.connectedWriteCharacteristic {
             BLEManager.shared.sendDataToDevice(sendString: studentListString, connectedCharacteristic)
@@ -82,6 +80,15 @@ struct BLEView: View {
         }
     }
     
+}
+
+extension BLEView {
+    init(studentList: Array<LoginResponseData>, courseName: String, teacherNumber: String) {
+        self.init(courseName: courseName, teacherNumber: teacherNumber)
+        self.studentList = studentList
+        self.BLEConnection.courseName = self.courseName
+        self.BLEConnection.teacherNumber = self.teacherNumber
+    }
 }
 
 struct BLEScanView_Previews: PreviewProvider {
