@@ -35,8 +35,8 @@ struct TeacherView: View {
                 }
                 .navigationBarTitle(Text("申诉记录"), displayMode: .large)
                 .navigationBarItems(leading: refreshSignAppealButton)
-                .onAppear(perform: viewModel.refreshRemoteSignAppealList)
             }
+            .onAppear(perform: viewModel.refreshRemoteSignAppealList)
             .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
             
             NavigationView {
@@ -49,8 +49,8 @@ struct TeacherView: View {
                     .navigationBarItems(leading: refreshSignListButton, trailing: exitButton)
                 }
             }
-            .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
             .onAppear(perform: viewModel.refreshRemoteSignList)
+            .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
         }
         .alert(isPresented: $isShowAlert, content: {
             if ((viewModel.signAppealList.filter { $0.id == viewModel.tappedAppealSignRecordId }.first?.status) == true) {

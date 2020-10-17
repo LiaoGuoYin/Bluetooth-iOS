@@ -11,10 +11,10 @@ import SwiftUI
 struct BLEView: View {
     
     @ObservedObject var BLEConnection = BLEManager.shared
-    @State var studentList: Array<LoginResponseData> = []
+    @State var studentList: Array<LoginResponseData>
     @State var courseName: String
     @State var teacherNumber: String
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -65,14 +65,14 @@ struct BLEView: View {
     }
     
     var sendButton: some View {
-        Button(action: { sendStudentStringToBLE(studentList) }) {
+        Button(action: sendStudentStringToBLE ) {
             Text("发送")
                 .foregroundColor(.pink)
         }
     }
     
-    func sendStudentStringToBLE(_ studentList: Array<LoginResponseData>) {
-        let studentListString = serializeStudentsToStringForSending(students: studentList)
+    func sendStudentStringToBLE() {
+        let studentListString = serializeStudentsToStringForSending(students: self.studentList)
         if let connectedCharacteristic = BLEManager.shared.connectedWriteCharacteristic {
             BLEManager.shared.sendDataToDevice(sendString: studentListString, connectedCharacteristic)
         } else {
@@ -83,16 +83,15 @@ struct BLEView: View {
 }
 
 extension BLEView {
-    init(studentList: Array<LoginResponseData>, courseName: String, teacherNumber: String) {
-        self.init(courseName: courseName, teacherNumber: teacherNumber)
-        self.studentList = studentList
-        self.BLEConnection.courseName = self.courseName
-        self.BLEConnection.teacherNumber = self.teacherNumber
+    init(_ studentList: Array<LoginResponseData>, courseName: String, teacherNumber: String) {
+        self.init(studentList: studentList, courseName: courseName, teacherNumber: teacherNumber)
+        self.BLEConnection.courseName = courseName
+        self.BLEConnection.teacherNumber = teacherNumber
     }
 }
 
 struct BLEScanView_Previews: PreviewProvider {
     static var previews: some View {
-        BLEView(courseName: "DEMO", teacherNumber: "0002")
+        BLEView(studentList: [], courseName: "DEMO", teacherNumber: "0002")
     }
 }

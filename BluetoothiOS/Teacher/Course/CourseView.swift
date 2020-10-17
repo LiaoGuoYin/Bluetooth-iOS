@@ -57,10 +57,6 @@ struct TeacherCourseView: View {
 
 extension TeacherCourseView {
     
-    init() {
-        self.init(viewModel: TeacherCourseViewModel(teachNumber: "0001"))
-    }
-    
     func onDeleteCourse(at offsets: IndexSet) -> Void {
         viewModel.deleteCourse(offsets)
         self.isShowAlert.toggle()
@@ -82,6 +78,6 @@ extension TeacherCourseView {
 
 struct TeacherCourseView_Previews: PreviewProvider {
     static var previews: some View {
-        TeacherCourseView()
+        TeacherCourseView(viewModel: TeacherCourseViewModel(teachNumber: "0002"))
     }
 }
