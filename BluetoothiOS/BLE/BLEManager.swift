@@ -19,16 +19,26 @@ let USING_ENC = GBK_ENC_RAWVALUE
 class BLEManager: NSObject, ObservableObject {
     
     @Published var message: String = "初始化成功，可以开始扫描。\n"
-    @Published var scannedBLEDevices: [CBPeripheral] = []
     @Published var mode: BLEMode = BLEMode.disconnected
+    @Published var scannedBLEDeviceSet: Set<CBPeripheral> = Set()
     @Published var isOn: Bool = false {
         didSet {
             switchMode()
         }
     }
+    @Published var toConnectedDeviceName = "NBee" {
+        didSet {
+            self.startScan()
+        }
+    }
+    
     @Published var teacherNumber: String = "0002"
     @Published var courseName: String = "DEMO"
-
+    
+    var discoveredDevicesCount: Int {
+        self.scannedBLEDeviceSet.count
+    }
+    
     static let shared = BLEManager()
     var centralManager: CBCentralManager! = nil
     var peripheralManager: CBPeripheral! = nil
@@ -37,9 +47,6 @@ class BLEManager: NSObject, ObservableObject {
     
     var connectedWriteCharacteristic: CBCharacteristic?
     var connectedNotifyCharacteristic: CBCharacteristic?
-    
-    // 自动连接的蓝牙前缀
-    var names = ["NBee_BLEF22A7C"]
     
     override init() {
         super.init()
@@ -83,17 +90,17 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     /// 发现设备，连接设备
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         NSLog("New discovery! Peripheral Name: \(String(describing: peripheral.name))  RSSI: \(String(RSSI.doubleValue))")
-        self.scannedBLEDevices.append(peripheral)
-        
+
         // 自动连接指定前缀的蓝牙设备
         if let peripheralName = peripheral.name {
-            for name in names {
-                if peripheralName.hasPrefix(name) {
-                    self.peripheralManager = peripheral
-                    self.peripheralManager.delegate = self
-                    self.centralManager.connect(peripheral, options: nil)
-                    break
-                }
+            guard peripheralName.hasPrefix("NBee") else {
+                return
+            }
+            scannedBLEDeviceSet.update(with: peripheral)
+            if peripheralName == toConnectedDeviceName {
+                self.peripheralManager = peripheral
+                self.peripheralManager.delegate = self
+                self.centralManager.connect(peripheral, options: nil)
             }
         }
     }
@@ -213,7 +220,7 @@ extension BLEManager {
             self.startScan()
             self.mode = .connected
         case .connected:
-            self.scannedBLEDevices.removeAll()
+            self.toConnectedDeviceName = "NBee"
             self.stopScan()
             self.mode = .disconnected
         }
@@ -295,13 +302,13 @@ extension String {
     func split(by length: Int) -> [String] {
         var startIndex = self.startIndex
         var results = [Substring]()
-
+        
         while startIndex < self.endIndex {
             let endIndex = self.index(startIndex, offsetBy: length, limitedBy: self.endIndex) ?? self.endIndex
             results.append(self[startIndex..<endIndex])
             startIndex = endIndex
         }
-
+        
         return results.map { String($0) }
     }
 }

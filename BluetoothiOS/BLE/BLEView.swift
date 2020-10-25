@@ -24,24 +24,28 @@ struct BLEView: View {
                     .background(
                         Capsule()
                             .frame(width: 80, height: 130)
-                            .foregroundColor(
-                                self.BLEConnection.isOn ? Color.blue:Color.gray)
+                            .foregroundColor(BLEConnection.isOn ? Color.blue:Color.gray)
                     )
                     .shadow(radius: 10)
                     .frame(height: 160)
                     .padding()
                 
-                Toggle("蓝牙考勤机", isOn: self.$BLEConnection.isOn)
+                Toggle("蓝牙考勤机", isOn: $BLEConnection.isOn)
                     .padding()
                 
-                Section(header: Text("扫描到附近 \(self.BLEConnection.scannedBLEDevices.count) 个考勤机")
+                Section(header: Text("扫描到附近 \(BLEConnection.discoveredDevicesCount) 个考勤机")
                             .foregroundColor(Color.gray)) {
-                    List(self.BLEConnection.scannedBLEDevices, id: \.self) { device in
+                    List(Array(BLEConnection.scannedBLEDeviceSet), id: \.self) { device in
                         HStack {
                             Image(systemName: "wave.3.forward")
                             Text(device.name ?? "UNKNOWN")
                         }
                         .padding()
+                        .onTapGesture {
+                            if let actualName = device.name {
+                                BLEConnection.toConnectedDeviceName = actualName
+                            }
+                        }
                     }
                 }
                 
@@ -79,8 +83,8 @@ struct BLEView: View {
             print("没有连接到蓝牙 Write Characteristic，发送数据失败")
         }
     }
-    
 }
+
 
 extension BLEView {
     init(_ studentList: Array<LoginResponseData>, courseName: String, teacherNumber: String) {
