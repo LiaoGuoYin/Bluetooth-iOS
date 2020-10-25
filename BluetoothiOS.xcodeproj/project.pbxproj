@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0185B625454C300012AADF /* BannerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0185B525454C300012AADF /* BannerModifier.swift */; };
 		AF01F43A250F9862009ACC90 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF01F439250F9862009ACC90 /* ViewRouter.swift */; };
 		AF03B26E251CF9E0003EAC52 /* StudentModifyMacView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */; };
 		AF03B317251D8C1F003EAC52 /* StudentSignAppealFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03B316251D8C1F003EAC52 /* StudentSignAppealFormView.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF0185B525454C300012AADF /* BannerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModifier.swift; sourceTree = "<group>"; };
 		AF01F439250F9862009ACC90 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		AF03B26D251CF9E0003EAC52 /* StudentModifyMacView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentModifyMacView.swift; sourceTree = "<group>"; };
 		AF03B316251D8C1F003EAC52 /* StudentSignAppealFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignAppealFormView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				AFCFF22F2512689000C7268D /* RegistView.swift */,
 				AFCFF23325126C7100C7268D /* RegistViewModel.swift */,
 				AF60CDDC2510548C00CFAE5B /* CommonView.swift */,
+				AF0185B525454C300012AADF /* BannerModifier.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				AF03B321251DCCC0003EAC52 /* StudentSignHistoryViewModel.swift in Sources */,
 				AFCFF2302512689000C7268D /* RegistView.swift in Sources */,
 				AF60CDD9250FDACA00CFAE5B /* APIClient.swift in Sources */,
+				AF0185B625454C300012AADF /* BannerModifier.swift in Sources */,
 				AF60CDDB250FDB1300CFAE5B /* LoginResponse.swift in Sources */,
 				AFBB5120243A1A9700D38E6E /* AppDelegate.swift in Sources */,
 				AF7D9120251307B80090EFAF /* TeacherResponse.swift in Sources */,

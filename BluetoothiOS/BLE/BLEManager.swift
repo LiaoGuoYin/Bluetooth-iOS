@@ -34,6 +34,7 @@ class BLEManager: NSObject, ObservableObject {
     
     @Published var teacherNumber: String = "0002"
     @Published var courseName: String = "DEMO"
+    @Published var isUploaded: Bool = false
     
     var discoveredDevicesCount: Int {
         self.scannedBLEDeviceSet.count
@@ -164,6 +165,7 @@ extension BLEManager: CBCentralManagerDelegate, CBPeripheralDelegate {
                         if let outputString = String(data: receivedData, encoding: String.Encoding(rawValue: USING_ENC)) {
                             message.addString("收到数据：\r\n\(outputString)")
                             uploadRecord(studentListString: outputString, teacherNumber: teacherNumber, courseName: courseName)
+                            isUploaded = true
                             receivedData = Data()
                         }
                     }

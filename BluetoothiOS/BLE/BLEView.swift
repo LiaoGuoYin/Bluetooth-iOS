@@ -65,6 +65,7 @@ struct BLEView: View {
                 .background(Color.blue)
             }
             .navigationBarItems(trailing: sendButton)
+            .banner(data: .constant(BannerModifier.Data(title: "考勤结果", content: BLEConnection.message)), isShow: $BLEConnection.isUploaded)
         }
     }
     
