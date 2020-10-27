@@ -20,14 +20,14 @@ struct BLEView: View {
             VStack {
                 Image("bluetoothIcon")
                     .font(.largeTitle)
-                    .shadow(radius: 1)
+                    .clipped()
                     .background(
                         Capsule()
-                            .frame(width: 80, height: 130)
+                            .frame(width: 75, height: 120)
                             .foregroundColor(BLEConnection.isOn ? Color.blue:Color.gray)
                     )
                     .shadow(radius: 10)
-                    .frame(height: 160)
+                    .frame(height: 150)
                     .padding()
                 
                 Toggle("蓝牙考勤机", isOn: $BLEConnection.isOn)
@@ -49,8 +49,6 @@ struct BLEView: View {
                     }
                 }
                 
-                Spacer()
-                
                 ScrollView {
                     HStack {
                         Text("\(self.BLEConnection.message)")
@@ -61,12 +59,12 @@ struct BLEView: View {
                         Spacer()
                     }
                 }
-                .frame(height: 160)
+                .frame(height: 110)
                 .background(Color.blue)
             }
             .navigationBarItems(trailing: sendButton)
-            .banner(data: .constant(BannerModifier.Data(title: "考勤结果", content: BLEConnection.message)), isShow: $BLEConnection.isUploaded)
         }
+        .banner(data: .constant(BannerModifier.Data(title: "考勤结果", content: BLEConnection.message)), isShow: $BLEConnection.isUploaded)
     }
     
     var sendButton: some View {

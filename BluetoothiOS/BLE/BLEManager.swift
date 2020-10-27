@@ -193,7 +193,7 @@ extension BLEManager {
     /// 开始扫描
     func startScan() {
         self.centralManager.scanForPeripherals(withServices: nil, options: nil)
-        message.addString("初始化成功，开始扫描")
+        message.addString("初始化成功，开始扫描：设备名为 NBee 开头的蓝牙考勤设备")
     }
     
     /// 关闭扫描
