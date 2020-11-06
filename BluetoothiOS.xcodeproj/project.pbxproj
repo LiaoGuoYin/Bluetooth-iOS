@@ -124,14 +124,6 @@
 			path = SignHistory;
 			sourceTree = "<group>";
 		};
-		AF0A487624F6AD9400ACAF4D /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		AF1F74B8250FD4AE00E63445 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +171,13 @@
 			path = Teacher;
 			sourceTree = "<group>";
 		};
+		AF7CB6402554DE0D007DBF4F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		AF877EE62509325900D5CE1A /* Course */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +218,7 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothiOS */ = {
 			isa = PBXGroup;
 			children = (
+				AF7CB6402554DE0D007DBF4F /* Preview Content */,
 				AF1F74B8250FD4AE00E63445 /* Networking */,
 				AF5335962507B5BF00A37063 /* Public */,
 				AF6C264224487466006C7568 /* BLE */,
@@ -226,11 +226,11 @@
 				AF7848C0243C37B10009964E /* Teacher */,
 				AF03B31A251DC4C2003EAC52 /* Admin */,
 				AFBB5135243A1B9200D38E6E /* Supportings */,
-				AF0A487624F6AD9400ACAF4D /* Preview Content */,
 				AFBB5123243A1A9700D38E6E /* ContentView.swift */,
 				AF01F439250F9862009ACC90 /* ViewRouter.swift */,
 				AFBB512A243A1A9A00D38E6E /* LaunchScreen.storyboard */,
 				AFBB512D243A1A9A00D38E6E /* Info.plist */,
+				AFBB5125243A1A9A00D38E6E /* Assets.xcassets */,
 			);
 			path = BluetoothiOS;
 			sourceTree = "<group>";
@@ -508,8 +508,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothiOS/Preview Content\"";
-				DEVELOPMENT_TEAM = 9U62MV7448;
+				DEVELOPMENT_TEAM = M9CCRH8GRW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BluetoothiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -517,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.liaoguoyin.Bluetooth-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.lntu.sign-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -531,8 +532,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothiOS/Preview Content\"";
-				DEVELOPMENT_TEAM = 9U62MV7448;
+				DEVELOPMENT_TEAM = M9CCRH8GRW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BluetoothiOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -540,7 +542,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.liaoguoyin.Bluetooth-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.lntu.sign-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

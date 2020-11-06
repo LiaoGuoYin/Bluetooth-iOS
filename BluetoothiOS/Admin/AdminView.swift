@@ -26,7 +26,7 @@ struct AdminView: View {
                 .navigationBarItems(leading: refreshSignListButton)
             }
             .onAppear(perform: viewModel.refreshRemoteSignList)
-            .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(0)
+            .tabItem { Image(systemName: "square.grid.2x2.fill") }.tag(0)
             
             NavigationView {
                 List(viewModel.macModifyList.indices.reversed(), id: \.self) { index in
@@ -42,7 +42,7 @@ struct AdminView: View {
                 .navigationBarItems(leading: refreshMACButton, trailing: exitButton)
             }
             .onAppear(perform: viewModel.refreshRemoteMacModifyList)
-            .tabItem { Image(systemName: "command.square") }.tag(2)
+            .tabItem { Image(systemName: "command") }.tag(2)
         }
         .alert(isPresented: $isShowAlert, content: {
             if ((viewModel.macModifyList.filter { $0.id == viewModel.tappedMacModificationId }.first?.isPassed) == true) {

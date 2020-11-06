@@ -37,7 +37,7 @@ struct TeacherView: View {
                 .navigationBarItems(leading: refreshSignAppealButton)
             }
             .onAppear(perform: viewModel.refreshRemoteSignAppealList)
-            .tabItem { Image(systemName: "arrow.up.doc.on.clipboard") }.tag(1)
+            .tabItem { Image(systemName: "arrow.up.square") }.tag(1)
             
             NavigationView {
                 Form {
@@ -50,7 +50,7 @@ struct TeacherView: View {
                 }
             }
             .onAppear(perform: viewModel.refreshRemoteSignList)
-            .tabItem { Image(systemName: "square.and.at.rectangle") }.tag(2)
+            .tabItem { Image(systemName: "square.grid.2x2.fill") }.tag(2)
         }
         .alert(isPresented: $isShowAlert, content: {
             if ((viewModel.signAppealList.filter { $0.id == viewModel.tappedAppealSignRecordId }.first?.status) == true) {

@@ -42,7 +42,7 @@ struct StudentView: View {
                     NavigationLink(
                         destination: StudentSignHistoryView(viewModel: StudentSignHistoryViewModel(studentNumber: loginViewModel.form.username)),
                         label: {
-                            ImageAndTextView(imageName: "seal.fill", textName: "考勤记录", imageColor: .purple)
+                            ImageAndTextView(imageName: "checkmark.seal.fill", textName: "考勤记录", imageColor: .purple)
                         })
                 }
                 .padding(8)
@@ -52,7 +52,7 @@ struct StudentView: View {
                 }
                 
                 Button(action: {viewRouter.isLogined.toggle()}) {
-                    ImageAndTextView(imageName: "rectangle.portrait.arrowtriangle.2.outward", textName: "退出登录", imageColor: .blue)
+                    ImageAndTextView(imageName: "chevron.left.square.fill", textName: "退出登录", imageColor: .blue)
                 }
             }
             .listStyle(GroupedListStyle())

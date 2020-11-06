@@ -19,11 +19,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>App uses Bluetooth to connect to the Particle Xenon RGB Example</string>
+	<string>App 需要使用蓝牙来确保考勤打卡功能的正常使用</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>App 需要使用蓝牙来确保被外部考勤打卡硬件扫描到，并被标记为出勤</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
