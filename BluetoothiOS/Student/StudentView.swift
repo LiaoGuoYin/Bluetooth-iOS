@@ -51,7 +51,7 @@ struct StudentView: View {
                     Toggle("开启蓝牙", isOn: self.$BLEConnection.isOn)
                 }
                 
-                Button(action: {viewRouter.isLogined.toggle()}) {
+                Button(action: {viewRouter.isLogined = false}) {
                     ImageAndTextView(imageName: "chevron.left.square.fill", textName: "退出登录", imageColor: .blue)
                 }
             }

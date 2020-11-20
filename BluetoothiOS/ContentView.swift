@@ -28,7 +28,7 @@ struct ContentView: View {
                     .environmentObject(viewRouter)
             }
         } else {
-            LoginView(viewModel: self.loginViewModel)
+            LoginView(viewModel: loginViewModel)
                 .environmentObject(viewRouter)
         }
     }

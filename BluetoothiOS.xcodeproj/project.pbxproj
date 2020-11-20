@@ -171,13 +171,6 @@
 			path = Teacher;
 			sourceTree = "<group>";
 		};
-		AF7CB6402554DE0D007DBF4F /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		AF877EE62509325900D5CE1A /* Course */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +211,7 @@
 		AFBB511E243A1A9700D38E6E /* BluetoothiOS */ = {
 			isa = PBXGroup;
 			children = (
-				AF7CB6402554DE0D007DBF4F /* Preview Content */,
+				AFE9B18325678BF90014300D /* Preview Content */,
 				AF1F74B8250FD4AE00E63445 /* Networking */,
 				AF5335962507B5BF00A37063 /* Public */,
 				AF6C264224487466006C7568 /* BLE */,
@@ -254,6 +247,13 @@
 				AF877EDD2508D7E800D5CE1A /* StudentRegisterViewModel.swift */,
 			);
 			path = Student;
+			sourceTree = "<group>";
+		};
+		AFE9B18325678BF90014300D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -508,7 +508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = M9CCRH8GRW;
 				ENABLE_PREVIEWS = YES;
@@ -532,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"BluetoothiOS/Preview Content\"";
 				DEVELOPMENT_TEAM = M9CCRH8GRW;
 				ENABLE_PREVIEWS = YES;

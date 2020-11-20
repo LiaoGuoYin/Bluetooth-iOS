@@ -66,7 +66,7 @@ struct TeacherView: View {
     }
     
     var exitButton: some View {
-        Button(action: {viewRouter.isLogined.toggle()}) {
+        Button(action: {viewRouter.isLogined = false}) {
             Text("退出登录")
         }
     }
